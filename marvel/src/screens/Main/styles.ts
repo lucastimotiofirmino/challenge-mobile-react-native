@@ -3,15 +3,24 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 60,
     marginHorizontal: 20,
+  },
+  logoContainer: {
+    height: '10%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+  },
+  logo: {
+    height: '100%',
+    width: '100%',
   },
   cardContainer: {
     flexDirection: 'row',
     padding: 20,
     marginBottom: 20,
-    borderWidth: 1,
     borderRadius: 6,
+    backgroundColor: '#fff',
   },
   imageContainer: {
     marginEnd: 20,
@@ -29,7 +38,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  description: {},
+  description: {
+    color: '#666'
+  },
 });
 
 export default styles;

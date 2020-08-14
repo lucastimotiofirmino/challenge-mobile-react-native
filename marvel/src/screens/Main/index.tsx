@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, Text, Image, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  SafeAreaView,
+  ImageBackground,
+} from 'react-native';
 
 import api from '../../services/api';
 
@@ -10,7 +17,10 @@ import styles from './styles';
 interface Character {
   id: number;
   name: string;
-  thumbnail: { path: string, extension: string };
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
   description: string;
 }
 
@@ -27,35 +37,48 @@ const Main = () => {
       `/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&offset=${offset}`,
     );
     console.log(data.data.results);
-    setCharacters([...characters, ...data.data.results]);
-    setOffset(offset + 20);
+    setCharacters((characters) => [...characters, ...data.data.results]);
+    setOffset((offset) => offset + 20);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={characters}
-        showsVerticalScrollIndicator={false}
-        onEndReached={() => loadCharacters()}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <View style={styles.cardContainer}>
-            <View style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: `${item.thumbnail.path}.${item.thumbnail.extension}`,
-                }}
-              />
+    <ImageBackground
+      style={styles.logo}
+      source={require('../../assets/background.jpg')}
+    >
+      <SafeAreaView style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            source={require('../../assets/logo.png')}
+            resizeMode="contain"
+          />
+        </View>
+
+        <FlatList
+          data={characters}
+          showsVerticalScrollIndicator={false}
+          onEndReached={() => loadCharacters()}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <View style={styles.cardContainer}>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: `${item.thumbnail.path}.${item.thumbnail.extension}`,
+                  }}
+                />
+              </View>
+              <View>
+                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.description}>{item.description}</Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.title}>{item.name}</Text>
-              <Text>{item.description}</Text>
-            </View>
-          </View>
-        )}
-      />
-    </SafeAreaView>
+          )}
+        />
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
