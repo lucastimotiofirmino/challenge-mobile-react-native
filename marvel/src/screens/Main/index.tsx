@@ -7,13 +7,12 @@ import {
   FlatList,
   SafeAreaView,
   ImageBackground,
-  TouchableOpacity,
 } from 'react-native';
 
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import CharacterCard from '../../components/card/Character';
 
 import api from '../../services/api';
 
@@ -102,44 +101,18 @@ const Main = () => {
           onEndReached={() => loadCharacters()}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => (
-            <View style={styles.cardContainer}>
-              <View style={styles.imageContainer}>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: `${item.thumbnail.path}.${item.thumbnail.extension}`,
-                  }}
-                />
-              </View>
-              <View style={styles.descriptionContainer}>
-                <Text style={styles.title} numberOfLines={2}>
-                  {item.name}
-                </Text>
-                <Text style={styles.description} numberOfLines={2}>
-                  {item.description}
-                </Text>
-
-                <View style={styles.detailsContainer}>
-                  <TouchableOpacity
-                    style={styles.detailsButton}
-                    onPress={() => {
-                      setVisibleModal(true);
-                      setSelectedChar(item);
-                    }}
-                  >
-                    <Text style={styles.detailsText}>Details</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity onPress={() => onToggleFavorite(item.id)}>
-                    <Icon
-                      name={favorites.includes(item.id) ? 'star' : 'star-o'}
-                      size={26}
-                      color="#f78f3f"
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
+            <CharacterCard
+              name={item.name}
+              description={item.description}
+              thumbnailPath={item.thumbnail.path}
+              thumbnailExtension={item.thumbnail.extension}
+              isFavorite={favorites.includes(item.id)}
+              onPressDetails={() => {
+                setVisibleModal(true);
+                setSelectedChar(item);
+              }}
+              onPressStar={() => onToggleFavorite(item.id)}
+            />
           )}
         />
       </SafeAreaView>
@@ -149,20 +122,18 @@ const Main = () => {
         onBackdropPress={() => setVisibleModal(false)}
         onBackButtonPress={() => setVisibleModal(false)}
       >
+        {console.log(selectedChar)}
         <View style={styles.modal}>
-          {console.log(selectedChar)}
-          <View>
-            {selectedChar &&
-              selectedChar.thumbnail &&
-              selectedChar.thumbnail.path && (
-                <Image
-                  style={styles.imageModal}
-                  source={{
-                    uri: `${selectedChar.thumbnail.path}.${selectedChar.thumbnail.extension}`,
-                  }}
-                />
-              )}
-          </View>
+          {selectedChar &&
+            selectedChar.thumbnail &&
+            selectedChar.thumbnail.path && (
+              <Image
+                style={styles.imageModal}
+                source={{
+                  uri: `${selectedChar.thumbnail.path}.${selectedChar.thumbnail.extension}`,
+                }}
+              />
+            )}
 
           <Text style={[styles.title, styles.mv10]}>{selectedChar.name}</Text>
           <Text style={styles.justifiedText}>{selectedChar.description}</Text>
