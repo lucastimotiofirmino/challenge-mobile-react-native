@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  mv10: {
+    marginVertical: 10,
+  },
   description: {
     flex: 1,
     marginVertical: 10,
@@ -62,6 +65,21 @@ const styles = StyleSheet.create({
   },
   detailsText: {
     color: '#fff',
+  },
+  modal: {
+    height: 500,
+    borderRadius: 6,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  imageModal: {
+    height: 160,
+    width: 160,
+    borderRadius: 80,
+    alignSelf: 'center',
+  },
+  justifiedText: {
+    textAlign: 'justify',
   },
 });
 

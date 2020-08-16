@@ -10,13 +10,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import api from '../../services/api';
 
-import { timestamp, publicKey, hash } from '../../utils/hash-generator';
+import { timestamp, publicKey, hash } from '../../utils/hash-api-generator';
 
 import styles from './styles';
 
@@ -34,11 +35,15 @@ const Main = () => {
   const [offset, setOffset] = useState<number>(0);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [characters, setCharacters] = useState<Character[]>([]);
+  const [visibleModal, setVisibleModal] = useState<boolean>(false);
+  const [selectedChar, setSelectedChar] = useState<Character>({} as Character);
 
   useEffect(() => {
     loadCharacters();
 
     loadFavorites();
+
+    // eslint-disable-next-line
   }, []);
 
   const loadCharacters = async () => {
@@ -46,9 +51,9 @@ const Main = () => {
       const { data } = await api.get(
         `/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&offset=${offset}`,
       );
-
-      setCharacters((characters) => [...characters, ...data.data.results]);
-      setOffset((offset) => offset + 20);
+      console.log(data);
+      setCharacters((chars) => [...chars, ...data.data.results]);
+      setOffset((prevOffset) => prevOffset + 20);
     } catch (err) {
       Alert.alert(err.message);
     }
@@ -115,7 +120,13 @@ const Main = () => {
                 </Text>
 
                 <View style={styles.detailsContainer}>
-                  <TouchableOpacity style={styles.detailsButton}>
+                  <TouchableOpacity
+                    style={styles.detailsButton}
+                    onPress={() => {
+                      setVisibleModal(true);
+                      setSelectedChar(item);
+                    }}
+                  >
                     <Text style={styles.detailsText}>Details</Text>
                   </TouchableOpacity>
 
@@ -132,6 +143,31 @@ const Main = () => {
           )}
         />
       </SafeAreaView>
+
+      <Modal
+        isVisible={visibleModal}
+        onBackdropPress={() => setVisibleModal(false)}
+        onBackButtonPress={() => setVisibleModal(false)}
+      >
+        <View style={styles.modal}>
+          {console.log(selectedChar)}
+          <View>
+            {selectedChar &&
+              selectedChar.thumbnail &&
+              selectedChar.thumbnail.path && (
+                <Image
+                  style={styles.imageModal}
+                  source={{
+                    uri: `${selectedChar.thumbnail.path}.${selectedChar.thumbnail.extension}`,
+                  }}
+                />
+              )}
+          </View>
+
+          <Text style={[styles.title, styles.mv10]}>{selectedChar.name}</Text>
+          <Text style={styles.justifiedText}>{selectedChar.description}</Text>
+        </View>
+      </Modal>
     </ImageBackground>
   );
 };
