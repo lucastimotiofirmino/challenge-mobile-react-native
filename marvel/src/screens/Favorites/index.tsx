@@ -1,5 +1,12 @@
 import React from 'react';
-import { Text, ImageBackground } from 'react-native';
+import { ImageBackground } from 'react-native';
+
+import { connect } from 'react-redux';
+
+import {
+  getMyFavorites,
+  getCharactersData,
+} from '../../store/reducers/character';
 
 import styles from './styles';
 
@@ -8,10 +15,13 @@ const Favorites = () => {
     <ImageBackground
       style={styles.hw100}
       source={require('../../assets/background.jpg')}
-    >
-      <Text>Favorites</Text>
-    </ImageBackground>
+    />
   );
 };
 
-export default Favorites;
+const mapStateToProps = (state: any) => ({
+  favorites: getMyFavorites(state),
+  characters: getCharactersData(state),
+});
+
+export default connect(mapStateToProps, null)(Favorites);

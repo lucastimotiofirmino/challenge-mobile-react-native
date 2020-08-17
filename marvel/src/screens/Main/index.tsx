@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
+import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -20,6 +21,13 @@ import CharacterDetails from '../../components/modal/CharacterDetails';
 import api from '../../services/api';
 
 import { timestamp, publicKey, hash } from '../../utils/hash-api-generator';
+
+import {
+  getCharactersData,
+  getMyFavorites,
+} from '../../store/reducers/character';
+
+import { getCharacters, getFavorites } from '../../store/actions/character';
 
 import styles from './styles';
 
@@ -42,32 +50,29 @@ interface Comic {
   };
 }
 
-const Main = () => {
+const Main = (props: any) => {
   const [offset, setOffset] = useState<number>(0);
   const [search, setSearch] = useState<string>('');
   const [comics, setComics] = useState<Comic[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [characters, setCharacters] = useState<Character[]>([]);
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const [selectedChar, setSelectedChar] = useState<Character>({} as Character);
   const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
 
   useEffect(() => {
-    loadCharacters();
+    onLoadCharacters();
+    // props.loadCharacters();
 
-    loadFavorites();
+    props.loadFavorites();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const loadCharacters = async () => {
+  const onLoadCharacters = async () => {
     try {
       setIsLoading(true);
-      const { data } = await api.get(
-        `/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&offset=${offset}`,
-      );
-      setCharacters((chars) => [...chars, ...data.data.results]);
+      await props.loadCharacters(offset);
       setOffset((prevOffset) => prevOffset + 20);
     } catch (err) {
       Alert.alert(err.message);
@@ -75,6 +80,21 @@ const Main = () => {
       setIsLoading(false);
     }
   };
+
+  // const loadCharacters = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const { data } = await api.get(
+  //       `/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&offset=${offset}`,
+  //     );
+  //     setCharacters((chars) => [...chars, ...data.data.results]);
+  //     setOffset((prevOffset) => prevOffset + 20);
+  //   } catch (err) {
+  //     Alert.alert(err.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const loadComics = async (id: number) => {
     try {
@@ -87,12 +107,12 @@ const Main = () => {
     }
   };
 
-  const loadFavorites = async () => {
-    const savedFavorites = await AsyncStorage.getItem('favorites');
-    if (savedFavorites !== null) {
-      setFavorites(JSON.parse(savedFavorites));
-    }
-  };
+  // const onLoadFavorites = async () => {
+  //   const savedFavorites = await AsyncStorage.getItem('favorites');
+  //   if (savedFavorites !== null) {
+  //     setFavorites(JSON.parse(savedFavorites));
+  //   }
+  // };
 
   const onToggleFavorite = async (id: number) => {
     const alreadySelected = favorites.findIndex((item) => item === id);
@@ -119,7 +139,7 @@ const Main = () => {
   const handleSearch = (text: string) => {
     setSearch(text);
     setFilteredCharacters(
-      characters.filter((char) =>
+      props.characters.results.filter((char: any) =>
         char.name.toLowerCase().includes(text.toLowerCase()),
       ),
     );
@@ -152,15 +172,17 @@ const Main = () => {
         ) : (
           <FlatList
             data={
-              filteredCharacters.length > 0 ? filteredCharacters : characters
+              filteredCharacters.length > 0
+                ? filteredCharacters
+                : props.characters && props.characters.results
             }
             showsVerticalScrollIndicator={false}
-            onEndReached={() => loadCharacters()}
+            onEndReached={() => onLoadCharacters()}
             keyExtractor={(item) => String(item.id)}
             refreshControl={
               <RefreshControl
                 refreshing={isLoading}
-                onRefresh={() => loadCharacters()}
+                onRefresh={() => onLoadCharacters()}
               />
             }
             renderItem={({ item }) => (
@@ -169,7 +191,9 @@ const Main = () => {
                 description={item.description}
                 thumbnailPath={item.thumbnail.path}
                 thumbnailExtension={item.thumbnail.extension}
-                isFavorite={favorites.includes(item.id)}
+                isFavorite={
+                  props.favorites && props.favorites.includes(item.id)
+                }
                 onPressDetails={() => handleCharacterDetails(item)}
                 onPressStar={() => onToggleFavorite(item.id)}
               />
@@ -205,4 +229,14 @@ const Main = () => {
   );
 };
 
-export default Main;
+const mapStateToProps = (state: any) => ({
+  favorites: getMyFavorites(state),
+  characters: getCharactersData(state),
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  loadFavorites: () => dispatch(getFavorites()),
+  loadCharacters: (offset: number) => dispatch(getCharacters(offset)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
