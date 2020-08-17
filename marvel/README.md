@@ -21,9 +21,8 @@
 # :camera: Screenshots
 
 Click to expand <br />
-<img src="https://raw.githubusercontent.com/andrefangeloni/be-the-hero/master/mobile/src/assets/GitHub/Splash.jpg" width="32%" />
-<img src="https://raw.githubusercontent.com/andrefangeloni/be-the-hero/master/mobile/src/assets/GitHub/Home.png" width="32%"/>
-<img src="https://raw.githubusercontent.com/andrefangeloni/be-the-hero/master/mobile/src/assets/GitHub/Details.png" width="32.5%"/>
+<img src="https://raw.githubusercontent.com/andrefangeloni/challenge-mobile-react-native/master/marvel/src/assets/gitHub/main.png" width="48%" />
+<img src="https://raw.githubusercontent.com/andrefangeloni/challenge-mobile-react-native/master/marvel/src/assets/gitHub/char-details.png" width="48%"/>
 
 # Getting started
 
