@@ -11,32 +11,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: 20,
   },
-  logo: {
+  hw100: {
     height: '100%',
     width: '100%',
   },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  mv10: {
-    marginVertical: 10,
-  },
   modal: {
-    height: 500,
-    borderRadius: 6,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  imageModal: {
-    height: 160,
-    width: 160,
-    borderRadius: 80,
-    alignSelf: 'center',
-  },
-  justifiedText: {
-    textAlign: 'justify',
+    margin: 0,
+    justifyContent: 'flex-end',
   },
 });
 

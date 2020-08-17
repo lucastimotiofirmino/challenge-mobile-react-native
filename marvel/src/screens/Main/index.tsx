@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  Text,
   Image,
   Alert,
   FlatList,
@@ -13,6 +12,7 @@ import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import CharacterCard from '../../components/card/Character';
+import CharacterDetails from '../../components/modal/CharacterDetails';
 
 import api from '../../services/api';
 
@@ -30,8 +30,18 @@ interface Character {
   description: string;
 }
 
+interface Comic {
+  id: number;
+  title: string;
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
+}
+
 const Main = () => {
   const [offset, setOffset] = useState<number>(0);
+  const [comics, setComics] = useState<Comic[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [characters, setCharacters] = useState<Character[]>([]);
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
@@ -42,7 +52,7 @@ const Main = () => {
 
     loadFavorites();
 
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadCharacters = async () => {
@@ -50,9 +60,19 @@ const Main = () => {
       const { data } = await api.get(
         `/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&offset=${offset}`,
       );
-      console.log(data);
       setCharacters((chars) => [...chars, ...data.data.results]);
       setOffset((prevOffset) => prevOffset + 20);
+    } catch (err) {
+      Alert.alert(err.message);
+    }
+  };
+
+  const loadComics = async (id: number) => {
+    try {
+      const { data } = await api.get(
+        `/characters/${id}/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`,
+      );
+      setComics(data.data.results);
     } catch (err) {
       Alert.alert(err.message);
     }
@@ -81,15 +101,21 @@ const Main = () => {
     }
   };
 
+  const handleCharacterDetails = (item: Character) => {
+    setVisibleModal(true);
+    setSelectedChar(item);
+    loadComics(item.id);
+  };
+
   return (
     <ImageBackground
-      style={styles.logo}
+      style={styles.hw100}
       source={require('../../assets/background.jpg')}
     >
       <SafeAreaView style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
-            style={styles.logo}
+            style={styles.hw100}
             source={require('../../assets/logo.png')}
             resizeMode="contain"
           />
@@ -107,10 +133,7 @@ const Main = () => {
               thumbnailPath={item.thumbnail.path}
               thumbnailExtension={item.thumbnail.extension}
               isFavorite={favorites.includes(item.id)}
-              onPressDetails={() => {
-                setVisibleModal(true);
-                setSelectedChar(item);
-              }}
+              onPressDetails={() => handleCharacterDetails(item)}
               onPressStar={() => onToggleFavorite(item.id)}
             />
           )}
@@ -118,26 +141,27 @@ const Main = () => {
       </SafeAreaView>
 
       <Modal
+        style={styles.modal}
         isVisible={visibleModal}
         onBackdropPress={() => setVisibleModal(false)}
         onBackButtonPress={() => setVisibleModal(false)}
       >
-        {console.log(selectedChar)}
-        <View style={styles.modal}>
-          {selectedChar &&
+        <CharacterDetails
+          onClose={() => setVisibleModal(false)}
+          name={selectedChar.name}
+          description={selectedChar.description}
+          thumbnailPath={
+            selectedChar &&
             selectedChar.thumbnail &&
-            selectedChar.thumbnail.path && (
-              <Image
-                style={styles.imageModal}
-                source={{
-                  uri: `${selectedChar.thumbnail.path}.${selectedChar.thumbnail.extension}`,
-                }}
-              />
-            )}
-
-          <Text style={[styles.title, styles.mv10]}>{selectedChar.name}</Text>
-          <Text style={styles.justifiedText}>{selectedChar.description}</Text>
-        </View>
+            selectedChar.thumbnail.path
+          }
+          thumbnailExtension={
+            selectedChar &&
+            selectedChar.thumbnail &&
+            selectedChar.thumbnail.extension
+          }
+          comics={comics}
+        />
       </Modal>
     </ImageBackground>
   );

@@ -5,41 +5,25 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
 
-// export interface Character {
-//   id: number;
-//   name: string;
-//   thumbnail: {
-//     path: string;
-//     extension: string;
-//   };
-//   description: string;
-//   isFavorite: boolean;
-//   onPressDetails(): any;
-//   onPressStar(): any;
-// }
-
-// interface CharProps {
-//   character: Character;
-// }
-
 interface CharacterProps {
   name?: React.ReactNode;
+  isFavorite?: React.ReactNode;
   description?: React.ReactNode;
   thumbnailPath?: React.ReactNode;
   thumbnailExtension?: React.ReactNode;
-  isFavorite?: React.ReactNode;
-  onPressDetails: () => void;
+
   onPressStar: () => void;
+  onPressDetails: () => void;
 }
 
 const CharacterCard: React.FC<CharacterProps> = ({
   name,
+  isFavorite,
   description,
   thumbnailPath,
   thumbnailExtension,
   onPressDetails,
   onPressStar,
-  isFavorite,
 }) => (
   <View style={styles.container}>
     <View style={styles.imageContainer}>
