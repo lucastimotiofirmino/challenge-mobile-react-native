@@ -4,8 +4,11 @@ import {
   Image,
   Alert,
   FlatList,
+  TextInput,
   SafeAreaView,
+  RefreshControl,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 
 import Modal from 'react-native-modal';
@@ -41,11 +44,14 @@ interface Comic {
 
 const Main = () => {
   const [offset, setOffset] = useState<number>(0);
+  const [search, setSearch] = useState<string>('');
   const [comics, setComics] = useState<Comic[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [characters, setCharacters] = useState<Character[]>([]);
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const [selectedChar, setSelectedChar] = useState<Character>({} as Character);
+  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
 
   useEffect(() => {
     loadCharacters();
@@ -57,6 +63,7 @@ const Main = () => {
 
   const loadCharacters = async () => {
     try {
+      setIsLoading(true);
       const { data } = await api.get(
         `/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&offset=${offset}`,
       );
@@ -64,6 +71,8 @@ const Main = () => {
       setOffset((prevOffset) => prevOffset + 20);
     } catch (err) {
       Alert.alert(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -107,6 +116,15 @@ const Main = () => {
     loadComics(item.id);
   };
 
+  const handleSearch = (text: string) => {
+    setSearch(text);
+    setFilteredCharacters(
+      characters.filter((char) =>
+        char.name.toLowerCase().includes(text.toLowerCase()),
+      ),
+    );
+  };
+
   return (
     <ImageBackground
       style={styles.hw100}
@@ -121,23 +139,43 @@ const Main = () => {
           />
         </View>
 
-        <FlatList
-          data={characters}
-          showsVerticalScrollIndicator={false}
-          onEndReached={() => loadCharacters()}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => (
-            <CharacterCard
-              name={item.name}
-              description={item.description}
-              thumbnailPath={item.thumbnail.path}
-              thumbnailExtension={item.thumbnail.extension}
-              isFavorite={favorites.includes(item.id)}
-              onPressDetails={() => handleCharacterDetails(item)}
-              onPressStar={() => onToggleFavorite(item.id)}
-            />
-          )}
+        <TextInput
+          style={styles.textInput}
+          value={search}
+          onChangeText={(text) => handleSearch(text)}
+          placeholder="Search character"
+          autoCorrect={false}
         />
+
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#fff" />
+        ) : (
+          <FlatList
+            data={
+              filteredCharacters.length > 0 ? filteredCharacters : characters
+            }
+            showsVerticalScrollIndicator={false}
+            onEndReached={() => loadCharacters()}
+            keyExtractor={(item) => String(item.id)}
+            refreshControl={
+              <RefreshControl
+                refreshing={isLoading}
+                onRefresh={() => loadCharacters()}
+              />
+            }
+            renderItem={({ item }) => (
+              <CharacterCard
+                name={item.name}
+                description={item.description}
+                thumbnailPath={item.thumbnail.path}
+                thumbnailExtension={item.thumbnail.extension}
+                isFavorite={favorites.includes(item.id)}
+                onPressDetails={() => handleCharacterDetails(item)}
+                onPressStar={() => onToggleFavorite(item.id)}
+              />
+            )}
+          />
+        )}
       </SafeAreaView>
 
       <Modal
