@@ -13,6 +13,8 @@ export const Background = styled(LinearGradient).attrs({
   flex: 1;
 `;
 
+export const TopView = styled.View``;
+
 export const LogoView = styled.View`
   padding: 40px;
 `;

@@ -17,6 +17,7 @@ import {
   ImageLogo,
   CharactersTitle,
   Background,
+  TopView,
   FilterContainer,
   FilterTextInput,
   FavoritosFilterView,
@@ -96,7 +97,7 @@ const Main: React.FC = () => {
           keyExtractor={({id}) => id}
           renderItem={({item}) => renderItem(item)}
           ListHeaderComponent={() => (
-            <>
+            <TopView>
               <LogoView>
                 <ImageLogo source={logo} />
                 <CharactersTitle>Personagens</CharactersTitle>
@@ -123,7 +124,7 @@ const Main: React.FC = () => {
                   <Button onPress={() => search()}>Aplicar</Button>
                 </Row>
               </FilterContainer>
-            </>
+            </TopView>
           )}
         />
         <Modal statusBarTranslucent transparent visible={showModal}>
