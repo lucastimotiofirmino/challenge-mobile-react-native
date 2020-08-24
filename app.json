@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Marvel App",
+    "slug": "marvel_app",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon-ios.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "hooks": {
+      "postPublish": []
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.marvelapp",
+      "buildNumber": "1.0.0",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "br.com.marvelapp",
+      "versionCode": 1,
+      "icon": "./assets/icon-ios.png"
+    }
+  }
+}
