@@ -1,0 +1,4 @@
+export enum CharacterTypes {
+  GET_CHARACTER_REQUEST = '@character/GET_CHARACTER_REQUEST',
+  GET_CHARACTER_SUCCESS = '@character/GET_CHARACTER_SUCCESS',
+}
