@@ -41,7 +41,7 @@ A ideia é bem simples, queremos um aplicativo que nos mostre todos os personage
 - Ao termino, faça seu pull-request. (levaremos em consideração o tempo entre essas duas etapas.)
 - Após isso, é conosco!
 
-## RESULTADO
+## RESULTADO DA IRENY
 
 # :camera: Screenshots
 
