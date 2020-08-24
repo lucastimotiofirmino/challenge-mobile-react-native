@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useCallback } from 'react';
-import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import iconDeadpool from '../../assets/icons/deadpool.png';
@@ -24,35 +23,17 @@ const Marvel: React.FC = () => {
     [navigation],
   );
 
-  const options: IOptions[] = [
-    {
-      id: 1,
-      title: 'Characters',
-      icon: iconDeadpool,
-      route: 'characters',
-    },
-  ];
-
-  const _renderOptions = item => {
-    return (
-      <Styles.ButtonOptions onPress={() => navigateTo(item.route)}>
-        <Styles.ButtonIcon source={item.icon} />
-        <Styles.ButtonText>{item.title}</Styles.ButtonText>
-      </Styles.ButtonOptions>
-    );
-  };
-
   return (
     <Styles.Container>
       <Styles.Content>
         <Styles.Title>MarvelApp</Styles.Title>
 
-        <FlatList
-          keyExtractor={item => String(item.id)}
-          data={options}
-          renderItem={({ item }) => _renderOptions(item)}
-          numColumns={2}
-        />
+        <Styles.ViewButton>
+          <Styles.ButtonOptions onPress={() => navigateTo('characters')}>
+            <Styles.ButtonIcon source={iconDeadpool} />
+            <Styles.ButtonText>Characters</Styles.ButtonText>
+          </Styles.ButtonOptions>
+        </Styles.ViewButton>
       </Styles.Content>
     </Styles.Container>
   );

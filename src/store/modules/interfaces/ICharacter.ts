@@ -1,4 +1,9 @@
 export default interface ICharacter {
   id: string;
-  nome: string;
+  name: string;
+  description: string;
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
 }

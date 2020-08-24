@@ -1,9 +1,15 @@
 interface ICharacterBody {
   id: string;
-  nome: string;
+  name: string;
+  description: string;
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
 }
 
 export default interface ICharacterStateReducer {
-  data: ICharacterBody;
+  data: ICharacterBody[];
   loading: boolean;
+  refresh: boolean;
 }

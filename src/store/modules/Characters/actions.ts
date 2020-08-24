@@ -3,15 +3,35 @@ import { CharacterTypes } from './types';
 import IAction from '../interfaces/IActions';
 import ICharacter from '../interfaces/ICharacter';
 
-export function getCharacterRequest(): IAction<object, void> {
+export function getCharacterListRequest(): IAction<object, void> {
   return {
-    type: CharacterTypes.GET_CHARACTER_REQUEST,
+    type: CharacterTypes.GET_CHARACTER_LIST_REQUEST,
   };
 }
 
-export function getCharacterSuccess(data: ICharacter): IAction<object, void> {
+export function getCharacterListSuccess(
+  data: ICharacter,
+): IAction<object, void> {
   return {
-    type: CharacterTypes.GET_CHARACTER_SUCCESS,
+    type: CharacterTypes.GET_CHARACTER_LIST_SUCCESS,
+    payload: { data },
+  };
+}
+
+export function getCharsPaginationRequest(
+  offset: number,
+): IAction<object, void> {
+  return {
+    type: CharacterTypes.GET_CHARS_PAGINATION_REQUEST,
+    payload: { offset },
+  };
+}
+
+export function getCharsPaginationSuccess(
+  data: ICharacter,
+): IAction<object, void> {
+  return {
+    type: CharacterTypes.GET_CHARS_PAGINATION_SUCCESS,
     payload: { data },
   };
 }

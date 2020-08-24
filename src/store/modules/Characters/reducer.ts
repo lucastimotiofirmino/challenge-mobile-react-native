@@ -5,27 +5,46 @@ import { CharacterTypes } from './types';
 import ICharacterStateReducer from './state';
 
 const INITIAL_STATE: ICharacterStateReducer = {
-  data: {
-    id: '',
-    nome: '',
-  },
+  data: [
+    {
+      id: '',
+      name: '',
+      description: '',
+      thumbnail: {
+        path: '',
+        extension: '',
+      },
+    },
+  ],
   loading: false,
+  refresh: false,
 };
 
-export default function perfil(
+export default function character(
   state = INITIAL_STATE,
   action: any,
 ): ICharacterStateReducer {
   return produce(state, draft => {
     switch (action.type) {
-      case CharacterTypes.GET_CHARACTER_REQUEST: {
+      case CharacterTypes.GET_CHARACTER_LIST_REQUEST: {
         draft.loading = true;
+        draft.refresh = true;
         break;
       }
 
-      case CharacterTypes.GET_CHARACTER_SUCCESS: {
-        draft.loading = false;
+      case CharacterTypes.GET_CHARACTER_LIST_SUCCESS: {
         draft.data = action.payload.data;
+        draft.loading = false;
+        draft.refresh = false;
+        break;
+      }
+
+      case CharacterTypes.GET_CHARS_PAGINATION_REQUEST: {
+        break;
+      }
+
+      case CharacterTypes.GET_CHARS_PAGINATION_SUCCESS: {
+        draft.data = [...draft.data, ...action.payload.data];
         break;
       }
 

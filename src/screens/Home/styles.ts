@@ -17,6 +17,12 @@ export const Title = styled.Text`
   text-align: center;
 `;
 
+export const ViewButton = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ButtonOptions = styled.TouchableOpacity`
   width: 38%;
   padding: 15px;
@@ -25,7 +31,6 @@ export const ButtonOptions = styled.TouchableOpacity`
   margin: 20px 20px 20px 20px;
   justify-content: center;
   align-items: center;
-  elevation: 10;
 `;
 
 export const ButtonIcon = styled.Image`
