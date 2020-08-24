@@ -6,7 +6,7 @@ import {metrics} from "../../../theme";
 const Header = ({source}) => {
      return (
          <Wrapper imageStyle={{ borderRadius: metrics.doubleBaseRadius}} source={source}>
-             <FavoriteButton/>
+             <FavoriteButton />
          </Wrapper>
      );
 };
