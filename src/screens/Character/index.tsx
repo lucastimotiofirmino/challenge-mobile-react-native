@@ -1,5 +1,5 @@
-import React, { useEffect, useState, ReactElement } from 'react';
-import { FlatList, View, Modal, Image } from 'react-native';
+import React, { useState, ReactElement, useEffect } from 'react';
+import { FlatList, View, Modal, Image, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -8,9 +8,12 @@ import * as CharActions from '../../store/modules/Characters/actions';
 import { RootState } from '../../store/modules/rootReducer';
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
+import { getItemStorage, saveItemStorage } from '../../utils/storage';
 
 import backIcon from '../../assets/icons/arrow-rigth.png';
 import closeIcon from '../../assets/icons/close.png';
+import favoriteIcon from '../../assets/icons/favorite.png';
+import unFavoriteIcon from '../../assets/icons/unfavorite.png';
 
 import * as Styles from './styles';
 
@@ -18,6 +21,7 @@ interface ICharacterBody {
   id: string;
   name: string;
   description: string;
+  favorite: boolean;
   thumbnail: {
     path: string;
     extension: string;
@@ -26,16 +30,20 @@ interface ICharacterBody {
 
 const Characters: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalFilterVisible, setModalFilterVisible] = useState(false);
   const [page, setPage] = useState(1);
+  const [favorites, setFavorites] = useState<string[]>([]);
   const [character, setCharacter] = useState<ICharacterBody>({
     id: '',
     name: '',
     description: '',
+    favorite: false,
     thumbnail: {
       path: '',
       extension: '',
     },
   });
+  const [listCharacter, setListCharacter] = useState<ICharacterBody[]>([]);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -45,11 +53,39 @@ const Characters: React.FC = () => {
   const loading = useSelector((state: RootState) => state.characters.loading);
 
   useEffect(() => {
+    (async () => {
+      const favorite = await getItemStorage('@favorite');
+      if (favorite != null) {
+        setFavorites(favorite);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
     dispatch(CharActions.getCharacterListRequest());
   }, []);
 
+  useEffect(() => {
+    setListCharacter(
+      characters.map(item => {
+        if (favorites.length > 0) {
+          const fav = favorites.find(e => e === item.id);
+          if (fav > 0) {
+            return { ...item, favorite: true };
+          }
+          return { ...item, favorite: false };
+        }
+        return { ...item, favorite: false };
+      }),
+    );
+  }, [characters, favorites]);
+
   const goBack = (): void => {
     navigation.goBack();
+  };
+
+  const onFilter = (): void => {
+    setModalFilterVisible(!modalFilterVisible);
   };
 
   const modalController = (char: ICharacterBody): void => {
@@ -130,6 +166,52 @@ const Characters: React.FC = () => {
     );
   };
 
+  const handleFilterFavorite = () => {
+    //
+  };
+
+  const handleFavor = (id: string, fav: boolean): void => {
+    const valor = favorites;
+
+    if (!fav) {
+      valor.push(id);
+
+      setFavorites(valor);
+
+      saveItemStorage('@favorite', valor);
+
+      setListCharacter(
+        listCharacter.map(item => {
+          if (item.id === id) {
+            return { ...item, favorite: true };
+          }
+
+          return item;
+        }),
+      );
+    } else {
+      valor.splice(valor.indexOf(id), 1);
+
+      setFavorites(valor);
+
+      saveItemStorage('@favorite', valor);
+
+      setListCharacter(
+        listCharacter.map(item => {
+          if (item.id === id) {
+            return { ...item, favorite: false };
+          }
+
+          return item;
+        }),
+      );
+    }
+  };
+
+  const handleFilterHero = () => {
+    //
+  };
+
   const Card = (item: ICharacterBody): ReactElement => {
     return (
       <Styles.CardContainer>
@@ -144,6 +226,13 @@ const Characters: React.FC = () => {
           <Styles.ViewInfo>
             <Styles.Row>
               <Styles.Title numberOfLines={4}>{item.name}</Styles.Title>
+              <Styles.ActionButton
+                onPress={(): void => handleFavor(item.id, item.favorite)}
+              >
+                <Styles.IconFavorite
+                  source={item.favorite ? favoriteIcon : unFavoriteIcon}
+                />
+              </Styles.ActionButton>
             </Styles.Row>
             <Styles.CardFooter>
               <Styles.ActionButton onPress={() => modalController(item)}>
@@ -173,13 +262,27 @@ const Characters: React.FC = () => {
 
   return (
     <Styles.Container>
-      <Header title="Characters" onBack={goBack} />
+      <Header
+        title="Characters"
+        onBack={goBack}
+        onFilter={onFilter}
+        onFavorite={handleFilterFavorite}
+      />
+      {modalFilterVisible && (
+        <Styles.ViewSearch>
+          <Styles.InputNameHero
+            placeholder="Hero name"
+            placeholderTextColor="#ccc"
+          />
+        </Styles.ViewSearch>
+      )}
+
       {loading ? (
         <Loading />
       ) : (
         <Styles.Content>
           <FlatList
-            data={characters}
+            data={listCharacter}
             keyExtractor={item => String(item.id)}
             renderItem={({ item }) => Card(item)}
             onRefresh={refreshControl}

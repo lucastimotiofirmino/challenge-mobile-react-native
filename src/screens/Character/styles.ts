@@ -30,6 +30,13 @@ export const CardMedia = styled.Image`
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
 `;
+
+export const IconFavorite = styled.Image`
+  width: 20px;
+  height: 20px;
+  align-items: flex-end;
+`;
+
 export const ViewInfo = styled.View`
   padding: 15px;
   margin-left: 10px;
@@ -46,12 +53,14 @@ export const Title = styled.Text`
   color: #f5f5f5;
   text-transform: uppercase;
 `;
+
 export const Paragraph = styled.Text`
   flex: 1;
   color: #f5f5f5;
   font-family: 'Girassol-Regular';
   font-size: 10px;
 `;
+
 export const CardFooter = styled.View`
   flex: 1;
   justify-content: flex-end;
@@ -78,13 +87,15 @@ export const ModalContainer = styled.View`
   flex: 1;
   background-color: rgba(0, 0, 0, 0.5);
 `;
+
 export const ModalContent = styled.ScrollView`
   background-color: #ffffff;
-  height: 100%;
+  height: 100px;
   margin-top: 60px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
 `;
+
 export const ModalActionButton = styled.TouchableOpacity`
   align-items: flex-end;
   position: relative;
@@ -117,6 +128,7 @@ export const ImageCover = styled.ImageBackground.attrs({
   width: 100%;
   height: 300px;
 `;
+
 export const ViewInfoModal = styled.View`
   flex: 1;
   padding: 20px;
@@ -127,10 +139,12 @@ export const RowModal = styled.View`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
+
 export const H1 = styled.Text`
   font-size: 20px;
   font-family: 'Montserrat-ExtraBold';
 `;
+
 export const H2 = styled.Text`
   font-size: 16px;
   font-family: 'Montserrat-SemiBold';
@@ -139,4 +153,16 @@ export const H2 = styled.Text`
 export const ParagraphModal = styled.Text`
   font-size: 14px;
   font-family: 'Montserrat-Medium';
+`;
+
+export const ViewSearch = styled.View``;
+
+export const InputNameHero = styled.TextInput`
+  height: 50px;
+  border-color: #52110a;
+  border-width: 2px;
+  padding: 10px;
+  color: #52110a;
+  font-family: 'Roboto-Medium';
+  font-size: 16px;
 `;

@@ -10,6 +10,7 @@ const INITIAL_STATE: ICharacterStateReducer = {
       id: '',
       name: '',
       description: '',
+      favorite: false,
       thumbnail: {
         path: '',
         extension: '',
