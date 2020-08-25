@@ -1,5 +1,5 @@
 import React, { useState, ReactElement, useEffect } from 'react';
-import { FlatList, View, Modal, Image, Alert } from 'react-native';
+import { FlatList, View, Modal, Image, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,6 +14,7 @@ import backIcon from '../../assets/icons/arrow-rigth.png';
 import closeIcon from '../../assets/icons/close.png';
 import favoriteIcon from '../../assets/icons/favorite.png';
 import unFavoriteIcon from '../../assets/icons/unfavorite.png';
+import searchIcon from '../../assets/icons/search.png';
 
 import * as Styles from './styles';
 
@@ -33,6 +34,9 @@ const Characters: React.FC = () => {
   const [modalFilterVisible, setModalFilterVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [listCharacter, setListCharacter] = useState<ICharacterBody[]>([]);
+  const [textSearch, setTextSearch] = useState('');
+  const [execPaginate, setExecPaginate] = useState(true);
   const [character, setCharacter] = useState<ICharacterBody>({
     id: '',
     name: '',
@@ -43,7 +47,6 @@ const Characters: React.FC = () => {
       extension: '',
     },
   });
-  const [listCharacter, setListCharacter] = useState<ICharacterBody[]>([]);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -166,8 +169,15 @@ const Characters: React.FC = () => {
     );
   };
 
-  const handleFilterFavorite = () => {
-    //
+  const handleFilterFavorite = (): void => {
+    setExecPaginate(false);
+    setListCharacter(
+      listCharacter.filter(item => {
+        if (item.favorite) {
+          return item;
+        }
+      }),
+    );
   };
 
   const handleFavor = (id: string, fav: boolean): void => {
@@ -209,7 +219,17 @@ const Characters: React.FC = () => {
   };
 
   const handleFilterHero = () => {
-    //
+    setExecPaginate(false);
+    setListCharacter(
+      listCharacter.filter(item => {
+        if (item.name.toUpperCase() === textSearch.toUpperCase()) {
+          return item;
+        }
+      }),
+    );
+
+    setModalFilterVisible(!modalFilterVisible);
+    setTextSearch('');
   };
 
   const Card = (item: ICharacterBody): ReactElement => {
@@ -253,11 +273,19 @@ const Characters: React.FC = () => {
   };
 
   const loadCharacters = (): void => {
-    setPage(page + 1);
+    if (execPaginate) {
+      setPage(page + 1);
 
-    const currentPage = page + 1;
-    const offset = (currentPage - 1) * 20 + 1;
-    dispatch(CharActions.getCharsPaginationRequest(offset));
+      const currentPage = page + 1;
+      const offset = (currentPage - 1) * 20 + 1;
+      dispatch(CharActions.getCharsPaginationRequest(offset));
+    } else {
+      setExecPaginate(true);
+    }
+  };
+
+  const handleChangeSearch = (text: string): void => {
+    setTextSearch(text);
   };
 
   return (
@@ -273,7 +301,12 @@ const Characters: React.FC = () => {
           <Styles.InputNameHero
             placeholder="Hero name"
             placeholderTextColor="#ccc"
+            onChangeText={(text: string): void => handleChangeSearch(text)}
+            value={textSearch}
           />
+          <TouchableOpacity onPress={handleFilterHero}>
+            <Styles.ImageSearch source={searchIcon} />
+          </TouchableOpacity>
         </Styles.ViewSearch>
       )}
 

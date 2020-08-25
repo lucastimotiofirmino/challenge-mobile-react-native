@@ -155,14 +155,24 @@ export const ParagraphModal = styled.Text`
   font-family: 'Montserrat-Medium';
 `;
 
-export const ViewSearch = styled.View``;
-
-export const InputNameHero = styled.TextInput`
+export const ViewSearch = styled.View`
+  flex-direction: row;
   height: 50px;
   border-color: #52110a;
   border-width: 2px;
   padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const InputNameHero = styled.TextInput`
+  height: 50px;
   color: #52110a;
   font-family: 'Roboto-Medium';
   font-size: 16px;
+`;
+
+export const ImageSearch = styled.Image`
+  width: 20px;
+  height: 20px;
 `;
