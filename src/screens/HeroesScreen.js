@@ -31,6 +31,8 @@ const HeroesScreen = props => {
 
     const flatList = useRef(null)
     const maxResult = useRef(0)
+    const timeout = useRef(null)
+
 
     const isFavoriteTab = props.navigation.state.key === 'Favorites'
 
@@ -54,20 +56,25 @@ const HeroesScreen = props => {
     }
 
     useEffect(() => {
-        goListTop()
-        if(search) {
-            if(isFavoriteTab) {
-                setHeroes(props.heroes.data.favorites.filter(hero => hero.name.startsWith(search)))
-            }else {
-                downloadHeroes(0)
-            } 
-        } else {
-            if(isFavoriteTab) {
-                setHeroes(props.heroes.data.favorites)
-            }else {
-                downloadHeroes(0)
-            }
+        if(timeout.current) {
+            clearTimeout(timeout.current)
         }
+        timeout.current = setTimeout(() => {
+            goListTop()
+            if(search) {
+                if(isFavoriteTab) {
+                    setHeroes(props.heroes.data.favorites.filter(hero => hero.name.startsWith(search)))
+                }else {
+                    downloadHeroes(0)
+                } 
+            } else {
+                if(isFavoriteTab) {
+                    setHeroes(props.heroes.data.favorites)
+                }else {
+                    downloadHeroes(0)
+                }
+            }
+        }, 300)
     }, [search])
 
     function loadMore() {
@@ -79,6 +86,17 @@ const HeroesScreen = props => {
     function goListTop() {
         if(flatList && flatList.current) {
             flatList.current.scrollToOffset ({ animated: true, offset: 0 })
+        }
+    }
+
+    function getData() {
+        if(isFavoriteTab) {
+            if(search) {
+                return props.heroes.data.favorites.filter(hero => hero.name.startsWith(search))
+            }
+            return props.heroes.data.favorites
+        } else {
+            return heroes
         }
     }
 
@@ -105,7 +123,7 @@ const HeroesScreen = props => {
         return (
             <FlatList
                 ref={flatList}
-                data={heroes}
+                data={getData()}
                 renderItem={({item, index}) => (
                     <HeroItem 
                         hero={item} 
@@ -114,7 +132,7 @@ const HeroesScreen = props => {
                     />
                 )}
                 keyExtractor={item => item.id.toString()}
-                ListEmptyComponent={isFavoriteTab || !!heroes || !loadingHeroes ? renderEmptyComponent() : <View/> }
+                ListEmptyComponent={isFavoriteTab || (!!heroes && !loadingHeroes) ? renderEmptyComponent() : <View/> }
                 onEndReached={({ distanceFromEnd }) => loadMore()}
                 initialNumToRender={20}
             />
@@ -151,7 +169,7 @@ const HeroesScreen = props => {
                     renderContent()
                 }
                 {!isFavoriteTab && (!heroes || loadingHeroes) && !error &&
-                    <Bar indeterminate width={width} style={{position: 'absolute'}} borderRadius={0} borderWidth={0} unfilledColor={'DARK_RED'} color={'red'}/>
+                    <Bar indeterminate width={width} style={{ position: 'absolute' }} borderRadius={0} borderWidth={0} unfilledColor={'DARK_RED'} color={'red'}/>
                 }
             </View>
             {renderModal()}
