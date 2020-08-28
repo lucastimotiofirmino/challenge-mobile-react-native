@@ -1,7 +1,10 @@
-import {PUBLIC_KEY, PRIVATE_KEY} from 'react-native-dotenv'
+//import {PUBLIC_KEY, PRIVATE_KEY} from 'react-native-dotenv'
 
 import {prepareAction} from '../utils'
 import md5 from 'md5'
+
+const PUBLIC_KEY = 'ffb00cdd61520e838893e52f34976e39'
+const PRIVATE_KEY = '7c6a820c7bfeb5f7eda51bb029605ad1f5346fc2'
 
 const HOST = 'http://gateway.marvel.com'
 const TS = 1
