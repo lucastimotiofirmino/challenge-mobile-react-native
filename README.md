@@ -1,5 +1,8 @@
 # Desafio em React Native
 
+## Finalização - João Belem Jr.
+![Animação em GIF](https://i.imgur.com/52BC4IN.gif "Animação em GIF")
+
 ## O que esperamos que você faça?
 Somos fãs da Marvel, quem não gosta de Super-heróis?
 A ideia é bem simples, queremos um aplicativo que nos mostre todos os personagens da Marvel além de seus eventos e séries.
