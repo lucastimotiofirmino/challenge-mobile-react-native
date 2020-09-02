@@ -1,0 +1,4 @@
+#Sat Aug 29 20:25:46 BRT 2020
+base.0=/Users/lab/MSH/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
