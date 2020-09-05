@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
     avatar: {
         width: 100,
         height: 100,
+        borderRadius:75,
+        
 
     },
     name: {
@@ -32,6 +34,9 @@ const styles = StyleSheet.create({
         color: '#32264d',
         fontSize: 20
     },
+    teste:{
+        
+    }
     
     
 

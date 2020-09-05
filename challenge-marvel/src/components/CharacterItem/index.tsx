@@ -11,15 +11,20 @@ import api from '../../services/api'
 
 export interface CharacterItemProps {
     name: string
+    extension:string
+    path:string
 }
 
 
-const CharacterItem: React.FC<CharacterItemProps> = ({ name }) => {
+
+const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension }) => {
     function toUpperCase(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     return (
         <View style={styles.container} >
+            <Image  style={styles.avatar} source={{uri:`${path}.${extension}`}} />
+            
             <Text>{name}</Text>
         </View>
 

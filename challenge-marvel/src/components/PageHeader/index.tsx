@@ -1,34 +1,22 @@
 import React, { ReactNode } from 'react'
 import { View, Image, Text } from 'react-native'
-import styles from './styles'
-
-
-
-
+import {Container,Header,Title} from './styles'
 
 interface PageHeaderProps {
     title: string
     headerRight?: ReactNode
-    
 }
 const PageHeader: React.FC<PageHeaderProps> = ({ title, children, headerRight}) => {
     
 
     return (
-        
-        <View style={styles.container} >
-            <View style={styles.topBar}>
-                
-
-                 {/* <Image source={logoImg} resizeMode="contain" />  */}
-            </View>
-            
-            <View style={styles.header}>
-                <Text style={styles.title}>{title}</Text>
+        <Container>          
+            <Header>
+                <Title> {title}</Title>
                 {headerRight}
-            </View>   
+            </Header>   
             {children}
-        </View>
+        </Container>
     )
 }
 
