@@ -11,6 +11,7 @@ import styles from './styles';
 
 
 import md5 from 'md5'
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 function CharacterList() {
@@ -18,6 +19,7 @@ function CharacterList() {
     const [characters, setCharacters] = useState([])
     const [name, setName] = useState('')
     const [showModal, setShowModal] = useState(false)
+    const [favorites, setFavorites] = useState<string[]>([])
 
 
 
@@ -26,6 +28,18 @@ function CharacterList() {
 
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
+    }
+
+    function loadFavorites() {
+        AsyncStorage.getItem('favorites').then(response => {
+            if (response) {
+                const favoritedCharacters = JSON.parse(response)
+                const favoritedCharactersName = favoritedCharacters.map((item: CharacterItemProps) => {
+                    return item
+                })
+                setFavorites(favoritedCharactersName)
+            }
+        })
     }
 
 
@@ -44,6 +58,7 @@ function CharacterList() {
 
     useEffect(() => {
         getGods()
+        loadFavorites()
     }, [])
 
 
@@ -51,7 +66,7 @@ function CharacterList() {
 
         <View style={styles.container}>
             <Header
-                title="MARVEL"
+                
                 headerRight={
                     <BorderlessButton onPress={handleToggleFiltersVisible}>
                         <Feather style={styles.filter} name="filter" size={20} color="#fff" />
@@ -74,7 +89,7 @@ function CharacterList() {
             <FlatList data={(characters)}
                 keyExtractor={(characters: CharacterItemProps, i) => `${i}`}
                 numColumns={2}
-                renderItem={({ item }) => <CharacterItem name={item.name} path={item.thumbnail.path} series={item.series} eventos={item.events} extension={item.thumbnail.extension}
+                renderItem={({ item }) => <CharacterItem  favorited={favorites.includes(item.name)} name={item.name} path={item.thumbnail.path} series={item.series} description = {item.description} eventos={item.events} extension={item.thumbnail.extension}
                 ></CharacterItem>}>
             </FlatList>
 

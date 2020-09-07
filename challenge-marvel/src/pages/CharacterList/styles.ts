@@ -2,20 +2,19 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
+        marginTop:25,
         flex: 1,
-        
-        
-
     },
-    filter:{
-        marginLeft:25
+    filter: {
+        flex:1,
+        marginLeft: 375
     },
     searchForm: {
         marginBottom: 24
     },
     label: {
         color: '#d4c2ff',
-        
+
     },
     input: {
         height: 54,
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
         marginBottom: 16
     },
     submitButton: {
-        backgroundColor: '#04d361',
+        backgroundColor: '#ed1d24',
         height: 56,
         borderRadius: 8,
         flexDirection: 'row',
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     },
     submitButtonText: {
         color: '#FFF',
-        
+
         fontSize: 16,
     },
 

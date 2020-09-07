@@ -1,26 +1,26 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet,Dimensions } from 'react-native'
 
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#ccc',
         
-        borderWidth: 1,
-        borderColor: '#e6e6',
+        
         borderRadius: 8,
-        marginBottom: 16,
+        marginBottom: 5,
         
-        width: 197,
-        margin:4,
-        height: 200,
+        width: (Dimensions.get('window').width)/2 ,
+        marginRight:5,
+        height: (Dimensions.get('window').width)/2,
         alignItems: 'center',
         justifyContent: 'center',
          
-        elevation: 10,
+        
     },
     profile: {
-        flexDirection: 'row',
+        
         alignItems: 'center',
-        padding: 24
+       
     },
     avatar: {
         width: 100,
@@ -30,15 +30,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    avatar2:{
+        width: 120,
+        height: 120,
+        
+        
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     teste1:{
         alignItems: 'center',
         justifyContent: 'center',
+        margin:13.5
+        
+        
     },
     
   
     container2: {
         backgroundColor: '#ccc',
-        flex:1
+        flex:1,
+        
         
         
     },
@@ -47,7 +59,15 @@ const styles = StyleSheet.create({
         // backgroundColor: commonStyles.colors.today,
         // color: commonStyles.colors.secondary,
         textAlign: 'center',
-        padding: 15,
+        borderColor:'black',
+ 
+        borderWidth:3,
+        fontWeight:'bold', 
+        backgroundColor:'#ed1d24',
+        color:'white',
+        //ed1d24
+        
+        padding: 7,
         fontSize: 18
     },
     submitButtonText: {
@@ -80,12 +100,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#e33d3d'
     },
     name:{
-        textAlign:'center'
+        borderRadius:20,
+        textAlign:'center',
+        borderWidth: 1,
+        borderColor: 'black',
+        padding:2,
+        fontWeight:'bold',
+        backgroundColor:'white',
+        
+        
     },
     background: {
       
         backgroundColor: `rgba(0, 0, 0, 0.5)`
     },
+    flex:{
+        backgroundColor:'blue',
+        
+        
+    },
+    series:{
+        height:250
+    },
+    eventos:{
+        height:70
+    }
     
     
     

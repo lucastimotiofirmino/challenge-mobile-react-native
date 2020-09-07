@@ -1,18 +1,20 @@
 import styled from 'styled-components'
 
-export const Container = styled.View ` 
-    padding: 40px;
-    background-color:#8257e5;  
+export const Container = styled.View` 
+    
+    background-color:#ed1d24;  
     flex-direction:row;
+    
+    
 `
 
-export const Header = styled.View ` 
+export const Header = styled.View` 
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    
 `
 
-export const Title = styled.Text ` 
+export const Title = styled.Text` 
     color: #fff;
     font-size: 24px;
     line-height: 32px;
