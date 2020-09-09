@@ -46,8 +46,8 @@ function CharacterList() {
         })
     }
     async function getGods() {
-        
-        
+
+
         if (loading) return
         setIsFiltersVisible(false)
         const privateKey = 'feacf45ea447818e79d141cae254a1f90f171379'
@@ -56,19 +56,37 @@ function CharacterList() {
         const hash = md5(ts + privateKey + publicKey)
         //https://gateway.marvel.com/v1/public/characters?ts=excelsior&apikey=5ab05b654d94daca0bd571f1543fdd56&hash=0c5b5331f36d2ca8f0c8ea8bc51e7ae1
         setLoading(true)
-        const response = await api(`/characters?&ts=${ts}&apikey=${publicKey}&hash=${hash}&${name ? `name=${name}` : `offset=${page}`}`)
+        const response = await api(`/characters?&ts=${ts}&apikey=${publicKey}&hash=${hash}&${name ? `name=${name}` : `offset=${page}&limit=100`}`)
         const resultado = response.data.data.results
         setPage(previousState => (previousState + 100))
         setLoading(false)
-        if(name){
-            console.log(name)
-            setCharacters(resultado)
+        if (name) {
+            if (resultado.length == 1) {
+                let charactersClone = [...characters]
+                if (charactersClone.length > 20) {
+                    charactersClone = []
+                    setCharacters(charactersClone)
+                    console.log(charactersClone.length)
+                }
+                const nameResultado = resultado[0].name
+                if (!charactersClone.filter(character => character.name === nameResultado).length == true) {
+                    setCharacters(previousState => ([...previousState.concat(resultado)]))
+                }
+            }
+            return
         }
-        else{
+        else {
+            if (characters.length <= 15) {
+                setCharacters([])
+                setCharacters(previousState => ([...previousState.concat(resultado)]))
+            } else {
+                setCharacters(previousState => ([...previousState.concat(resultado)]))
+            }
             // console.log(name)
-            setCharacters(previousState=>([...previousState.concat(resultado)]))
+
+            // console.log(characters.length)
         }
-        // console.log(name)
+        console.log(name)
         setFavoritesHook([])
     }
     function getGods2() {
@@ -79,7 +97,7 @@ function CharacterList() {
         const publicKey = '5ab05b654d94daca0bd571f1543fdd56'
         const hash = md5(ts + privateKey + publicKey)
         let array: CharacterItemProps[] = []
-        
+
 
         // const a = characters.filter(character => {
 
@@ -90,10 +108,10 @@ function CharacterList() {
         // })
         let a = []
         characters.forEach(item => {
-            
+
             favorites.map((name) => {
                 if (name == item.name) {
-                   a.push(item)
+                    a.push(item)
                 }
 
                 console.log(name)
@@ -102,7 +120,7 @@ function CharacterList() {
         })
         console.log(a)
         setFavoritesHook(a)
-       
+
 
 
 
@@ -149,7 +167,7 @@ function CharacterList() {
 
 
 
-            <FlatList data={ characters || favoritesHook}
+            <FlatList data={characters || favoritesHook}
                 keyExtractor={(characters: CharacterItemProps, i) => `${i}`}
                 numColumns={2}
                 onEndReached={getGods}
@@ -157,7 +175,7 @@ function CharacterList() {
                 renderItem={({ item }) => <CharacterItem favorited={favorites.includes(item.name)} name={item.name} path={item.thumbnail.path} series={item.series} description={item.description} events={item.events} extension={item.thumbnail.extension}
                 ></CharacterItem>}>
             </FlatList>
-            
+
 
 
         </View>
