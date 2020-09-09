@@ -4,19 +4,20 @@ import styles from './styles'
 import { RectButton, TouchableOpacity, TextInput, TouchableWithoutFeedback, FlatList, ScrollView } from 'react-native-gesture-handler'
 import heartOutLineIcon from '../../assets/images/icons/heart-outline.png'
 import unFavoriteIcon from '../../assets/images/icons/unfavorite.png'
+import stan from '../../assets/images/stanlee.png'
 
 import teste3 from '../../assets/images/teste2.png'
 
 import AsyncStorage from '@react-native-community/async-storage'
 import api from '../../services/api'
-
+import drstrang from '../../assets/images/download.png'
 export interface CharacterItemProps {
     name: string
     extension: string
     path: string
     thumbnail: obj
     series: serie
-    eventos: serie
+    events: serie
     description: string
     favorited: boolean
 
@@ -38,7 +39,7 @@ interface obj {
 
 
 
-const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, series, eventos, description, favorited }) => {
+const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, series, events, description, favorited }) => {
     const [showModal, setShowModal] = useState(false)
     const [isFavorited, setIsFavorited] = useState(favorited)
     function toUpperCase(str: string) {
@@ -74,10 +75,10 @@ const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, se
         //     return { height: 200 }
         // }
         if (total <= 3) {
-            return { height: 60 }
+            return { height: 70 }
         }
         else if (total <= 6) {
-            return { height: 125 }
+            return { height: 132 }
         }
         else {
             return { height: 150 }
@@ -87,7 +88,7 @@ const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, se
     return (
 
         <View style={[styles.container]} >
-            <ImageBackground style={{ height: 197, width: (Dimensions.get('window').width)/2 }} source={teste3}>
+            <ImageBackground style={styles.backgroundImage} source={teste3}>
 
 
                 <TouchableWithoutFeedback onPress={() => {
@@ -96,87 +97,71 @@ const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, se
                     <View style={styles.teste1}>
 
 
-                        <Image style={styles.avatar} source={{ uri: `${path}.${extension}` }} />
+                        {path === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
+                            ? <Image style={styles.avatar}
+                                source={stan} /> : <Image style={styles.avatar} source={{ uri: `${path}.${extension}` }} />}
 
 
 
                         <Text style={styles.name} >{toUpperCase(name)} </Text>
 
-                        {showModal && <View style={{ backgroundColor: '#ccc' }}>
-                            <Modal transparent={true}
+                        {showModal && <View style={{}}>
+
+
+                            <Modal transparent={false}
                                 visible={showModal}
                                 animationType="slide"
 
 
                             >
 
+
                                 <View style={styles.container2}>
-                                    <View style={styles.profile}>
-                                        <Text style={styles.header}>{toUpperCase(name)}</Text>
-                                    </View>
-
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{ textAlign: 'left', flex: 2, marginLeft: 11 }}> {description ? description : 'No description'}</Text>
-                                        <Image style={[styles.avatar2, { flex: 1 }]} source={{ uri: `${path}.${extension}` }} />
-                                    </View>
-
-
-                                    <View style={{ margin: 7.5 }}>
+                                    <ImageBackground style={styles.imageBackgroundModal} source={teste3}>
                                         <View style={styles.profile}>
-                                            <Text style={styles.header}>Series</Text>
-                                        </View>
-                                        <View style={[getSize(series)]}>
-                                            <ScrollView>
-                                                {series.items.map((item, i) => <Text key={i}> {item.name}</Text>)}
-                                            </ScrollView>
+                                            <Text style={styles.header}>{toUpperCase(name)}</Text>
                                         </View>
 
-                                    </View>
+                                        <View style={styles.flexRow}>
+                                            <Text style={styles.description}> {description ? description : 'No description'}</Text>
+                                            {path === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
+                                                ? <Image style={styles.avatar}
+                                                    source={stan} /> : <Image style={styles.avatar} source={{ uri: `${path}.${extension}` }} />}
 
-                                    {/* <FlatList style={styles.flex} data={(series.items)}
-                                    keyExtractor={(item, i) => `${i}`}
-                                    numColumns={1}
-                                    renderItem={({ item }) => <Text > {item.name}</Text>}
-
-                                >
-
-                                </FlatList> */}
-
-
-                                    <View style={{ margin: 7.5 }}>
-                                        <View style={styles.profile}>
-                                            <Text style={styles.header}>Events</Text>
-                                        </View>
-                                        <View style={[getSize(series)]}>
-                                            <ScrollView>
-                                                {eventos.items.map((item, i) => <Text key={i}> {item.name}</Text>)}
-                                            </ScrollView>
                                         </View>
 
-                                    </View>
 
+                                        <View style={styles.listView}>
+                                            <View style={styles.profile}>
+                                                <Text style={styles.header}>Series</Text>
+                                            </View>
+                                            <View style={[getSize(series)]}>
+                                                <ScrollView>
+                                                    {series.items.length > 0 ? series.items.map((item, i) => <Text key={i} style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}> {item.name} </Text>) : <Text style={{ textAlign: 'left', marginLeft: 11, fontWeight: 'bold', fontSize: 16 }}>No series</Text>}
 
-                                    {/* <FlatList data={(eventos.items)}
-                                    keyExtractor={(item, i) => `${i}`}
-                                    numColumns={1}
-                                    renderItem={({ item }) => <Text> {item.name}</Text>}>
-                                </FlatList> */}
+                                                </ScrollView>
+                                            </View>
 
+                                        </View>
+                                        <View style={styles.listView}>
+                                            <View style={styles.profile}>
+                                                <Text style={styles.header}>Events</Text>
+                                            </View>
+                                            <View style={[getSize(series)]}>
+                                                <ScrollView>
+                                                    {events.items.length > 0 ? events.items.map((item, i) => <Text key={i} style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}> {item.name}</Text>) : <Text style={{ textAlign: 'left', marginLeft: 11, fontWeight: 'bold', fontSize: 16 }}> No events</Text>}
 
+                                                </ScrollView>
+                                            </View>
 
-
-
-                                    <View style={styles.buttons}>
-                                        <TouchableHighlight onPress={() => { setShowModal(!showModal); }}>
-                                            <Text style={styles.button}>Voltar</Text>
-                                        </TouchableHighlight>
-
-
-                                    </View>
+                                        </View><View style={styles.buttons}>
+                                            <TouchableHighlight underlayColor='none' onPress={() => { setShowModal(!showModal) }}>
+                                                <Text style={[styles.name, {fontSize:16}]}>Voltar</Text>
+                                            </TouchableHighlight>
+                                        </View>
+                                    </ImageBackground>
                                 </View>
-
                             </Modal>
-
 
                         </View>}
                     </View>
@@ -184,10 +169,8 @@ const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, se
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <RectButton onPress={handleToggleFavorite} style={[styles.favoriteButton, isFavorited ? styles.favorited : {}]}>
                         {isFavorited ? <Image source={unFavoriteIcon} /> : <Image source={heartOutLineIcon} />}
-
                     </RectButton>
                 </View>
-
             </ImageBackground>
         </View >
 

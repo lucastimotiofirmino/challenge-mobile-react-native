@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     },
     filter: {
         flex:1,
-        marginLeft: 375
+        marginLeft: (Dimensions.get('window').width) -36
     },
     searchForm: {
         marginBottom: 24
@@ -29,16 +29,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#ed1d24',
         height: 56,
         borderRadius: 8,
-        flexDirection: 'row',
+        flex:1,
         justifyContent: 'center',
         alignItems: 'center',
 
     },
     submitButtonText: {
         color: '#FFF',
-
+        
         fontSize: 16,
     },
+    teste:{
+        flexDirection:'row'
+    }
 
 
 })
