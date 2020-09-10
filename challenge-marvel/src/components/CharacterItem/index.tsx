@@ -39,13 +39,14 @@ interface obj {
 
 
 
-const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, series, events, description, favorited }) => {
+const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, series, events, description, favorited,teste }) => {
     const [showModal, setShowModal] = useState(false)
     const [isFavorited, setIsFavorited] = useState(favorited)
     function toUpperCase(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     async function handleToggleFavorite() {
+        
         const favorites = await AsyncStorage.getItem('favorites')
 
         let favoritesArray = []
@@ -69,7 +70,7 @@ const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, se
         series.items.map(item => {
             total++
         })
-        console.log(total)
+        // console.log(total)
 
         // if (total >= 5) {
         //     return { height: 200 }
