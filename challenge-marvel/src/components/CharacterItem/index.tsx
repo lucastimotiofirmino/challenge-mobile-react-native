@@ -39,14 +39,14 @@ interface obj {
 
 
 
-const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, series, events, description, favorited,teste }) => {
+const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, series, events, description, favorited, teste }) => {
     const [showModal, setShowModal] = useState(false)
     const [isFavorited, setIsFavorited] = useState(favorited)
     function toUpperCase(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     async function handleToggleFavorite() {
-        
+
         const favorites = await AsyncStorage.getItem('favorites')
 
         let favoritesArray = []
@@ -90,48 +90,29 @@ const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, se
 
         <View style={[styles.container]} >
             <ImageBackground style={styles.backgroundImage} source={teste3}>
-
-
                 <TouchableWithoutFeedback onPress={() => {
                     setShowModal(true);
                 }}>
-                    <View style={styles.teste1}>
-
-
+                    <View style={styles.containerModal}>
                         {path === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
                             ? <Image style={styles.avatar}
                                 source={stan} /> : <Image style={styles.avatar} source={{ uri: `${path}.${extension}` }} />}
-
-
-
                         <Text style={styles.name} >{toUpperCase(name)} </Text>
-
                         {showModal && <View style={{}}>
-
-
                             <Modal transparent={false}
                                 visible={showModal}
-                                animationType="slide"
-
-
-                            >
-
-
+                                animationType="slide">
                                 <View style={styles.container2}>
                                     <ImageBackground style={styles.imageBackgroundModal} source={teste3}>
                                         <View style={styles.profile}>
                                             <Text style={styles.header}>{toUpperCase(name)}</Text>
                                         </View>
-
                                         <View style={styles.flexRow}>
                                             <Text style={styles.description}> {description ? description : 'No description'}</Text>
                                             {path === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
                                                 ? <Image style={styles.avatar}
                                                     source={stan} /> : <Image style={styles.avatar} source={{ uri: `${path}.${extension}` }} />}
-
                                         </View>
-
-
                                         <View style={styles.listView}>
                                             <View style={styles.profile}>
                                                 <Text style={styles.header}>Series</Text>
@@ -142,7 +123,6 @@ const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, se
 
                                                 </ScrollView>
                                             </View>
-
                                         </View>
                                         <View style={styles.listView}>
                                             <View style={styles.profile}>
@@ -157,7 +137,7 @@ const CharacterItem: React.FC<CharacterItemProps> = ({ name, path, extension, se
 
                                         </View><View style={styles.buttons}>
                                             <TouchableHighlight underlayColor='none' onPress={() => { setShowModal(!showModal) }}>
-                                                <Text style={[styles.name, {fontSize:16}]}>Voltar</Text>
+                                                <Text style={[styles.name, { fontSize: 16 }]}>Voltar</Text>
                                             </TouchableHighlight>
                                         </View>
                                     </ImageBackground>

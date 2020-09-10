@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         marginBottom: 24
     },
     label: {
-        color: '#d4c2ff',
+        color: '#ccc',
 
     },
     input: {
@@ -41,6 +41,18 @@ const styles = StyleSheet.create({
     },
     teste:{
         flexDirection:'row'
+    },
+    addButton: {
+        position: 'absolute',
+        borderRadius: 35,
+        
+        right: 25,
+        bottom: 25,
+        width: 70,
+        height: 70,
+        backgroundColor:'red',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TextInput, FlatList, ActivityIndicator } from 'react-native';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
+import { BorderlessButton, RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import axios from 'axios'
 import { Feather } from '@expo/vector-icons'
 
@@ -13,7 +13,7 @@ import styles from './styles';
 import md5 from 'md5'
 import AsyncStorage from '@react-native-community/async-storage';
 
-
+let teste1 = false
 function CharacterList() {
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     const [characters, setCharacters] = useState([])
@@ -25,16 +25,9 @@ function CharacterList() {
     const [loading, setLoading] = useState(false)
     const [favorites, setFavorites] = useState<string[]>([])
 
-
-
-
-
-
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible)
-
     }
-
     function loadFavorites() {
         AsyncStorage.getItem('favorites').then(response => {
             if (response) {
@@ -46,22 +39,12 @@ function CharacterList() {
             }
         })
     }
-
     function teste() {
-        if (statusFavorite == true) {
-            setStatusFavorite(false)
-        }
-        else {
-            
-        }
+        teste1 = false
         getGods()
-        console.log(statusFavorite)
-
 
     }
-
     async function getGods() {
-
         loadFavorites()
         // console.log(characters.length)
         if (loading) return
@@ -73,9 +56,7 @@ function CharacterList() {
         //https://gateway.marvel.com/v1/public/characters?ts=excelsior&apikey=5ab05b654d94daca0bd571f1543fdd56&hash=0c5b5331f36d2ca8f0c8ea8bc51e7ae1
         setLoading(true)
         const response = await api(`/characters?&ts=${ts}&apikey=${publicKey}&hash=${hash}&${name ? `name=${name}` : `offset=${page}&limit=100`}`)
-
         const resultado = response.data.data.results
-
         setLoading(false)
         if (name) {
             setPage(0)
@@ -84,41 +65,35 @@ function CharacterList() {
                 if (charactersClone.length > 20) {
                     charactersClone = []
                     setCharacters(charactersClone)
-                    // console.log(charactersClone.length)
-                }
-                if (statusFavorite) {
-                    setCharacters([])
                 }
                 const nameResultado = resultado[0].name
-                console.log(statusFavorite)
-                if (!charactersClone.filter(character => character.name === nameResultado).length == true && statusFavorite == false) {
-                    setCharacters(previousState => ([...previousState.concat(resultado)]))
+                if (!charactersClone.filter(character => character.name === nameResultado).length == true) {
+                    if (teste1 == false) {
+                        console.log(teste1)
+                        setCharacters(previousState => ([...previousState.concat(resultado)]))
+                    }
+                    console.log(characters.length)
                 }
             }
-            console.log(resultado)
-            console.log('oi')
+            // console.log(resultado)
+            // console.log('oi')
             return
         }
         else {
-            if (characters.length <= 15 && statusFavorite == false) {
+            if (characters.length <= 15 && teste1 == false) {
                 setCharacters([])
                 setPage(previousState => (previousState + 100))
                 setCharacters(previousState => ([...previousState.concat(resultado)]))
-            } else if (statusFavorite == false) {
+                console.log('a')
+            } else if (teste1 == false) {
                 setPage(previousState => (previousState + 100))
                 setCharacters(previousState => ([...previousState.concat(resultado)]))
+                console.log('b')
             }
-            // console.log(name)
-
-            // console.log(characters.length)
-            console.log(statusFavorite)
         }
-
         setIsFiltersVisible(false)
-
     }
-    function getGods2() {
-        setStatusFavorite(true)
+    async function getGods2() {
         loadFavorites()
         setPage(0)
         setIsFiltersVisible(false)
@@ -127,88 +102,40 @@ function CharacterList() {
         const publicKey = '5ab05b654d94daca0bd571f1543fdd56'
         const hash = md5(ts + privateKey + publicKey)
 
-
-
-        // const a = characters.filter(character => {
-
-        //     return favorites.includes(character.name)
-        // })
-        // a.map((item) => {
-        //     console.log(item.name)
-        // })
-        let a = []
-        let charactersClone = [...characters]
         setCharacters([])
-        // console.log(charactersClone.length)
-        charactersClone.forEach(item => {
-
-            favorites.map((name) => {
-                if (name == item.name) {
-                    if (charactersClone.filter(character => character.name === name)) {
-
-                        setCharacters(previousState => ([...previousState.concat(item)]))
-                        console.log(item)
-
-                    }
-
-                    // console.log(name)
-                }
-
-
-
-            })
+        favorites.map(async (name2) => {
+            const response = await api(`/characters?&ts=${ts}&apikey=${publicKey}&hash=${hash}&${name2 ? `name=${name2}` : `offset=${page}&limit=100`}`)
+            setCharacters(previousState => ([...previousState.concat(response.data.data.results)]))
         })
 
-
-
-
-
+        teste1 = true
 
     }
-
-    function handleClickWithPromise ( ) { Promise . resolve (). then ( () => { React.unstable_batchedUpdates ( () => { 
-        setItem1 ( "Item atualizado 1" ); 
-        setItem2 ( "Item atualizado 2" ); }); }); } 
     useEffect(() => {
         getGods()
         loadFavorites()
 
     }, [])
-
-
     return (
-
         <View style={styles.container}>
             <Header
-
-                headerRight={
-                    <BorderlessButton onPress={handleToggleFiltersVisible}>
-                        <Feather style={styles.filter} name="filter" size={20} color="#fff" />
-                    </BorderlessButton>
-                } />
+            />
             {isFiltersVisible && (
                 <View style={styles.searchForm}>
                     <Text style={styles.label}>Nome</Text>
                     <TextInput style={styles.input} value={name} onChangeText={text => setName(text)} placeholder="Qual o nome ?" placeholderTextColor="#c1bccc" />
                     <View style={styles.teste}>
-                        <RectButton onPress={()=>{
-                            setStatusFavorite(false)
+                        <RectButton onPress={() => {
                             teste()
-                            setStatusFavorite(false)
                         }} style={styles.submitButton}>
                             <Text style={styles.submitButtonText}>Filtrar</Text>
                         </RectButton>
-
                         <RectButton onPress={getGods2} style={styles.submitButton}>
                             <Text style={styles.submitButtonText}>Favoritos</Text>
                         </RectButton>
                     </View>
-
                 </View>
             )}
-
-
-
             <FlatList data={characters}
                 keyExtractor={(characters: CharacterItemProps, i) => `${i}`}
                 numColumns={2}
@@ -218,13 +145,15 @@ function CharacterList() {
                 ></CharacterItem>}>
             </FlatList>
 
+            <View style={styles.addButton}>
+                <TouchableOpacity onPress={handleToggleFiltersVisible}
+                    activeOpacity={0.7}>
+                    <Feather name="filter" size={35} color="white" />
+                </TouchableOpacity>
 
-
+            </View>
         </View>
     )
-
-
-
 }
 
 export default CharacterList
