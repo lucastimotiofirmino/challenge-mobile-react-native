@@ -13,7 +13,7 @@ import styles from './styles';
 import md5 from 'md5'
 import AsyncStorage from '@react-native-community/async-storage';
 
-let teste1 = false
+let isFavoritesScreenVisible = false
 function CharacterList() {
     const [isFiltersVisible, setIsFiltersVisible] = useState(false)
     const [characters, setCharacters] = useState([])
@@ -40,7 +40,7 @@ function CharacterList() {
         })
     }
     function teste() {
-        teste1 = false
+        isFavoritesScreenVisible = false
         getGods()
 
     }
@@ -68,8 +68,8 @@ function CharacterList() {
                 }
                 const nameResultado = resultado[0].name
                 if (!charactersClone.filter(character => character.name === nameResultado).length == true) {
-                    if (teste1 == false) {
-                        console.log(teste1)
+                    if (isFavoritesScreenVisible == false) {
+                     
                         setCharacters(previousState => ([...previousState.concat(resultado)]))
                     }
                     console.log(characters.length)
@@ -80,12 +80,12 @@ function CharacterList() {
             return
         }
         else {
-            if (characters.length <= 15 && teste1 == false) {
+            if (characters.length <= 15 && isFavoritesScreenVisible == false) {
                 setCharacters([])
                 setPage(previousState => (previousState + 100))
                 setCharacters(previousState => ([...previousState.concat(resultado)]))
                 console.log('a')
-            } else if (teste1 == false) {
+            } else if (isFavoritesScreenVisible == false) {
                 setPage(previousState => (previousState + 100))
                 setCharacters(previousState => ([...previousState.concat(resultado)]))
                 console.log('b')
@@ -108,7 +108,7 @@ function CharacterList() {
             setCharacters(previousState => ([...previousState.concat(response.data.data.results)]))
         })
 
-        teste1 = true
+        isFavoritesScreenVisible = true
 
     }
     useEffect(() => {
