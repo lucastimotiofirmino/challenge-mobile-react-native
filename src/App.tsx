@@ -9,14 +9,17 @@
  */
 
 import React from 'react';
+import {ThemeProvider} from 'styled-components';
+import {LightTheme} from './themes';
 import {SafeAreaView, StatusBar} from 'react-native';
 
 const App = () => {
+  const backgroundColor = LightTheme.colors.primary;
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
+    <ThemeProvider theme={LightTheme}>
+      <StatusBar barStyle="dark-content" backgroundColor={backgroundColor} />
       <SafeAreaView />
-    </>
+    </ThemeProvider>
   );
 };
 
