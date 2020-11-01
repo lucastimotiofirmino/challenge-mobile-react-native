@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Title} from './styles';
+import {Container, Header, Content, Logo} from './styles';
 import api from '../../services/api';
+import logo from '../../assets/marvel.png';
 
 type CharactersState = Marvel.Character[] | undefined;
 
@@ -24,7 +25,10 @@ const Characters = () => {
 
   return (
     <Container>
-      <Title>MARVEL APP: {characters?.length}</Title>
+      <Header>
+        <Logo source={logo} />
+      </Header>
+      <Content />
     </Container>
   );
 };
