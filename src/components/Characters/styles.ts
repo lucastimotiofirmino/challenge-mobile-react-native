@@ -13,8 +13,8 @@ export const Header = styled.View`
 `;
 
 export const Logo = styled.Image`
-  height: 62px;
-  width: 163px;
+  height: 46px;
+  width: 122px;
 `;
 
 export const Content = styled.View`
