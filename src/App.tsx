@@ -1,13 +1,13 @@
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
-import {LightTheme} from './themes';
+import {LightTheme, DarkTheme} from './themes';
 import {SafeAreaView, StatusBar} from 'react-native';
 import Characters from './components/Characters';
 
 const App = () => {
   const backgroundColor = LightTheme.colors.primary;
   return (
-    <ThemeProvider theme={LightTheme}>
+    <ThemeProvider theme={DarkTheme}>
       <StatusBar barStyle="dark-content" backgroundColor={backgroundColor} />
       <SafeAreaView>
         <Characters />

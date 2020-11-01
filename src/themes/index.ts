@@ -1,23 +1,23 @@
 export interface Theme {
   colors: {
     primary: string;
-    headerBackground: string;
-    contentBackground: string;
+    background: string;
+    characterBackground: string;
   };
 }
 
 export const LightTheme: Theme = {
   colors: {
     primary: '#EC1D24',
-    headerBackground: '#EEEEEE',
-    contentBackground: '#FFFFFF',
+    background: '#FFFFFF',
+    characterBackground: '#EEEEEE',
   },
 };
 
 export const DarkTheme: Theme = {
   colors: {
     primary: '#EC1D24',
-    headerBackground: '#000000',
-    contentBackground: '#202020',
+    background: '#202020',
+    characterBackground: '#151515',
   },
 };

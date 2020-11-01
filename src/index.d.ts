@@ -1,4 +1,5 @@
 declare module '*.png';
+declare module '*.jpg';
 declare namespace Marvel {
   interface Character {
     id?: number; // The unique ID of the character resource.

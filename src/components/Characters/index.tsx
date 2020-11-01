@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Container, Header, Content, Logo} from './styles';
+import {FlatList} from 'react-native';
 import api from '../../services/api';
 import logo from '../../assets/marvel.png';
+import Character from '../Character';
 
 type CharactersState = Marvel.Character[] | undefined;
 
@@ -28,7 +30,14 @@ const Characters = () => {
       <Header>
         <Logo source={logo} />
       </Header>
-      <Content />
+      <Content>
+        <FlatList
+          data={characters}
+          keyExtractor={({name}) => name || ''}
+          numColumns={2}
+          renderItem={({item}) => <Character data={item} />}
+        />
+      </Content>
     </Container>
   );
 };
