@@ -30,7 +30,7 @@ declare namespace Marvel {
     available?: number; // The number of total available issues in this list. Will always be greater than or equal to the "returned" value.,
     returned?: number; // The number of issues returned in this collection (up to 20).,
     collectionURI?: string; // The path to the full list of issues in this collection.,
-    items?: Array<object>; // optional): The list of returned issues in this collection.
+    items?: Array<ComicSummary>; // The list of returned issues in this collection.
   }
 
   interface ComicSummary {
@@ -42,7 +42,7 @@ declare namespace Marvel {
     available?: number; // The number of total available stories in this list. Will always be greater than or equal to the "returned" value.,
     returned?: number; // The number of stories returned in this collection (up to 20).,
     collectionURI?: string; // The path to the full list of stories in this collection.,
-    items?: Array<object>; // optional): The list of returned stories in this collection.
+    items?: Array<StorySummary>; // The list of returned stories in this collection.
   }
 
   interface StorySummary {
@@ -55,7 +55,7 @@ declare namespace Marvel {
     available?: number; // The number of total available events in this list. Will always be greater than or equal to the "returned" value.,
     returned?: number; // The number of events returned in this collection (up to 20).,
     collectionURI?: string; // The path to the full list of events in this collection.,
-    items?: Array<object>; // optional): The list of returned events in this collection.
+    items?: Array<EventSummary>; // The list of returned events in this collection.
   }
 
   interface EventSummary {
@@ -67,7 +67,7 @@ declare namespace Marvel {
     available?: number; // The number of total available series in this list. Will always be greater than or equal to the "returned" value.,
     returned?: number; // The number of series returned in this collection (up to 20).,
     collectionURI?: string; // The path to the full list of series in this collection.,
-    items?: Array<object>; // optional): The list of returned series in this collection.
+    items?: Array<SeriesSummary>; // The list of returned series in this collection.
   }
 
   interface SeriesSummary {

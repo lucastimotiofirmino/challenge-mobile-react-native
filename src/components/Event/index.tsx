@@ -1,7 +1,12 @@
 import React from 'react';
 import {Container} from './styles';
 
-function Event() {
+interface EventData {
+  data: Marvel.EventList | undefined;
+}
+
+function Event({data}: EventData) {
+  console.log(data?.items);
   return <Container />;
 }
 

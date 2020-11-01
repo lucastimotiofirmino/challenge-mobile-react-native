@@ -12,7 +12,7 @@ type Item = {item: Marvel.Character};
 const Characters = () => {
   const [characters, setCharacters] = useState<CharactersState>([]);
   const [page, setPage] = useState(0);
-  const limit = 20;
+  const limit = 10;
 
   const offset = useMemo(() => page * limit, [page]);
 
@@ -31,9 +31,7 @@ const Characters = () => {
     getCharacters();
   }, [getCharacters]);
 
-  const renderItem = ({item}: Item) => (
-    <Character data={item} onPress={() => console.log(item.id)} />
-  );
+  const renderItem = ({item}: Item) => <Character data={item} />;
 
   const onEndReached = useCallback(() => setPage((state) => ++state), []);
 
@@ -48,7 +46,7 @@ const Characters = () => {
         numColumns={2}
         renderItem={renderItem}
         onEndReached={onEndReached}
-        onEndReachedThreshold={0.2}
+        onEndReachedThreshold={0.1}
         ListFooterComponent={<CharacterLoading />}
       />
     </Container>

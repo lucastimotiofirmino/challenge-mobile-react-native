@@ -3,14 +3,16 @@ export interface Theme {
     primary: string;
     background: string;
     characterBackground: string;
+    text: string;
   };
 }
 
 export const LightTheme: Theme = {
   colors: {
     primary: '#EC1D24',
-    background: '#FFFFFF',
+    background: '#DDDDDD',
     characterBackground: '#EEEEEE',
+    text: '#999999',
   },
 };
 
@@ -19,5 +21,6 @@ export const DarkTheme: Theme = {
     primary: '#EC1D24',
     background: '#202020',
     characterBackground: '#151515',
+    text: '#303030',
   },
 };
