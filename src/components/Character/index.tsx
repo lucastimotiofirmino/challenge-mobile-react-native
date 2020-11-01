@@ -3,14 +3,15 @@ import {Container, Title, Image} from './styles';
 
 interface CharacterData {
   data: Marvel.Character;
+  onPress(): void;
 }
 
-function Character({data}: CharacterData) {
-  const {id, name, thumbnail} = data;
+function Character({data, onPress}: CharacterData) {
+  const {name, thumbnail} = data;
   const image = `${thumbnail?.path}.${thumbnail?.extension}`;
   return (
-    <Container onPress={() => console.log(id)}>
-      <Image source={{uri: image}} width={100} height={50} />
+    <Container onPress={onPress}>
+      <Image source={{uri: image}} />
       <Title>{name}</Title>
     </Container>
   );

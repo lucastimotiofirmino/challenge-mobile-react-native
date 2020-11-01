@@ -1,43 +1,56 @@
-import React, {useEffect, useState} from 'react';
-import {Container, Header, Content, Logo} from './styles';
+import React, {useEffect, useState, useCallback, useMemo} from 'react';
+import {Container, Header, Logo} from './styles';
 import {FlatList} from 'react-native';
 import api from '../../services/api';
 import logo from '../../assets/marvel.png';
 import Character from '../Character';
+import CharacterLoading from '../CharacterLoading';
 
 type CharactersState = Marvel.Character[] | undefined;
+type Item = {item: Marvel.Character};
 
 const Characters = () => {
   const [characters, setCharacters] = useState<CharactersState>([]);
+  const [page, setPage] = useState(0);
+  const limit = 20;
+
+  const offset = useMemo(() => page * limit, [page]);
+
+  const getCharacters = useCallback(async () => {
+    const {
+      data: {
+        data: {results},
+      },
+    } = await api.get(
+      `/characters?orderBy=name&limit=${limit}&offset=${offset}`,
+    );
+    setCharacters((state) => [...state, ...results]);
+  }, [offset]);
 
   useEffect(() => {
-    async function getCharacters(): Promise<CharactersState> {
-      const {
-        data: {data},
-      } = await api.get('/characters');
-      return data.results;
-    }
+    getCharacters();
+  }, [getCharacters]);
 
-    getCharacters()
-      .then((results) => {
-        setCharacters(results);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  const renderItem = ({item}: Item) => (
+    <Character data={item} onPress={() => console.log(item.id)} />
+  );
+
+  const onEndReached = useCallback(() => setPage((state) => ++state), []);
 
   return (
     <Container>
       <Header>
         <Logo source={logo} />
       </Header>
-      <Content>
-        <FlatList
-          data={characters}
-          keyExtractor={({name}) => name || ''}
-          numColumns={2}
-          renderItem={({item}) => <Character data={item} />}
-        />
-      </Content>
+      <FlatList
+        data={characters}
+        keyExtractor={({name}) => name}
+        numColumns={2}
+        renderItem={renderItem}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.2}
+        ListFooterComponent={<CharacterLoading />}
+      />
     </Container>
   );
 };

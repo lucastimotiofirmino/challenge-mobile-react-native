@@ -6,11 +6,11 @@ export const Container = styled.TouchableOpacity`
   flex-basis: 0;
   margin: 5px;
   padding: 5px;
-  min-height: 150px;
+  height: 150px;
 `;
 
 export const Title = styled.Text`
-  color: ${({theme}) => theme.colors.primary}
+  color: ${({theme}) => theme.colors.primary};
   height: 40px;
   padding: 10px 5px;
   justify-content: center;

@@ -1,9 +1,10 @@
 declare module '*.png';
 declare module '*.jpg';
+declare module '*.gif';
 declare namespace Marvel {
   interface Character {
-    id?: number; // The unique ID of the character resource.
-    name?: string; // The name of the character.
+    id: number; // The unique ID of the character resource.
+    name: string; // The name of the character.
     description?: string; // A short bio or description of the character.
     modified?: Date; // The date the resource was most recently modified.
     resourceURI?: string; // The canonical URL identifier for this resource.
