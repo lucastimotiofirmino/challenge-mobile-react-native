@@ -1,13 +1,4 @@
-export interface Theme {
-  colors: {
-    primary: string;
-    background: string;
-    characterBackground: string;
-    text: string;
-  };
-}
-
-export const LightTheme: Theme = {
+export const LightTheme: Marvel.Theme = {
   colors: {
     primary: '#EC1D24',
     background: '#DDDDDD',
@@ -16,7 +7,7 @@ export const LightTheme: Theme = {
   },
 };
 
-export const DarkTheme: Theme = {
+export const DarkTheme: Marvel.Theme = {
   colors: {
     primary: '#EC1D24',
     background: '#202020',

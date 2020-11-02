@@ -23,4 +23,18 @@ declare namespace Marvel {
     name?: string;
     type?: string;
   }
+
+  interface Favorites {
+    characters: Character[];
+    total: number;
+  }
+
+  interface Theme {
+    colors: {
+      primary: string;
+      background: string;
+      characterBackground: string;
+      text: string;
+    };
+  }
 }

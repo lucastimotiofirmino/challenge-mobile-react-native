@@ -1,4 +1,4 @@
-function favorites() {
+function favorites(): Marvel.Favorites {
   return {characters: [], total: 0};
 }
 

@@ -1,6 +1,6 @@
 import {DarkTheme} from '../../themes';
 
-function theme() {
+function theme(): Marvel.Theme {
   return DarkTheme;
 }
 
