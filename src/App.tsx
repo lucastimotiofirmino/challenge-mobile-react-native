@@ -1,19 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ThemeProvider} from 'styled-components';
 import {LightTheme, DarkTheme} from './themes';
-import {SafeAreaView, StatusBar} from 'react-native';
-import Characters from './components/Characters';
+import {StatusBar} from 'react-native';
+import TabNavigation from './components/TabNavigation';
 
-const App = () => {
-  const backgroundColor = LightTheme.colors.primary;
+function App() {
+  const [theme] = useState(LightTheme);
   return (
-    <ThemeProvider theme={DarkTheme}>
-      <StatusBar barStyle="dark-content" backgroundColor={backgroundColor} />
-      <SafeAreaView>
-        <Characters />
-      </SafeAreaView>
+    <ThemeProvider theme={theme}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={theme.colors.primary}
+      />
+      <TabNavigation />
     </ThemeProvider>
   );
-};
+}
 
 export default App;

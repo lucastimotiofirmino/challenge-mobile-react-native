@@ -11,7 +11,7 @@ export const LightTheme: Theme = {
   colors: {
     primary: '#EC1D24',
     background: '#DDDDDD',
-    characterBackground: '#EEEEEE',
+    characterBackground: '#FAFAFA',
     text: '#999999',
   },
 };
