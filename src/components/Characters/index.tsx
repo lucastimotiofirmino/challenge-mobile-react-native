@@ -42,7 +42,7 @@ const Characters = () => {
       </Header>
       <FlatList
         data={characters}
-        keyExtractor={({name}) => name}
+        keyExtractor={(item, index) => `${item.id}${index}`}
         numColumns={2}
         renderItem={renderItem}
         onEndReached={onEndReached}
