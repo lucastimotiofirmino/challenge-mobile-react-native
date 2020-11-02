@@ -18,8 +18,11 @@ export const Logo = styled.Image`
   width: 122px;
 `;
 
-export const Input = styled.TextInput`
+export const Input = styled.TextInput.attrs(({theme}) => ({
+  placeholderTextColor: theme.colors.text,
+}))`
   background: ${({theme}) => theme.colors.characterBackground};
+  color: ${({theme}) => theme.colors.primary};
   margin: 10px 5px;
   padding: 10px;
 `;
