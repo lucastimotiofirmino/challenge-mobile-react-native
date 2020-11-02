@@ -7,8 +7,10 @@ import {
   ImageModal,
   TitleModal,
   DescriptionModal,
+  TitleSection,
+  ItemSection,
 } from './styles';
-import {Modal, SectionList, Text} from 'react-native';
+import {Modal, SectionList} from 'react-native';
 
 interface CharacterData {
   data: Marvel.Character;
@@ -52,8 +54,10 @@ function Character({data}: CharacterData) {
           <SectionList
             sections={dataSections}
             keyExtractor={(item, index) => `${item}${index}`}
-            renderItem={({item}) => <Text>{item.name}</Text>}
-            renderSectionHeader={({section: {title}}) => <Text>{title}</Text>}
+            renderItem={({item}) => <ItemSection>{item.name}</ItemSection>}
+            renderSectionHeader={({section: {title}}) => (
+              <TitleSection>{title}</TitleSection>
+            )}
           />
         </ContainerModal>
       </Modal>

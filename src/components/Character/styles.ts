@@ -36,7 +36,7 @@ export const TitleModal = styled.Text`
   color: ${({theme}) => theme.colors.primary};
   margin-top: 10px;
   text-align: center;
-  font-size: 20px;
+  font-size: 22px;
 `;
 
 export const DescriptionModal = styled.Text`
@@ -44,4 +44,20 @@ export const DescriptionModal = styled.Text`
   font-size: 12px;
   line-height: 18px;
   margin: 10px;
+`;
+
+export const TitleSection = styled.Text`
+  background: ${({theme}) => theme.colors.background};
+  color: ${({theme}) => theme.colors.text};
+  padding: 5px;
+  margin: 10px;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 700;
+`;
+
+export const ItemSection = styled.Text`
+  color: ${({theme}) => theme.colors.text};
+  margin: 5px 5px 5px 20px;
+  font-size: 14px;
 `;
