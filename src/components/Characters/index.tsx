@@ -9,7 +9,7 @@ import CharacterLoading from '../CharacterLoading';
 type CharactersState = Marvel.Character[] | undefined;
 type Item = {item: Marvel.Character};
 
-const Characters = () => {
+function Characters() {
   const [characters, setCharacters] = useState<CharactersState>([]);
   const [page, setPage] = useState(0);
   const limit = 10;
@@ -51,6 +51,6 @@ const Characters = () => {
       />
     </Container>
   );
-};
+}
 
 export default Characters;

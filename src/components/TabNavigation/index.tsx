@@ -1,14 +1,16 @@
 import React from 'react';
-import {LightTheme as theme} from '../../themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useSelector} from 'react-redux';
 import Characters from '../../components/Characters';
 import Search from '../../components/Search';
+import Favorites from '../Favorites';
 import Icon from '../../../loadFont';
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigation() {
+  const {favorites, theme} = useSelector((state) => state);
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -46,12 +48,12 @@ function TabNavigation() {
         />
         <Tab.Screen
           name="Favoritos"
-          component={Characters}
+          component={Favorites}
           options={{
             tabBarIcon: ({size, color}) => (
               <Icon name="heart" size={size} color={color} />
             ),
-            tabBarBadge: 3,
+            tabBarBadge: favorites.total,
           }}
         />
       </Tab.Navigator>
