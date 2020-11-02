@@ -3,6 +3,7 @@ import {LightTheme as theme} from '../../themes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Characters from '../../components/Characters';
+import Search from '../../components/Search';
 import Icon from '../../../loadFont';
 
 const Tab = createBottomTabNavigator();
@@ -36,7 +37,7 @@ function TabNavigation() {
         />
         <Tab.Screen
           name="Pesquisar"
-          component={Characters}
+          component={Search}
           options={{
             tabBarIcon: ({size, color}) => (
               <Icon name="magnifying-glass" size={size} color={color} />
