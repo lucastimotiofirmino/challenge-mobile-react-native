@@ -34,7 +34,7 @@ export const ImageModal = styled.Image`
 
 export const TitleModal = styled.Text`
   color: ${({theme}) => theme.colors.primary};
-  margin-top: 10px;
+  margin: 10px 0;
   text-align: center;
   font-size: 22px;
 `;
@@ -43,7 +43,7 @@ export const DescriptionModal = styled.Text`
   color: ${({theme}) => theme.colors.text};
   font-size: 12px;
   line-height: 18px;
-  margin: 10px;
+  margin: 0 10px 10px;
 `;
 
 export const TitleSection = styled.Text`
