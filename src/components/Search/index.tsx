@@ -33,7 +33,7 @@ const Search = () => {
       setLoading(false);
     }
 
-    nameStartsWith && getCharactersByName();
+    nameStartsWith ? getCharactersByName() : setCharacters([]);
   }, [nameStartsWith]);
 
   const renderItem = ({item}: Item) => <Character data={item} />;
