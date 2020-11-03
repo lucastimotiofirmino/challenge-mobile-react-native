@@ -61,3 +61,15 @@ export const ItemSection = styled.Text`
   margin: 5px 5px 5px 20px;
   font-size: 14px;
 `;
+
+export const Favorite = styled.View`
+  position: absolute;
+  right: 20px;
+  top: 50px;
+`;
+
+export const BackButton = styled.View`
+  position: absolute;
+  left: 20px;
+  top: 50px;
+`;

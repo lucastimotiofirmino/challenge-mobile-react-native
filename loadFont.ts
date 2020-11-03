@@ -1,4 +1,6 @@
-import Icon from 'react-native-vector-icons/Foundation';
-Icon.loadFont();
+import Foundation from 'react-native-vector-icons/Foundation';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+Foundation.loadFont();
+MaterialIcons.loadFont();
 
-export default Icon;
+export {Foundation, MaterialIcons};

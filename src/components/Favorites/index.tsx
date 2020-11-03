@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Container, Header, Logo, Empty} from './styles';
 import {FlatList} from 'react-native';
+import {useSelector} from 'react-redux';
 import logo from '../../assets/marvel.png';
 import Character from '../Character';
 
-type CharactersState = Marvel.Character[] | undefined;
-type Item = {item: Marvel.Character};
-
 function Favorites() {
-  const [characters, setCharacters] = useState<CharactersState>([]);
+  const charactersFavorites = useSelector<Redux.State, Marvel.Character[]>(
+    (state) => state.favorites,
+  );
 
-  useEffect(() => {}, []);
-
-  const renderItem = ({item}: Item) => <Character data={item} />;
+  const renderItem = ({item}: Marvel.CharacterItem) => (
+    <Character item={item} />
+  );
 
   const ListEmptyComponent = () => (
     <Empty>Nenhum personagem adicionado como favorito!</Empty>
@@ -24,7 +24,7 @@ function Favorites() {
         <Logo source={logo} />
       </Header>
       <FlatList
-        data={characters}
+        data={charactersFavorites}
         keyExtractor={(item, index) => `${item.id}${index}`}
         numColumns={2}
         renderItem={renderItem}

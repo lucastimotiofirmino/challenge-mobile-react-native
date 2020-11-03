@@ -6,11 +6,8 @@ import logo from '../../assets/marvel.png';
 import Character from '../Character';
 import CharacterLoading from '../CharacterLoading';
 
-type CharactersState = Marvel.Character[] | undefined;
-type Item = {item: Marvel.Character};
-
 function Characters() {
-  const [characters, setCharacters] = useState<CharactersState>([]);
+  const [characters, setCharacters] = useState<Marvel.Character[]>([]);
   const [page, setPage] = useState(0);
   const limit = 10;
 
@@ -31,7 +28,9 @@ function Characters() {
     getCharacters();
   }, [getCharacters]);
 
-  const renderItem = ({item}: Item) => <Character data={item} />;
+  const renderItem = ({item}: Marvel.CharacterItem) => (
+    <Character item={item} />
+  );
 
   const onEndReached = useCallback(() => setPage((state) => ++state), []);
 

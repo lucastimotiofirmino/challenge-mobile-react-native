@@ -5,12 +5,14 @@ import {useSelector} from 'react-redux';
 import Characters from '../../components/Characters';
 import Search from '../../components/Search';
 import Favorites from '../Favorites';
-import Icon from '../../../loadFont';
+import {Foundation as Icon} from '../../../loadFont';
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigation() {
-  const {favorites, theme} = useSelector((state) => state);
+  const {favorites, theme} = useSelector<Redux.State, Redux.State>(
+    (state) => state,
+  );
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -53,7 +55,7 @@ function TabNavigation() {
             tabBarIcon: ({size, color}) => (
               <Icon name="heart" size={size} color={color} />
             ),
-            tabBarBadge: favorites.total,
+            tabBarBadge: favorites.length,
           }}
         />
       </Tab.Navigator>

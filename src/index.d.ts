@@ -1,5 +1,25 @@
 declare module '*.png';
 declare module '*.jpg';
+declare interface Theme {
+  colors: {
+    primary: string;
+    background: string;
+    characterBackground: string;
+    text: string;
+  };
+}
+declare namespace Redux {
+  interface State {
+    favorites: Marvel.Character[];
+    theme: Theme;
+  }
+  interface Action {
+    type: string;
+    payload: {
+      character: Marvel.Character;
+    };
+  }
+}
 declare namespace Marvel {
   interface Character {
     id: number;
@@ -23,18 +43,7 @@ declare namespace Marvel {
     name?: string;
     type?: string;
   }
-
-  interface Favorites {
-    characters: Character[];
-    total: number;
-  }
-
-  interface Theme {
-    colors: {
-      primary: string;
-      background: string;
-      characterBackground: string;
-      text: string;
-    };
+  interface CharacterItem {
+    item: Character;
   }
 }

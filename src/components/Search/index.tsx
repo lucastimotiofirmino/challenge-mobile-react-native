@@ -6,11 +6,8 @@ import logo from '../../assets/marvel.png';
 import Character from '../Character';
 import useDebounce from '../../hooks/useDebounce';
 
-type CharactersState = Marvel.Character[] | undefined;
-type Item = {item: Marvel.Character};
-
 const Search = () => {
-  const [characters, setCharacters] = useState<CharactersState>([]);
+  const [characters, setCharacters] = useState<Marvel.Character[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
   const nameStartsWith = useDebounce<string>(value, 500);
@@ -36,7 +33,9 @@ const Search = () => {
     nameStartsWith ? getCharactersByName() : setCharacters([]);
   }, [nameStartsWith]);
 
-  const renderItem = ({item}: Item) => <Character data={item} />;
+  const renderItem = ({item}: Marvel.CharacterItem) => (
+    <Character item={item} />
+  );
 
   const ListEmptyComponent = () => (
     <Empty>{value ? 'Nenhum personagem encontrado com esse nome!' : ''}</Empty>
