@@ -1,8 +1,8 @@
 import React from 'react';
-import {Container, Header, Logo, Empty} from './styles';
+import {Empty} from './styles';
+import {Content} from '../Screen/styles';
 import {FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
-import logo from '../../assets/marvel.png';
 import Character from '../Character';
 
 function Favorites() {
@@ -19,10 +19,7 @@ function Favorites() {
   );
 
   return (
-    <Container>
-      <Header>
-        <Logo source={logo} />
-      </Header>
+    <Content>
       <FlatList
         data={charactersFavorites}
         keyExtractor={(item, index) => `${item.id}${index}`}
@@ -30,7 +27,7 @@ function Favorites() {
         renderItem={renderItem}
         ListEmptyComponent={ListEmptyComponent}
       />
-    </Container>
+    </Content>
   );
 }
 

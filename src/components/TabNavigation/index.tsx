@@ -2,10 +2,10 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useSelector} from 'react-redux';
+import {Foundation as Icon} from '../../../loadFont';
 import Characters from '../../components/Characters';
 import Search from '../../components/Search';
 import Favorites from '../Favorites';
-import {Foundation as Icon} from '../../../loadFont';
 
 const Tab = createBottomTabNavigator();
 
