@@ -17,3 +17,9 @@ export const Logo = styled.Image`
   height: 46px;
   width: 122px;
 `;
+
+export const Switch = styled.Switch`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+`;

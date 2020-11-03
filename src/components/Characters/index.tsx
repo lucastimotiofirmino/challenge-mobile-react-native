@@ -1,13 +1,18 @@
 import React, {useEffect, useState, useCallback, useMemo} from 'react';
-import {Container, Header, Logo} from './styles';
+import {Container, Header, Logo, Switch} from './styles';
 import {FlatList} from 'react-native';
+import {useDispatch} from 'react-redux';
 import api from '../../services/api';
 import logo from '../../assets/marvel.png';
 import Character from '../Character';
 import CharacterLoading from '../CharacterLoading';
+import {changeThemeToDark, changeThemeToLight} from '../../store/theme/actions';
+import {LightTheme, DarkTheme} from '../../themes';
 
 function Characters() {
   const [characters, setCharacters] = useState<Marvel.Character[]>([]);
+  const [switchValue, setSwitchValue] = useState(false);
+  const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const limit = 10;
 
@@ -34,10 +39,19 @@ function Characters() {
 
   const onEndReached = useCallback(() => setPage((state) => ++state), []);
 
+  const onValueChange = useCallback(() => {
+    switchValue
+      ? dispatch(changeThemeToLight(LightTheme))
+      : dispatch(changeThemeToDark(DarkTheme));
+
+    setSwitchValue((state) => !state);
+  }, [dispatch, switchValue]);
+
   return (
     <Container>
       <Header>
         <Logo source={logo} />
+        <Switch onValueChange={onValueChange} value={switchValue} />
       </Header>
       <FlatList
         data={characters}

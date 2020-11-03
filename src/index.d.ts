@@ -15,9 +15,7 @@ declare namespace Redux {
   }
   interface Action {
     type: string;
-    payload: {
-      character: Marvel.Character;
-    };
+    payload: any;
   }
 }
 declare namespace Marvel {
