@@ -1,17 +1,17 @@
-export function changeThemeToLight(theme: Theme) {
+export function changeThemeToLight(themeLight: Theme) {
   return {
     type: 'CHANGE_THEME_TO_LIGHT',
     payload: {
-      theme,
+      themeLight,
     },
   };
 }
 
-export function changeThemeToDark(theme: Theme) {
+export function changeThemeToDark(themeDark: Theme) {
   return {
     type: 'CHANGE_THEME_TO_DARK',
     payload: {
-      theme,
+      themeDark,
     },
   };
 }

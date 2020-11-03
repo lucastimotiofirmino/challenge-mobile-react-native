@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useMemo} from 'react';
-import {Container, Header, Logo, Input, Empty, Loading} from './styles';
+import {Input, Empty, Loading} from './styles';
+import {Content} from '../Screen/styles';
 import {FlatList} from 'react-native';
 import api from '../../services/api';
-import logo from '../../assets/marvel.png';
 import Character from '../Character';
 import useDebounce from '../../hooks/useDebounce';
 
@@ -47,10 +47,7 @@ const Search = () => {
   ]);
 
   return (
-    <Container>
-      <Header>
-        <Logo source={logo} />
-      </Header>
+    <Content>
       <Input
         placeholder="Qual o nome personagem que deseja buscar?"
         onChangeText={onChangeText}
@@ -66,7 +63,7 @@ const Search = () => {
           ListEmptyComponent={ListEmptyComponent}
         />
       )}
-    </Container>
+    </Content>
   );
 };
 

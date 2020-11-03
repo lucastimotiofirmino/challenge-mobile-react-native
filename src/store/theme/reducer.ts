@@ -1,17 +1,17 @@
-import {LightTheme} from '../../themes';
+import {DarkTheme} from '../../themes';
 
 export default function theme(
-  state: Redux.State['theme'] = LightTheme,
+  state: Redux.State['theme'] = DarkTheme,
   action: Redux.Action,
 ): Theme {
   switch (action.type) {
     case 'CHANGE_THEME_TO_LIGHT': {
-      const {theme: LightTheme} = action.payload;
-      return LightTheme;
+      const {themeLight} = action.payload;
+      return themeLight;
     }
     case 'CHANGE_THEME_TO_DARK': {
-      const {theme: DarkTheme} = action.payload;
-      return DarkTheme;
+      const {themeDark} = action.payload;
+      return themeDark;
     }
     default: {
       return state;
