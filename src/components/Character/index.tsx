@@ -57,11 +57,7 @@ function Character({item}: Marvel.CharacterItem) {
 
   return (
     <>
-      <Modal
-        visible={visible}
-        statusBarTranslucent={true}
-        animationType="fade"
-        onRequestClose={() => setVisible(false)}>
+      <Modal visible={visible} statusBarTranslucent={true} animationType="fade">
         <ContainerModal>
           <ImageModal source={{uri: image}} />
           <TitleModal>{name}</TitleModal>
@@ -70,7 +66,7 @@ function Character({item}: Marvel.CharacterItem) {
               name="arrow-back-ios"
               size={40}
               color="red"
-              onPress={() => console.log('voltar')}
+              onPress={() => setVisible(false)}
             />
           </BackButton>
           <Favorite>
