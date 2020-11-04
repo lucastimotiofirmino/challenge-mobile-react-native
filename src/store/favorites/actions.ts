@@ -1,3 +1,14 @@
+export function loadFavoritesFromStorage(
+  charactersFavorites: Marvel.Character[],
+) {
+  return {
+    type: 'LOAD_FAVORITES_FROM_STORAGE',
+    payload: {
+      charactersFavorites,
+    },
+  };
+}
+
 export function addCharacterToFavorites(character: Marvel.Character) {
   return {
     type: 'ADD_CHARACTER_TO_FAVORITES',

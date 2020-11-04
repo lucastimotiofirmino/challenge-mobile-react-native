@@ -23,6 +23,7 @@ import {MaterialIcons as Icon} from '../../../loadFont';
 function Character({item}: Marvel.CharacterItem) {
   const {name, thumbnail, description, events, series, comics, stories} = item;
   const [visible, setVisible] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(item.isFavorite);
   const image = `${thumbnail?.path}.${thumbnail?.extension}`;
   const dispatch = useDispatch();
   const dataSections = [
@@ -45,10 +46,12 @@ function Character({item}: Marvel.CharacterItem) {
   ];
 
   function addToFavorites() {
-    dispatch(addCharacterToFavorites(item));
+    setIsFavorite(true);
+    dispatch(addCharacterToFavorites({...item, isFavorite: true}));
   }
 
   function removeFromFavorites() {
+    setIsFavorite(false);
     dispatch(removeCharacterFromFavorites(item));
   }
 
@@ -71,18 +74,21 @@ function Character({item}: Marvel.CharacterItem) {
             />
           </BackButton>
           <Favorite>
-            <Icon
-              name="favorite"
-              size={40}
-              color="red"
-              onPress={removeFromFavorites}
-            />
-            <Icon
-              name="favorite-border"
-              size={40}
-              color="red"
-              onPress={addToFavorites}
-            />
+            {isFavorite ? (
+              <Icon
+                name="favorite"
+                size={40}
+                color="red"
+                onPress={removeFromFavorites}
+              />
+            ) : (
+              <Icon
+                name="favorite-border"
+                size={40}
+                color="red"
+                onPress={addToFavorites}
+              />
+            )}
           </Favorite>
           {Boolean(description) && (
             <DescriptionModal>{description}</DescriptionModal>

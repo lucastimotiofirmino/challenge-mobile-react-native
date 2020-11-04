@@ -1,8 +1,10 @@
-import React, {useState, useCallback, ReactNode} from 'react';
+import React, {useState, useCallback, ReactNode, useEffect} from 'react';
 import {Container, Header, Logo, Switch} from './styles';
 import {useDispatch} from 'react-redux';
 import {LightTheme, DarkTheme} from '../../themes';
 import {changeThemeToDark, changeThemeToLight} from '../../store/theme/actions';
+import {loadFavoritesFromStorage} from '../../store/favorites/actions';
+import AsyncStorage from '@react-native-community/async-storage';
 import logo from '../../assets/marvel.png';
 
 interface Children {
@@ -20,6 +22,21 @@ function Screen({children}: Children) {
 
     setSwitchValue((state) => !state);
   }, [dispatch, switchValue]);
+
+  useEffect(() => {
+    async function getFavorites() {
+      try {
+        await AsyncStorage.getItem('@MarvelApp:favorites').then((data) => {
+          if (data) {
+            dispatch(loadFavoritesFromStorage(JSON.parse(data)));
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getFavorites();
+  }, [dispatch]);
 
   return (
     <Container>

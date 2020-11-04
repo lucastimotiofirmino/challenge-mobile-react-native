@@ -28,6 +28,7 @@ declare namespace Marvel {
     stories?: List;
     events?: List;
     series?: List;
+    isFavorite?: boolean;
   }
   interface Image {
     path?: string;
