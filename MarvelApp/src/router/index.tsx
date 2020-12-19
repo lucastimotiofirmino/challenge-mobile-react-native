@@ -6,9 +6,15 @@ import {Provider} from 'react-redux';
 import store from '../store';
 import ThemeProvider from '../themes';
 
-const Stack = createStackNavigator();
-
 import HomeScreen from '../screens/Home';
+import SearchScreen from '../screens/Search';
+
+export enum ROUTES {
+  Home = 'Home',
+  Search = 'Search',
+}
+
+const Stack = createStackNavigator();
 
 const Router: React.FC = () => {
   return (
@@ -17,8 +23,13 @@ const Router: React.FC = () => {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name={'Home'}
+              name={ROUTES.Home}
               component={HomeScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name={ROUTES.Search}
+              component={SearchScreen}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

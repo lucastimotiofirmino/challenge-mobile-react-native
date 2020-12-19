@@ -1,4 +1,3 @@
-
 /**
  * Action Types
  */
@@ -19,6 +18,8 @@ export interface Thumbnail {
 export interface Heroes {
   id: number;
   thumbnail: Thumbnail;
+  thumbnailType: string;
+  name: string;
 }
 
 export interface HeroesState {
