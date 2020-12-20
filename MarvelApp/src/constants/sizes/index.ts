@@ -10,6 +10,8 @@ export function useSizes(): AppSizes {
   return {
     iconSizeBig: width * 0.13,
     iconSizeMedium: width * 0.08,
-    iconSizeSmall: width * 0.03,
+    iconSizeSmall: width * 0.06,
+    labelText: width * 0.03,
+    labelTitle: width * 0.05,
   };
 }

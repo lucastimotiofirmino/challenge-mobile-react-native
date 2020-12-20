@@ -8,7 +8,7 @@ const timestamp = new Date().getTime();
 const api = axios.create({
   baseURL: 'https://gateway.marvel.com:443',
   params: {
-    limit: '100',
+    limit: 50,
     ts: new Date().getTime(),
     apikey: '47bfa3c580505a1dbfad3fb91636a891',
     hash: md5(timestamp + privateAPI + publicAPI),

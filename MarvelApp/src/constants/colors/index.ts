@@ -12,6 +12,6 @@ export const dark: Readonly<HeroColors> = {
   PRIMARY_2_COLOR: '#020202',
   PRIMARY_3_COLOR: '#4E4E4E',
 
-  LABEL_1_COLOR: '#F62B1B',
+  LABEL_1_COLOR: '#FFF',
   LABEL_2_COLOR: '#FFF',
 };

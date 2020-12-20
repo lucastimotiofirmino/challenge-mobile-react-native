@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const styles = (color: HeroColors) =>
+export const styles = (color: HeroColors, windowSizes: SizeTypes) =>
   StyleSheet.create({
     containerSafe: {
       flex: 0,
@@ -9,5 +9,9 @@ export const styles = (color: HeroColors) =>
     container: {
       flex: 1,
       backgroundColor: color.PRIMARY_2_COLOR,
+    },
+
+    listContainer: {
+      width: windowSizes.width,
     },
   });

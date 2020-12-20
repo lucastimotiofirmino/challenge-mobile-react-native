@@ -21,11 +21,12 @@ interface HeaderProps {
   type: HeaderTypes;
   onPressSearch?: Function;
   onPressBack?: Function;
+  onEndInput?: Function;
   getInputText?: Function;
 }
 
-const Header: React.FC<HeaderProps> = (props) => {
-  const {type, onPressSearch, onPressBack, getInputText} = props;
+const Header: React.FC<HeaderProps> = (Props) => {
+  const {type, onPressSearch, onPressBack, getInputText, onEndInput} = Props;
   const colors = useColors();
   const sizes = useSizes();
   const windowSizes = useWindowSizes();
@@ -65,6 +66,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           </TouchableOpacity>
           <View style={style.searchBarContainer}>
             <TextInput
+              onEndEditing={() => (onEndInput ? onEndInput() : null)}
               style={style.textInputContainer}
               placeholder={SEARCH_BAR.inputPlaceholder}
               onChangeText={(text) =>

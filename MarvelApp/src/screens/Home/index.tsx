@@ -1,12 +1,21 @@
 import React, {useEffect} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {SafeAreaView, StatusBar, Text} from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  Text,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import Header, {HeaderTypes} from '../../components/Header';
+import {useIsFocused} from '@react-navigation/native';
 import {useColors} from '../../themes';
 import {styles} from './style';
 import {ROUTES} from '../../router';
-import * as actions from '../../store/ducks/heroes/actions';
-import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {Favorites, FavoriteState} from '../../store/ducks/favorites/types';
+import {useWindowSizes} from '../../constants/sizes';
+import HeroItem from '../../components/HeroItem';
 
 interface HomeScreenProps {
   navigation: StackNavigationProp<any>;
@@ -14,14 +23,30 @@ interface HomeScreenProps {
 
 const HomeScreen: React.FC<HomeScreenProps> = (Props) => {
   const {navigation} = Props;
-  const style = styles(useColors());
+  const windowSize = useWindowSizes();
+  const colors = useColors();
+  const style = styles(colors, windowSize);
+  const isFocused = useIsFocused();
 
-  const dispatch = useDispatch();
+  let data = useSelector((state: FavoriteState) => state.data);
 
   useEffect(() => {
-    //dispatch(actions.loadRequest());
-    console.log('CHAMOU');
-  }, [dispatch]);
+    console.log('FOCADO');
+    console.log(data);
+  }, [isFocused, Props]);
+
+  function renderHeroItem(item: Favorites): JSX.Element {
+    return (
+      <HeroItem
+        title={item.name}
+        description={item.description}
+        thumbImage={item.thumbnail.path + '.' + item.thumbnail.extension}
+        onPressFavorite={() => {
+          console.log('MERDA');
+        }}
+      />
+    );
+  }
 
   return (
     <>
@@ -32,7 +57,12 @@ const HomeScreen: React.FC<HomeScreenProps> = (Props) => {
           type={HeaderTypes.home}
           onPressSearch={() => navigation.navigate(ROUTES.Search)}
         />
-        <Text>IU</Text>
+        <FlatList
+          style={style.listContainer}
+          data={data.data}
+          renderItem={({item}) => renderHeroItem(item)}
+          keyExtractor={(item) => item.id.toString()}
+        />
       </SafeAreaView>
     </>
   );
