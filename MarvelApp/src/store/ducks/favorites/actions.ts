@@ -5,5 +5,5 @@ export const addFavorite = (data: Favorites) => {
   return action(FavoriteTypes.ADD_FAVORITES, {data});
 };
 
-export const removeFavorites = (index: number) =>
-  action(FavoriteTypes.REMOVE_FAVORITES, {index});
+export const removeFavorites = (data: Favorites) =>
+  action(FavoriteTypes.REMOVE_FAVORITES, {data});

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 
 import Modal from 'react-native-modal';
@@ -9,23 +9,42 @@ import {HERO_ITEM} from '../../constants/strings';
 import {useColors} from '../../themes';
 import {useSizes, useWindowSizes} from '../../constants/sizes';
 import {styles} from './style';
+import {Favorites} from '../../store/ducks/favorites/types';
+import * as actions from '../../store/ducks/favorites/actions';
+import {useDispatch} from 'react-redux';
 
 interface HeroItemsProps {
+  item: Favorites;
   title: string;
   description: string;
   thumbImage: string;
-  onPressFavorite: Function;
+  isFavorite: boolean;
 }
 
 const HeroItem: React.FC<HeroItemsProps> = (Props) => {
-  const {title, description, thumbImage, onPressFavorite} = Props;
+  const {title, description, thumbImage, item, isFavorite} = Props;
+
   const [showModal, setModal] = useState(false);
+  const [favorite, setFavorite] = useState(isFavorite);
+
   const colors = useColors();
   const sizes = useSizes();
   const windowSizes = useWindowSizes();
   const style = styles(colors, windowSizes, sizes);
   const realDescription =
     description.length > 0 ? description : HERO_ITEM.description;
+  const dispatch = useDispatch();
+
+  useEffect(() => {}, [favorite]);
+
+  function addFavorite(item: Favorites) {
+    dispatch(actions.addFavorite(item));
+  }
+
+  function removeFavorite(item: Favorites) {
+    dispatch(actions.removeFavorites(item));
+  }
+
   return (
     <View style={style.container}>
       <View style={style.thumbContainer}>
@@ -54,9 +73,12 @@ const HeroItem: React.FC<HeroItemsProps> = (Props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={style.iconItem}
-              onPress={() => onPressFavorite()}>
+              onPress={() => {
+                setFavorite(!favorite);
+                favorite ? removeFavorite(item) : addFavorite(item);
+              }}>
               <Icon
-                name={'heart-outline'}
+                name={favorite ? 'heart' : 'heart-outline'}
                 size={sizes.iconSizeSmall}
                 color={colors.LABEL_1_COLOR}
               />

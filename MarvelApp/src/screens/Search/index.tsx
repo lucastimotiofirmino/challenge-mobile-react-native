@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -12,9 +13,9 @@ import {useColors} from '../../themes';
 import {styles} from './style';
 import {Favorites} from '../../store/ducks/favorites/types';
 import HeroItem from '../../components/HeroItem';
-import {useDispatch} from 'react-redux';
-import api from '../../service/api';
-import * as actions from '../../store/ducks/favorites/actions';
+import api from '../../services/api';
+import Realm from 'realm';
+import {FavoriteSchema} from '../../database/schemas/FavoriteSchema';
 
 interface SearchScreenProps {
   navigation: StackNavigationProp<any>;
@@ -25,20 +26,27 @@ const SearchScreen: React.FC<SearchScreenProps> = (Props) => {
   const [loading, setLoad] = useState(true);
   const [data, setData] = useState([]);
   const [dataName, setDataName] = useState([]);
+  const [favorites, setFavoriteList] = useState([]);
 
   const colors = useColors();
   const style = styles(colors);
   const {navigation} = Props;
-  const dispatch = useDispatch();
 
   useEffect(() => {
+    Realm.open({schema: [FavoriteSchema]}).then((realm) => {
+      const favorites = realm.objects('favorite');
+      // @ts-ignore
+      setFavoriteList(favorites);
+    });
+
     if (data.length) {
       return;
     }
     loadData(0);
-  }, [data.length, loadData]);
+  }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Api Request
+  // @ts-ignore
   function loadData(offset: number): void {
     setLoad(true);
     api
@@ -55,8 +63,8 @@ const SearchScreen: React.FC<SearchScreenProps> = (Props) => {
         setLoad(false);
       });
   }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Api Request
+  // @ts-ignore
   function loadDataByName(offset: number): void {
     setLoad(true);
     api
@@ -75,18 +83,24 @@ const SearchScreen: React.FC<SearchScreenProps> = (Props) => {
   }
 
   function renderHeroItem(item: Favorites): JSX.Element {
+    let contains = false;
+
+    for (let realmItem of favorites) {
+      // @ts-ignore
+      if (realmItem.name === item.name) {
+        contains = true;
+      }
+    }
+
     return (
       <HeroItem
+        isFavorite={contains}
+        item={item}
         title={item.name}
         description={item.description}
         thumbImage={item.thumbnail.path + '.' + item.thumbnail.extension}
-        onPressFavorite={() => addFavorite(item)}
       />
     );
-  }
-
-  function addFavorite(item: Favorites) {
-    dispatch(actions.addFavorite(item));
   }
 
   return (
