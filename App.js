@@ -34,7 +34,7 @@ const App: () => React$Node = () => {
           style={styles.scrollView}>
           <Header />
           {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
+            <View>
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
