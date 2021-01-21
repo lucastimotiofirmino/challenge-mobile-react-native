@@ -1,35 +1,34 @@
-# Desafio em React Native
+![MarvelHeroes-Logo](https://user-images.githubusercontent.com/5942637/105387555-6e8fd580-5bf4-11eb-9ad8-2e648c485149.png)
 
-## O que esperamos que você faça?
-Somos fãs da Marvel, quem não gosta de Super-heróis?
-A ideia é bem simples, queremos um aplicativo que nos mostre todos os personagens da Marvel além de seus eventos e séries.
+Repositório com o desafio técnico para a vaga de **Desenvolvedor React Native** da [superlogica](https://superlogica.com/). Abaixo está listado o motivo das escolhas sobre as bibliotecas utilizadas, assim como instalar e como rodas os testes. 
 
-## Requisitos básicos:
-- Utilizar a API de personsagens da marvel; (https://developer.marvel.com/docs)
-- O aplicativo deve conter uma listagem paginada em infinite scroll;
-- A listagem deverá ser ordenada por nome;
-- Uma modal com os detalhes do personagem;
-- Deve ser possível favoritar um personagem; (os favoritos devem ser salvos em base local.)
-- Deverá disponibilizar dois filtros: nome do personagem e meus favoritos;
+[Readme Original do desafio](README_original.md) 
 
-## Requisitos técnicos:
-- TypeScript;
-- Redux;
-- Usar persistência de dados; (a livre escolha de base.)
+## Motivação
+Todo fã de Marvel que se preze deveria possuir esse aplicativo! Ele mostra todos os personagens da marvel e seus eventos. Ele utiliza como base a API da marvel https://developer.marvel.com/docs.
 
-## Gostaríamos que:
-- Sua imaginação fluísse em relação a interface.
-- Caso tenha tempo, fique a vontade para adicionar o que achar necessário. (mas o tempo estará contando!!!)
+## Como instalar
 
-## O que iremos avaliar:
-- **Iremos observar principalmente a forma com que você irá aplicar o JavaScript.**
-- Organização estrutural do projeto;
-- Utilização de padrões de desenvolvimento;
-- Bom código;
-- Tempo utilizado;
-- UI/UX; (não precisa ser a melhor, mas precisa ser funcional.)
+1. Clone o repositório. `git clone https://github.com/eduduardo/challenge-mobile-react-native.git`
+2. Rode: `yarn install` ou `npm install`
+3. Para rodar o projeto no android: `react-native run-android`
+4. Para rodar o projeto no iOS: `react-native run-ios`
 
-## Como iremos avaliar?
-- Faça um fork desse repósitorio. (o início será contabilizado a partir do envio das instruções.)
-- Ao termino, faça seu pull-request. (levaremos em consideração o tempo entre essas duas etapas.)
-- Após isso, é conosco!
+## Como rodar os testes
+
+O projeto possue testes unitários e de integração com a API.
+
+- `yarn test` ou `npm run test`
+
+## Stack de tecnologias utilizadas
+
+1. [react-native](https://github.com/facebook/react-native) - utilizado em sua versão mais recente.
+2. [react-navigation](https://github.com/react-navigation/react-navigation) - utilizado para roteamento, biblioteca bem fácil de implementação, e com recursos bem úteis para manipulação de telas.
+3. [react-native-elements](https://github.com/react-native-elements/react-native-elements) - utilizado para agilizar o design dos componentes básicos desse desafio, visto que não é um requisito ter styles/components de algum design pré definido.
+4. [redux](https://github.com/reduxjs/redux) e [react-redux](https://github.com/reduxjs/react-redux) - gerenciamento do estado global da aplicação.
+5. [redux-thunk](https://github.com/reduxjs/redux-thunk) - utilizado para disparar as ações de forma assíncrona.
+6. [axios](https://github.com/axios/axios) - utilizado para cuidar melhor dos retornos das requests json vindas da API.
+7. [jest](https://github.com/facebook/jest) - utilizado para a base dos testes.
+8. [@testing-library/react-native](https://github.com/callstack/react-native-testing-library) - utilizado para renderizar e manipular como usuário os components e pages do app.
+
+Logo feio utilizando o _logo maker_ do [Adobe Spark](https://spark.adobe.com/express-apps/logo-maker/).
