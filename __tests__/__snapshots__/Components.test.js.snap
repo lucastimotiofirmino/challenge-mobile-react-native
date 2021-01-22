@@ -112,36 +112,43 @@ exports[`suite simple components renders renders correctly the hero card compone
   }
   testID="cardHero"
 >
-  <Text
-    allowFontScaling={false}
+  <View
     style={
-      Array [
-        Object {
-          "color": undefined,
-          "fontSize": 12,
-        },
-        Object {
-          "backgroundColor": "rgba(0, 0, 0, 0.35)",
-          "borderRadius": 20,
-          "color": "#fff",
-          "fontSize": 18,
-          "padding": 5,
-          "position": "absolute",
-          "right": 5,
-          "top": 5,
-          "zIndex": 99,
-        },
-        Object {
-          "fontFamily": "anticon",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-        Object {},
-      ]
+      Object {
+        "backgroundColor": "rgba(0, 0, 0, 0.35)",
+        "borderRadius": 20,
+        "padding": 8,
+        "position": "absolute",
+        "right": 10,
+        "top": 10,
+        "zIndex": 9,
+      }
     }
   >
-    
-  </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": undefined,
+            "fontSize": 12,
+          },
+          Object {
+            "color": "#fff",
+            "fontSize": 18,
+          },
+          Object {
+            "fontFamily": "anticon",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
   <Image
     source={
       Object {
@@ -152,8 +159,8 @@ exports[`suite simple components renders renders correctly the hero card compone
       Object {
         "borderTopLeftRadius": 10,
         "borderTopRightRadius": 10,
-        "height": 200,
-        "width": 180,
+        "height": 180,
+        "width": 355,
       }
     }
   />

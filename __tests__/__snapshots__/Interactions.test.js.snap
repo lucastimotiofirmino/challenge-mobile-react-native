@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage interaction suite user see hero modal 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 12,
+        },
+        Object {
+          "alignSelf": "flex-end",
+          "color": "#fff",
+          "fontSize": 32,
+          "marginBottom": 10,
+          "marginHorizontal": 15,
+        },
+        Object {
+          "fontFamily": "anticon",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "borderRadius": 20,
+        "justifyContent": "center",
+        "paddingHorizontal": 10,
+        "paddingVertical": 50,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "maxWidth": 100,
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "uri": undefined,
+            }
+          }
+          style={
+            Object {
+              "borderRadius": 50,
+              "height": 100,
+              "width": 100,
+            }
+          }
+        />
+        <Text
+          style={
+            Object {
+              "fontSize": 18,
+              "fontWeight": "bold",
+              "marginVertical": 5,
+              "textAlign": "center",
+            }
+          }
+        >
+          Wolverine
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "marginLeft": 20,
+            "width": 220,
+          }
+        }
+      >
+        <Text>
+          Test description
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

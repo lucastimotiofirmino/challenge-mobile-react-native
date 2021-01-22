@@ -6,6 +6,7 @@ import {
   FlatList,
   Text,
   Alert,
+  Platform,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
