@@ -5,17 +5,18 @@ Somos fãs da Marvel, quem não gosta de Super-heróis?
 A ideia é bem simples, queremos um aplicativo que nos mostre todos os personagens da Marvel além de seus eventos e séries.
 
 ## Requisitos básicos:
-[x] Utilizar a API de personsagens da marvel; (https://developer.marvel.com/docs)
-[x] O aplicativo deve conter uma listagem paginada em infinite scroll;
-[x] A listagem deverá ser ordenada por nome;
-- Uma modal com os detalhes do personagem;
-[x] Deve ser possível favoritar um personagem; [x] (os favoritos devem ser salvos em base local.)
-[x] Deverá disponibilizar dois filtros: nome do personagem e meus favoritos;
+- [x] Utilizar a API de personsagens da marvel; (https://developer.marvel.com/docs)
+- [x] O aplicativo deve conter uma listagem paginada em infinite scroll;
+- [x] A listagem deverá ser ordenada por nome;
+- [x] Uma modal com os detalhes do personagem;
+- [x] Deve ser possível favoritar um personagem; 
+- [x] (os favoritos devem ser salvos em base local.)
+- [x] Deverá disponibilizar dois filtros: nome do personagem e meus favoritos;
 
 ## Requisitos técnicos:
-- TypeScript;
-[x] Redux;
-[x] Usar persistência de dados; (a livre escolha de base.)
+- [] TypeScript;
+- [x] Redux;
+- [x] Usar persistência de dados; (a livre escolha de base.)
 
 ## Gostaríamos que:
 - Sua imaginação fluísse em relação a interface.

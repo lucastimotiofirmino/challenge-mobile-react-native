@@ -7,6 +7,17 @@ Repositório com o desafio técnico para a vaga de **Desenvolvedor React Native*
 ## Motivação
 Todo fã de Marvel que se preze deveria possuir esse aplicativo! Ele mostra todos os personagens da marvel e seus eventos. Ele utiliza como base a API da marvel https://developer.marvel.com/docs.
 
+## Preview do app no iOS
+https://www.youtube.com/watch?v=nNRvOkFYTdo
+
+[![App Preview](https://img.youtube.com/vi/nNRvOkFYTdo/0.jpg)](https://www.youtube.com/watch?v=nNRvOkFYTdo)
+
+## Preview do app no Android
+https://www.youtube.com/watch?v=B4kV2NYTfJg
+[![App Preview](https://img.youtube.com/vi/B4kV2NYTfJg/0.jpg)](https://www.youtube.com/watch?v=B4kV2NYTfJg)
+
+---- 
+
 ## Como instalar o projeto
 
 1. Clone o repositório. `git clone https://github.com/eduduardo/challenge-mobile-react-native.git`
