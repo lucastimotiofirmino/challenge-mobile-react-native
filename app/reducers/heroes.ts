@@ -2,18 +2,20 @@ import {
   RESET_HEROES,
   FETCH_BATCH_HEROES,
   FETCH_HEROES_TOTAL,
-} from '../actions/heroes';
+  ADD_HERO_FAVORITE,
+  REMOVE_HERO_FAVORITE,
+  HeroState,
+  HeroActionTypes,
+} from '../types/heroes';
 
-import { ADD_HERO_FAVORITE, REMOVE_HERO_FAVORITE } from '../actions/favorite';
-
-const initialState = {
+const initialState: HeroState = {
   favorites: [],
   heroes: [],
   total: 0,
   hasNext: true,
 };
 
-const heroes = (state = initialState, action) => {
+const heroes = (state = initialState, action: HeroActionTypes): HeroState => {
   switch (action.type) {
     case RESET_HEROES: {
       return {
@@ -43,8 +45,8 @@ const heroes = (state = initialState, action) => {
           return {
             ...hero,
             // normalize the hero thumbnail
-            avatar: `${hero.thumbnail.path}.${hero.thumbnail.extension}`,
-            numEvents: `${hero.events.available}`,
+            avatar: `${hero.thumbnail?.path}.${hero.thumbnail?.extension}`,
+            numEvents: hero.events?.available ? Number(hero.events.available) : 0,
             // recover and set favorite
             favorite: Boolean(
               state.favorites.find(

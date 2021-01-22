@@ -12,15 +12,16 @@ describe('suite simple components renders', () => {
   test('renders correctly the custom loader component', () => {
     const loader = render(<Loader />).toJSON();
 
-    expect(loader.type).toBe('Image');
+    expect(loader?.type).toBe('Image');
     expect(loader).toMatchSnapshot();
   });
 
   test('renders correctly the hero card component', () => {
     const hero = {
-      id: 1,
+      id: "1",
       name: 'Wolverine',
       avatar: 'test',
+      numEvents: 0,
     };
     const { getByText, toJSON } = renderWithRedux(<HeroCard {...hero} />, {store: makeTestStore()});
 

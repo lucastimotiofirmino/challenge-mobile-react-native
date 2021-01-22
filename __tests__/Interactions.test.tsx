@@ -11,24 +11,28 @@ import MockAdapter from 'axios-mock-adapter';
 const mockApi = new MockAdapter(axiosInstance);
 
 const Wolverine = {
-  id: 1,
+  id: "1",
   name: 'Wolverine',
+  avatar: 'test.jpg',
   thumbnail: {
     path: 'test',
     extension: 'jpg',
   },
   description: 'Test description',
-  events: { avaliable: 1 },
+  events: { available: 1 },
+  numEvents: 1,
 };
 
 const Abyss = {
-  id: 2,
+  id: "2",
   name: 'Abyss',
+  avatar: 'test.jpg',
   thumbnail: {
     path: 'test',
     extension: 'jpg',
   },
-  events: { avaliable: 1 },
+  events: { available: 1 },
+  numEvents: 1,
 };
 
 describe('HomePage interaction suite', () => {
@@ -37,6 +41,7 @@ describe('HomePage interaction suite', () => {
   const mocksetOptions = jest.fn();
 
   beforeEach(() => {
+    //@ts-ignore
     useNavigation.mockImplementation(() => ({
       navigate: mockNavigate,
       setOptions: mocksetOptions,
@@ -142,7 +147,7 @@ describe('HomePage interaction suite', () => {
       ...Wolverine,
       avatar: 'test.jpg',
       favorite: false,
-      numEvents: 'undefined',
+      numEvents: 1,
     });
   });
 

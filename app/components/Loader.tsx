@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FunctionComponent } from 'react';
 
-import { StyleSheet, Animated, Easing } from 'react-native';
+import { StyleSheet, Animated, Easing, ImageStyle } from 'react-native';
 import icon from '../../assets/captain-icon.png';
 
-const LOADER_SIZE = 42;
+const LOADER_SIZE: number = 42;
 
-const styles = StyleSheet.create({
+type Style = {
+  loader: ImageStyle;
+};
+
+const styles = StyleSheet.create<Style>({
   loader: {
     width: LOADER_SIZE,
     height: LOADER_SIZE,
@@ -14,7 +18,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const Loader = ({ style }) => {
+type LoaderProps = {
+  style?: ImageStyle;
+};
+
+const Loader: FunctionComponent<LoaderProps> = ({ style }) => {
   const spinAnimationValue = new Animated.Value(0);
 
   useEffect(() => {

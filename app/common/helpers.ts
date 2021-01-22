@@ -1,4 +1,6 @@
-export function filterWithQuerySearch(results, query) {
+import { IHero } from "./interfaces";
+
+export function filterWithQuerySearch(results: IHero[], query: string) {
   if (query === '') {
     return results;
   }

@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import {
   View,
   StyleSheet,
   TouchableWithoutFeedback,
   StatusBar,
+  ViewStyle,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const styles = StyleSheet.create({
+type Style = {
+  container: ViewStyle;
+  modal: ViewStyle;
+  closeIcon: ViewStyle;
+};
+
+const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -32,7 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const BaseModal = ({ children }) => {
+const BaseModal: FunctionComponent = ({ children }) => {
   const navigation = useNavigation();
 
   const dismissModal = () => {

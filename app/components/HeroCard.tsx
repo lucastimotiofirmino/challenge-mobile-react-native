@@ -1,24 +1,38 @@
-import React, { memo } from 'react';
+import React, { memo, FunctionComponent } from 'react';
 
 import {
   StyleSheet,
   Image,
-  TouchableNativeFeedback,
   Text,
   View,
   TouchableOpacity,
+  TouchableNativeFeedback,
   Dimensions,
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addHeroFavorite, removeHeroFavorite } from '../actions/favorite';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { IHero } from '../common/interfaces';
 
 const { width } = Dimensions.get('screen');
 
-export const CARD_HEIGHT = 300; // utilized by the FlatList for optimization
+export const CARD_HEIGHT: number = 300; // utilized by the FlatList for optimization
 
-const styles = StyleSheet.create({
+type Style = {
+  card: ViewStyle;
+  name: TextStyle;
+  photo: ImageStyle;
+  modalOpenContainer: ViewStyle;
+  modalOpenIcon: TextStyle;
+  actionButton: ViewStyle;
+  actionText: TextStyle;
+};
+
+const styles = StyleSheet.create<Style>({
   card: {
     borderRadius: 10,
     marginHorizontal: 5,
@@ -73,18 +87,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const HeroCard = ({ ...hero }) => {
+const HeroCard: FunctionComponent<IHero> = ({...hero}) => {
   const { name, avatar, favorite } = hero;
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const handleFavorite = () => {
     if (!favorite) {
-      dispatch(addHeroFavorite({ hero }));
+      dispatch(addHeroFavorite(hero));
       return;
     }
 
-    dispatch(removeHeroFavorite({ hero }));
+    dispatch(removeHeroFavorite(hero));
   };
 
   const card = (

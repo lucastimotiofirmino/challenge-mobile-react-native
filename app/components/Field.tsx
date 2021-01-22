@@ -1,10 +1,23 @@
-import React, { memo } from 'react';
+import React, { memo, FunctionComponent } from 'react';
 
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const styles = StyleSheet.create({
+type Style = {
+  field: ViewStyle;
+  fieldIcon: ViewStyle;
+  fieldText: TextStyle;
+};
+
+const styles = StyleSheet.create<Style>({
   field: {
     borderRadius: 25,
     paddingHorizontal: 20,
@@ -27,7 +40,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const Field = ({ icon, text, onPress, backgroundColor = '#F67571' }) => {
+type FieldProps = {
+  icon: string;
+  text: string;
+  backgroundColor?: string;
+  onPress?: Function | null;
+};
+
+const Field: FunctionComponent<FieldProps> = ({
+  icon,
+  text,
+  onPress = null,
+  backgroundColor = '#F67571',
+}) => {
   const content = (
     <View style={[styles.field, { backgroundColor }]} testID="fieldbutton">
       <Icon name={icon} style={styles.fieldIcon} />
@@ -37,7 +62,7 @@ const Field = ({ icon, text, onPress, backgroundColor = '#F67571' }) => {
     </View>
   );
 
-  if (onPress !== undefined) {
+  if (onPress !== null) {
     return (
       <TouchableOpacity onPress={() => onPress()}>{content}</TouchableOpacity>
     );

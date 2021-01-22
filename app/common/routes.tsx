@@ -8,12 +8,6 @@ import logoIcon from '../../assets/logo-icon.png';
 
 const Stack = createStackNavigator();
 
-const SCREEN_OPTIONS = {
-  headerTitleStyle: { alignSelf: 'center' },
-  headerTintColor: '#000',
-  headerBackTitleVisible: false,
-};
-
 const MODAL_OPTIONS = {
   headerShown: false,
   cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' },
@@ -34,7 +28,7 @@ const MODAL_OPTIONS = {
   }),
 };
 
-const LOGO_SIZE = 34;
+const LOGO_SIZE: number = 34;
 
 const Logo = () => (
   <Image
@@ -56,11 +50,7 @@ const MainStack = () => (
 const Routes = () => {
   return (
     <Stack.Navigator mode="modal" screenOptions={MODAL_OPTIONS}>
-      <Stack.Screen
-        name="Main"
-        component={MainStack}
-        options={SCREEN_OPTIONS}
-      />
+      <Stack.Screen name="Main" component={MainStack} />
       <Stack.Screen name="HeroModal" component={HeroModal} />
     </Stack.Navigator>
   );

@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   preset: 'react-native',
   testEnvironment: "node",
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   setupFilesAfterEnv: [
     '@testing-library/jest-native/extend-expect',
     "./node_modules/react-native-gesture-handler/jestSetup.js",

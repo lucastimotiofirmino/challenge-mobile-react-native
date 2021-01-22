@@ -76,7 +76,7 @@ exports[`HomePage interaction suite user see hero modal 1`] = `
         <Image
           source={
             Object {
-              "uri": undefined,
+              "uri": "test.jpg",
             }
           }
           style={
@@ -110,6 +110,20 @@ exports[`HomePage interaction suite user see hero modal 1`] = `
       >
         <Text>
           Test description
+        </Text>
+        <View
+          style={
+            Object {
+              "backgroundColor": "#999",
+              "height": 0.5,
+              "marginVertical": 10,
+            }
+          }
+        />
+        <Text>
+          Aparece em
+           um evento
+          .
         </Text>
       </View>
     </View>

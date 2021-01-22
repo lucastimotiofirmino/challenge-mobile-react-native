@@ -1,10 +1,28 @@
-import React, { memo } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 
-import { View, StyleSheet, Text, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+} from 'react-native';
+import { IHero } from '../common/interfaces';
 
 import BaseModal from '../components/BaseModal';
 
-const styles = StyleSheet.create({
+type Style = {
+  container: ViewStyle;
+  side: ViewStyle;
+  avatar: ImageStyle;
+  name: TextStyle;
+  descriptionBox: ViewStyle;
+  divider: ViewStyle;
+};
+
+const styles = StyleSheet.create<Style>({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -35,7 +53,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const HeroModal = ({ route }) => {
+type HeroModalProps = {
+  route: {
+    params: IHero;
+  };
+};
+
+const HeroModal: FunctionComponent<HeroModalProps> = ({ route }) => {
   const { name, description, avatar, numEvents } = route.params;
   return (
     <BaseModal>
