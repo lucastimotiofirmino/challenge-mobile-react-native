@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  StatusBar,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -35,12 +40,15 @@ const BaseModal = ({ children }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => dismissModal()}>
-      <View style={styles.container}>
-        <Icon name="close" style={styles.closeIcon} />
-        <View style={styles.modal}>{children}</View>
-      </View>
-    </TouchableWithoutFeedback>
+    <>
+      <StatusBar barStyle="dark-content" backgroundColor="rgba(0,0,0,0.7)" />
+      <TouchableWithoutFeedback onPress={() => dismissModal()}>
+        <View style={styles.container}>
+          <Icon name="close" style={styles.closeIcon} />
+          <View style={styles.modal}>{children}</View>
+        </View>
+      </TouchableWithoutFeedback>
+    </>
   );
 };
 
