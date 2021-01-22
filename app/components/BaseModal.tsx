@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 import {
   View,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create<Style>({
   },
 });
 
-const BaseModal: FunctionComponent = ({ children }) => {
+const BaseModal: React.FC = ({ children }) => {
   const navigation = useNavigation();
 
   const dismissModal = () => {

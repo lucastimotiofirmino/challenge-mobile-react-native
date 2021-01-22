@@ -1,4 +1,4 @@
-import React, { memo, FunctionComponent } from 'react';
+import React, { memo } from 'react';
 
 import {
   StyleSheet,
@@ -47,7 +47,7 @@ type FieldProps = {
   onPress?: Function | null;
 };
 
-const Field: FunctionComponent<FieldProps> = ({
+const Field: React.FC<FieldProps> = ({
   icon,
   text,
   onPress = null,

@@ -66,20 +66,20 @@ const InfoTextBar = ({ content }: { content: string }) => (
   <Text style={styles.info}>{content}</Text>
 );
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const flatListRef = useRef();
 
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState<string>('');
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [filtersParams, setFilterParam] = useState({
     offset: 0,
     alphabetOrder: true,
     searchQuery: '',
   });
 
-  const [onlyFavorites, setFavorites] = useState(false);
+  const [onlyFavorites, setFavorites] = useState<boolean>(false);
 
   const heroesNormal = useSelector((state: RootState) => state.heroes.heroes);
   const heroesNormalTotal = useSelector(

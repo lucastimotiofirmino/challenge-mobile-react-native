@@ -1,4 +1,4 @@
-import React, { useEffect, FunctionComponent } from 'react';
+import React, { useEffect } from 'react';
 
 import { StyleSheet, Animated, Easing, ImageStyle } from 'react-native';
 import icon from '../../assets/captain-icon.png';
@@ -22,7 +22,7 @@ type LoaderProps = {
   style?: ImageStyle;
 };
 
-const Loader: FunctionComponent<LoaderProps> = ({ style }) => {
+const Loader: React.FC<LoaderProps> = ({ style }) => {
   const spinAnimationValue = new Animated.Value(0);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { memo, FunctionComponent } from 'react';
+import React, { memo } from 'react';
 
 import {
   StyleSheet,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create<Style>({
   },
 });
 
-const HeroCard: FunctionComponent<IHero> = ({...hero}) => {
+const HeroCard: React.FC<IHero> = ({...hero}) => {
   const { name, avatar, favorite } = hero;
   const navigation = useNavigation();
   const dispatch = useDispatch();

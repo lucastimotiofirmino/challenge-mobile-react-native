@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from 'react';
+import React, { memo } from 'react';
 
 import {
   View,
@@ -59,7 +59,7 @@ type HeroModalProps = {
   };
 };
 
-const HeroModal: FunctionComponent<HeroModalProps> = ({ route }) => {
+const HeroModal: React.FC<HeroModalProps> = ({ route }) => {
   const { name, description, avatar, numEvents } = route.params;
   return (
     <BaseModal>
