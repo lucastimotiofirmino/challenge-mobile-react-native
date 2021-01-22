@@ -34,7 +34,7 @@ O projeto possue testes unitários e de interação do usuário com as funcional
 
 ## TypeScript vs Javascript
 O projeto possui 2 versões, ainda não possuia experiencia com desenvolvimento em typescript (requisito do projeto), desenvolvi o projeto primeiro em javascript e depois converti ele para typescript.
-1. A versão `javascript` se encontra na branch: 
+1. A versão `javascript` se encontra na branch: [javascript-version](https://github.com/eduduardo/challenge-mobile-react-native/tree/javascript-version)
 2. A versão `typescript` se encontra na `main`
 
 ----
@@ -50,16 +50,12 @@ O projeto possui 2 versões, ainda não possuia experiencia com desenvolvimento 
 5. [redux-thunk](https://github.com/reduxjs/redux-thunk) - utilizado para disparar as ações de forma assíncrona.
 6. [axios](https://github.com/axios/axios) - utilizado para cuidar melhor dos retornos das requests json vindas da API.
 
----
-
 ## Testes
 
 1. [jest](https://github.com/facebook/jest) - utilizado para a base dos testes.
 2. [@testing-library/react-native](https://github.com/callstack/react-native-testing-library) - utilizado para renderizar e manipular como usuário os components e pages do app.
 3. [redux-mock-store](https://github.com/reduxjs/redux-mock-store) - utilizado para mockar o redux
 4. [axios-mock-adapter](https://github.com/ctimmerm/axios-mock-adapter) - utilizado para mockar as requests para a API pelo axios.
-
-----
 
 ## Visual
 O logo foi feito utilizando o _logo maker_ do [Adobe Spark](https://spark.adobe.com/express-apps/logo-maker/).
