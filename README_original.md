@@ -14,7 +14,7 @@ A ideia é bem simples, queremos um aplicativo que nos mostre todos os personage
 - [x] Deverá disponibilizar dois filtros: nome do personagem e meus favoritos;
 
 ## Requisitos técnicos:
-- [] TypeScript;
+- [x] TypeScript;
 - [x] Redux;
 - [x] Usar persistência de dados; (a livre escolha de base.)
 
