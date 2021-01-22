@@ -26,6 +26,11 @@ https://www.youtube.com/watch?v=B4kV2NYTfJg
 4. Para rodar o projeto no android: `react-native run-android`
 5. Para rodar o projeto no iOS: `react-native run-ios`
 
+## Nota sobre as chaves API da marvel
+Pela documentação eles disponibilizam apenas o client-side pelo browser. O correto seria utilizar um proxy server ou colocar dentro de uma API para esconder a chave privada. Por hora e para simplificar optei por fazer a lógica do hash de cada request pelo lado do app mesmo.
+
+⚠️ Lembrando ser necessário ter configurado o `.env`!
+
 ### Como rodar manualmente no iOS
 1. Depois do `yarn install`
 2. Rode: `cd ios/ && pod install`
@@ -59,7 +64,9 @@ O projeto possui 2 versões, ainda não possuia experiencia com desenvolvimento 
 3. [react-native-elements](https://github.com/react-native-elements/react-native-elements) - utilizado para agilizar o design dos componentes básicos, principalmente da busca.
 4. [redux](https://github.com/reduxjs/redux) e [react-redux](https://github.com/reduxjs/react-redux) - gerenciamento do estado global da aplicação.
 5. [redux-thunk](https://github.com/reduxjs/redux-thunk) - utilizado para disparar as ações de forma assíncrona.
-6. [axios](https://github.com/axios/axios) - utilizado para cuidar melhor dos retornos das requests json vindas da API.
+6. [redux-persist](https://github.com/rt2zz/redux-persist) - utilizado para persistir os dados de favoritos
+7. [@react-native-async-storage](https://github.com/react-native-async-storage/async-storage) - utilizado pelo redux-persist para persistir os dados como AsyncStorage.
+8. [axios](https://github.com/axios/axios) - utilizado para cuidar melhor dos retornos das requests json vindas da API.
 
 ## Testes
 
