@@ -3,10 +3,6 @@ import md5 from 'crypto-js/md5';
 
 import { MARVEL_API_URL, MARVEL_API_PUBLIC, MARVEL_API_PRIVATE } from '@env';
 
-export function makeApiHash({ timestamp, privateKey, publicKey }) {
-  return md5(`${timestamp}${privateKey}${publicKey}`);
-}
-
 export const axiosInstance = axios.create({
   baseURL: MARVEL_API_URL,
 });
@@ -26,24 +22,39 @@ export function makeRequestParams({ method, body }) {
   };
 }
 
-async function request({ url, method = 'GET', body = null }) {
+export function makeApiHash({ timestamp, privateKey, publicKey }) {
+  return md5(`${timestamp}${privateKey}${publicKey}`);
+}
+
+export function appendHashToUrl({ hash, publicKey, timestamp }) {
+  return `&ts=${timestamp}&apikey=${publicKey}&hash=${hash}`;
+}
+
+async function request({
+  url,
+  method = 'GET',
+  body = null,
+  timestamp = new Date().getTime(),
+}) {
   const requestParams = makeRequestParams({
     method,
     body,
   });
 
-  const timestamp = new Date().getTime();
   const hash = makeApiHash({
     timestamp,
     publicKey: MARVEL_API_PUBLIC,
     privateKey: MARVEL_API_PRIVATE,
   });
-  const appendHashToUrl = `&ts=${timestamp}&apikey=${MARVEL_API_PUBLIC}&hash=${hash}`;
 
-  const finalUrl = `${url}${appendHashToUrl}`;
+  const appendUrl = appendHashToUrl({
+    timestamp,
+    hash,
+    publicKey: MARVEL_API_PUBLIC,
+  });
 
   return axiosInstance
-    .request({ url: finalUrl, ...requestParams })
+    .request({ url: `${url}${appendUrl}`, ...requestParams })
     .then((response) => response);
 }
 

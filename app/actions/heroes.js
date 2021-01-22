@@ -42,7 +42,7 @@ export const getHeroes = ({
         dispatch(fetchTotalAndReachEnd({ total, hasNext }));
         dispatch(fetchHeroes({ heroes: Object.values(results) }));
       })
-      .catch((error) => {
+      .catch(() => {
         Promise.reject(
           new Error('Houve um erro ao carregar, tente fazer o refresh!'),
         );

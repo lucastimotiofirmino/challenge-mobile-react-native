@@ -37,7 +37,10 @@ const MODAL_OPTIONS = {
 const LOGO_SIZE = 34;
 
 const Logo = () => (
-  <Image source={logoIcon} style={{ width: LOGO_SIZE, height: LOGO_SIZE, alignSelf: 'center' }} />
+  <Image
+    source={logoIcon}
+    style={{ width: LOGO_SIZE, height: LOGO_SIZE, alignSelf: 'center' }}
+  />
 );
 
 const MainStack = () => (

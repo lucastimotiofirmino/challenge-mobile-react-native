@@ -42,7 +42,7 @@ const heroes = (state = initialState, action) => {
         heroes: hereoesWithoutDuplicates.map((hero) => {
           return {
             ...hero,
-            // normalize the hero thumnail
+            // normalize the hero thumbnail
             avatar: `${hero.thumbnail.path}.${hero.thumbnail.extension}`,
             numEvents: `${hero.events.available}`,
             // recover and set favorite
