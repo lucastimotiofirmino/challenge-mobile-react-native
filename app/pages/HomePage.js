@@ -61,12 +61,14 @@ const HomePage = () => {
   const flatListRef = useRef();
 
   const [searchText, setSearchText] = useState('');
-  const [searchQuery, setSearch] = useState('');
 
   const [loading, setLoading] = useState(false);
-  const [offset, setOffset] = useState(0);
+  const [filtersParams, setFilterParam] = useState({
+    offset: 0,
+    alphabetOrder: true,
+    searchQuery: '',
+  });
 
-  const [alphabetOrder, setAlphabetOrder] = useState(true);
   const [onlyFavorites, setFavorites] = useState(false);
 
   const heroesNormal = useSelector((state) => state.heroes.heroes);
@@ -82,54 +84,56 @@ const HomePage = () => {
   const total = onlyFavorites ? heroes.length : heroesNormalTotal;
 
   resetList = () => {
-    setOffset(0);
     setLoading(false);
-    setSearch('');
     setSearchText('');
+    setFilterParam({ ...filtersParams, offset: 0, searchQuery: '' });
   };
 
   changeAndFetchOrder = async () => {
-    await setOffset(0);
-    setAlphabetOrder(!alphabetOrder);
+    setFilterParam({
+      ...filtersParams,
+      offset: 0,
+      alphabetOrder: !filtersParams.alphabetOrder,
+    });
   };
 
-  changeToFavorites = () => {
+  changeToFavoritesOrNot = () => {
     setFavorites(!onlyFavorites);
-
     if (flatListRef.current) {
       flatListRef.current.scrollToOffset({ animated: false, offset: 0 });
     }
   };
 
   fetchSearch = () => {
-    setOffset(0);
-    setSearch(searchText);
+    setFilterParam({ ...filtersParams, offset: 0, searchQuery: searchText });
   };
 
   fetchMore = () => {
     if (!loading && hasNextPage && searchText === '' && !onlyFavorites) {
-      setOffset(offset + CARD_LIMIT_PER_BATCH);
+      setFilterParam({
+        ...filtersParams,
+        offset: filtersParams.offset + CARD_LIMIT_PER_BATCH,
+      });
     }
   };
 
   useEffect(() => {
-    if (loading) return;
     if (onlyFavorites) return;
 
     setLoading(true);
 
     dispatch(
       getHeroes({
-        offset,
-        name: searchQuery,
-        orderBy: alphabetOrder ? 'name' : '-name',
+        offset: filtersParams.offset,
+        name: filtersParams.searchQuery,
+        orderBy: filtersParams.alphabetOrder ? 'name' : '-name',
       }),
     )
       .catch((error) => Alert.alert(error.message))
       .done(() => {
         setLoading(false);
       });
-  }, [searchQuery, alphabetOrder, offset]);
+  }, [filtersParams]);
 
   return (
     <View styles={styles.container}>
@@ -157,18 +161,18 @@ const HomePage = () => {
         <Field
           text="Meus favoritos"
           icon="star"
-          onPress={() => changeToFavorites()}
+          onPress={() => changeToFavoritesOrNot()}
           backgroundColor={onlyFavorites ? '#2E8C79' : '#44CBB1'}
         />
         {!onlyFavorites && (
           <Field
             text={
-              alphabetOrder
+              filtersParams.alphabetOrder
                 ? 'Ordem alfabética (a-z)'
                 : 'Ordem alfabética (z-a)'
             }
             backgroundColor="#44CBB1"
-            icon={alphabetOrder ? 'arrowdown' : 'arrowup'}
+            icon={filtersParams.alphabetOrder ? 'arrowdown' : 'arrowup'}
             onPress={() => changeAndFetchOrder()}
           />
         )}
@@ -203,7 +207,7 @@ const HomePage = () => {
         ListFooterComponent={
           loading && hasNextPage
             ? loader
-            : !hasNextPage && searchQuery === '' && endList
+            : !hasNextPage && filtersParams.searchQuery === '' && endList
         }
         getItemLayout={(data, index) => ({
           length: CARD_HEIGHT,
