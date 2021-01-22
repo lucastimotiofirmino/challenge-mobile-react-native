@@ -7,11 +7,14 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addHeroFavorite, removeHeroFavorite } from '../actions/favorite';
 import Icon from 'react-native-vector-icons/AntDesign';
+
+const { width } = Dimensions.get('screen');
 
 export const CARD_HEIGHT = 300; // utilized by the FlatList for optimization
 
@@ -41,17 +44,19 @@ const styles = StyleSheet.create({
   photo: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: 200,
-    width: 180,
+    width: width / 2 - 20,
+    height: 180,
   },
-  modalOpenIcon: {
+  modalOpenContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 9,
     backgroundColor: 'rgba(0, 0, 0, 0.35)',
     borderRadius: 20,
-    top: 5,
-    padding: 5,
-    right: 5,
-    position: 'absolute',
-    zIndex: 99,
+    padding: 8,
+  },
+  modalOpenIcon: {
     color: '#fff',
     fontSize: 18,
   },
@@ -84,7 +89,9 @@ const HeroCard = ({ ...hero }) => {
 
   const card = (
     <View style={styles.card}>
-      <Icon name="arrowsalt" style={styles.modalOpenIcon} />
+      <View style={styles.modalOpenContainer}>
+        <Icon name="arrowsalt" style={styles.modalOpenIcon} />
+      </View>
       <Image source={{ uri: avatar }} style={styles.photo} />
       <TouchableOpacity
         style={styles.actionButton}

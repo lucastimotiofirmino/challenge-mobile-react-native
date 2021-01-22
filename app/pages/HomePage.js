@@ -139,6 +139,7 @@ const HomePage = () => {
         searchIcon={searchIcon}
         cancelIcon={searchIcon}
         onSubmitEditing={() => fetchSearch()}
+        returnKeyType="search"
         clearIcon={
           <Icon
             name="close"
