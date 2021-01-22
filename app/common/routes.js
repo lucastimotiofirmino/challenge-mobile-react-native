@@ -1,15 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Image } from 'react-native';
+import HomePage from '../pages/HomePage';
+import HeroModal from '../pages/HeroModal';
+
+import logoIcon from '../../assets/logo-icon.png';
 
 const Stack = createStackNavigator();
-
-import HomePage from '../pages/HomePage';
-
-const commonScreens = {
-  HomePage: {
-    component: HomePage,
-  },
-};
 
 const SCREEN_OPTIONS = {
   headerTitleStyle: { alignSelf: 'center' },
@@ -17,20 +14,53 @@ const SCREEN_OPTIONS = {
   headerBackTitleVisible: false,
 };
 
+const MODAL_OPTIONS = {
+  headerShown: false,
+  cardStyle: { backgroundColor: 'rgba(0,0,0,0.5)' },
+  cardStyleInterpolator: ({ current: { progress } }) => ({
+    cardStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 0.5, 0.9, 1],
+        outputRange: [0, 0.25, 0.7, 1],
+      }),
+    },
+    overlayStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+        extrapolate: 'clamp',
+      }),
+    },
+  }),
+};
+
+const LOGO_SIZE = 34;
+
+const Logo = () => (
+  <Image source={logoIcon} style={{ width: LOGO_SIZE, height: LOGO_SIZE }} />
+);
+
+const MainStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Home"
+      component={HomePage}
+      options={{ headerTitle: () => <Logo /> }}
+    />
+  </Stack.Navigator>
+);
+
 const Routes = () => {
   return (
-    <Stack.Navigator screenOptions={SCREEN_OPTIONS}>
-      {Object.entries({
-        ...commonScreens,
-      }).map(([name, route]) => (
-        <Stack.Screen
-          key={name}
-          name={name}
-          component={route.component}
-          options={route.options}
-        />
-      ))}
+    <Stack.Navigator mode="modal" screenOptions={MODAL_OPTIONS}>
+      <Stack.Screen
+        name="Main"
+        component={MainStack}
+        options={SCREEN_OPTIONS}
+      />
+      <Stack.Screen name="HeroModal" component={HeroModal} />
     </Stack.Navigator>
   );
 };
+
 export default Routes;
