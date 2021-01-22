@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
+    "test": "jest --maxWorkers=1 --verbose",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -14,7 +14,10 @@
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.9.0",
     "@react-navigation/stack": "^5.13.0",
+    "@testing-library/jest-native": "^3.4.3",
+    "@testing-library/react-native": "^7.1.0",
     "axios": "^0.21.1",
+    "axios-mock-adapter": "^1.19.0",
     "babel-plugin-dotenv-import": "^2.1.0",
     "crypto-js": "3.2.0",
     "react": "16.13.1",
@@ -27,6 +30,8 @@
     "react-navigation": "^4.4.3",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
+    "redux-mock-store": "^1.5.4",
+    "redux-mock-store-await-actions": "^2.1.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0"
   },

@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`suite simple components renders renders correctly the custom loader component 1`] = `
+<Image
+  source={
+    Object {
+      "process": [Function],
+    }
+  }
+  style={
+    Object {
+      "alignSelf": "center",
+      "height": 42,
+      "marginVertical": 10,
+      "transform": Array [
+        Object {
+          "rotate": "0deg",
+        },
+      ],
+      "width": 42,
+    }
+  }
+/>
+`;
+
+exports[`suite simple components renders renders correctly the field component 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderRadius": 25,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginRight": 5,
+        "paddingHorizontal": 20,
+        "paddingVertical": 8,
+      },
+      Object {
+        "backgroundColor": "#F67571",
+      },
+    ]
+  }
+  testID="fieldbutton"
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 12,
+        },
+        Object {
+          "color": "#fff",
+          "fontSize": 18,
+          "marginRight": 10,
+        },
+        Object {
+          "fontFamily": "anticon",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <Text
+    numberOfLines={1}
+    style={
+      Object {
+        "color": "#fff",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "textAlign": "center",
+      }
+    }
+  >
+    TestContentField
+  </Text>
+</View>
+`;
+
+exports[`suite simple components renders renders correctly the hero card component 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#ededed",
+      "borderRadius": 10,
+      "elevation": 2,
+      "marginBottom": 15,
+      "marginHorizontal": 5,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 1,
+        "width": 1,
+      },
+      "shadowOpacity": 0.2,
+      "shadowRadius": 0.5,
+    }
+  }
+  testID="cardHero"
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      Array [
+        Object {
+          "color": undefined,
+          "fontSize": 12,
+        },
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.35)",
+          "borderRadius": 20,
+          "color": "#fff",
+          "fontSize": 18,
+          "padding": 5,
+          "position": "absolute",
+          "right": 5,
+          "top": 5,
+          "zIndex": 99,
+        },
+        Object {
+          "fontFamily": "anticon",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <Image
+    source={
+      Object {
+        "uri": "test",
+      }
+    }
+    style={
+      Object {
+        "borderTopLeftRadius": 10,
+        "borderTopRightRadius": 10,
+        "height": 200,
+        "width": 180,
+      }
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FAA367",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "opacity": 1,
+        "padding": 10,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": "#333",
+            "fontSize": 18,
+          },
+          undefined,
+          Object {
+            "fontFamily": "anticon",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#333",
+          "marginLeft": 8,
+        }
+      }
+    >
+      Favoritar
+    </Text>
+  </View>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "fontSize": 20,
+        "fontWeight": "bold",
+        "marginVertical": 20,
+        "maxWidth": 140,
+        "textAlign": "center",
+      }
+    }
+  >
+    Wolverine
+  </Text>
+</View>
+`;
