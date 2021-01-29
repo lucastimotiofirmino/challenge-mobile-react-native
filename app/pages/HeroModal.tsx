@@ -77,7 +77,7 @@ const HeroModal: React.FC<HeroModalProps> = ({ route }) => {
               {numEvents > 0 && (
                 <Text>
                   Aparece em
-                  {numEvents == 1 ? ' um evento' : ` ${numEvents} eventos`}.
+                  {numEvents === 1 ? ' um evento' : ` ${numEvents} eventos`}.
                 </Text>
               )}
             </>

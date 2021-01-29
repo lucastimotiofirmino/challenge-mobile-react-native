@@ -46,11 +46,13 @@ const heroes = (state = initialState, action: HeroActionTypes): HeroState => {
             ...hero,
             // normalize the hero thumbnail
             avatar: `${hero.thumbnail?.path}.${hero.thumbnail?.extension}`,
-            numEvents: hero.events?.available ? Number(hero.events.available) : 0,
+            numEvents: hero.events?.available
+              ? Number(hero.events.available)
+              : 0,
             // recover and set favorite
             favorite: Boolean(
               state.favorites.find(
-                (heroFavorite) => heroFavorite.id == hero.id,
+                (heroFavorite) => heroFavorite.id === hero.id,
               ),
             ),
           };
