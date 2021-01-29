@@ -6,10 +6,10 @@ export interface IHero {
   numEvents: number;
   favorite?: boolean;
   thumbnail?: {
-    path: string,
-    extension: string,
-  },
+    path: string;
+    extension: string;
+  };
   events?: {
-    available?: number,
-  }
+    available?: number;
+  };
 }
