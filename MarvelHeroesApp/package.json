@@ -12,7 +12,6 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/md5": "^2.3.0",
-    "@types/react-native-dotenv": "^0.2.0",
     "@types/styled-components": "^5.1.7",
     "axios": "^0.21.1",
     "md5": "^2.3.0",
