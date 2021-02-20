@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import md5 from 'md5';
-import {FlatList, ImageBackground, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../../services/api';
+import {FlatList, ImageBackground, View} from 'react-native';
 import HeroesItem from '../../components/HeroesItem';
 import Description from '../../components/ModalDescription';
 import Search from '../../components/Search';
-import Favorite from '../../components/Favorites';
+import Favorite from '../../components/FavoriteButton';
+
 import ImgBackground from '../../assets/background.png';
+
+// import {PUBLIC_KEY, PRIVATE_KEY} from 'react-native-dotenv';
 
 export interface HeroItem {
   id: number;
@@ -30,21 +33,25 @@ interface Content {
   items: EventSummary[];
 }
 
-const CounterHeroes = 50;
+const CounterHeroes = 100;
 
 const HeroesList = ({navigation}:any) => {
+  // const private_key = PRIVATE_KEY;
+  // const public_key = PUBLIC_KEY;
   const private_key = '16054b8676397e756f32eb9f7e046e9aba8ff7a7';
   const public_key = 'f59b847961cec317a25fb4ef49d6a938';
+  
 
   const timeStamp = 'timeStamp';
   const hash = md5(timeStamp + private_key + public_key);
+  
+  // console.log(heroes.map((hero) => hero.name));
+
   const [heroes, setHeroes] = useState<HeroItem[]>([]);
-  console.log(heroes.map((hero) => hero.name));
   const [offset, setoffset] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [touchedHero, setTouchedHero] = useState<HeroItem | undefined>();
-
   const [favoritedHeroIds, setFavoriteHeroIds] = useState<number[]>([]);
   
   const getHeroes = async () => {
@@ -52,7 +59,7 @@ const HeroesList = ({navigation}:any) => {
       `/characters?&ts=${timeStamp}&apikey=${public_key}&hash=${hash}&limit=${CounterHeroes}&offset=${offset}`,
     );
 
-    const newHeroes = response.data.data.results;
+  const newHeroes = response.data.data.results;
     setHeroes((previousHeroes) => [...previousHeroes, ...newHeroes]);
   };
 
@@ -70,7 +77,6 @@ const HeroesList = ({navigation}:any) => {
   }
 
   const unfavoritingHero = async(heroId: number) => {
-
     const newFavoriteHeroesIds = favoritedHeroIds.filter( id => id != heroId )
     const parsedFavoriteString = JSON.stringify(newFavoriteHeroesIds) 
     await AsyncStorage.setItem('@favorited', parsedFavoriteString)
@@ -90,14 +96,9 @@ const HeroesList = ({navigation}:any) => {
     })
   }, [])
 
-  const favoritedHeroes = heroes.filter(hero => favoritedHeroIds.includes(hero.id))
-
-
   return (
     <View style={{flex: 1}} >
       <ImageBackground source={ImgBackground} style={{flex: 1}}>
-
-      
         <Search
           onEndSearch={(textToFind) => {
             if (!textToFind) {
