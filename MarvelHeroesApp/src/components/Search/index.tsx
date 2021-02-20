@@ -14,7 +14,7 @@ const Search: React.FC <SearchProps>  = ({onEndSearch}) => {
         <IconContainer>
             <Image source={SearchIcon} />
         </IconContainer>
-        <SearchInput onChangeText = { (value:string) => setTextToFind(value)} value={textToFind} onBlur={() => onEndSearch(textToFind) } ></SearchInput>
+        <SearchInput placeholder="Search your Hero" onChangeText = { (value:string) => setTextToFind(value)} value={textToFind} onBlur={() => onEndSearch(textToFind) } ></SearchInput>
     </Container>
   );
 };

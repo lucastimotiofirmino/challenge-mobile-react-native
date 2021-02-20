@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Container, Image} from './styles';
-import {Text, Button} from 'react-native';
+import {Container, Image, HeroName, HeroDescription, HeroEvents, HeroSeries, Text} from './styles';
 import {HeroItem} from '../../screens/HeroesList'
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface ModalProps {
   visible: boolean;
@@ -13,16 +13,19 @@ const Description: React.FC <ModalProps> = ({visible, onRequestClose, touchedHer
   return (
     <Container visible={visible} onRequestClose={onRequestClose}>
       <Image source={{uri: `${touchedHero?.thumbnail.path}.${touchedHero?.thumbnail.extension}`}}/>
-      <Text> {touchedHero?.name} </Text>
-      <Text> {touchedHero?.description} </Text>
-      <Text>Events</Text>
-      {touchedHero?.events.items.map((event)=>{
-        return <Text> {event.name} </Text>
+      <HeroName> {touchedHero?.name} </HeroName>
+      <HeroDescription> {touchedHero?.description} </HeroDescription>
+      <ScrollView>
+      <Text >Events</Text>
+      {touchedHero?.events.items.map((event, index)=>{
+        return <HeroEvents key={index}> {event.name} </HeroEvents>
       })}
       <Text>Series</Text>
-      {touchedHero?.series.items.map((serie)=>{
-        return <Text> {serie.name} </Text>
+      {touchedHero?.series.items.map((serie, index)=>{
+        return <HeroSeries key={index}> {serie.name} </HeroSeries>
       })}
+      </ScrollView>
+
     </Container>
   );
 };
