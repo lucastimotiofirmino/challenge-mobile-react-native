@@ -1,4 +1,4 @@
-interface Character {
+export interface Character {
   id: string
   name: string
   description: string
@@ -8,6 +8,4 @@ interface Character {
   }
 }
 
-export interface Characters {
-  [id: string]: Character
-}
+export type Characters = Array<Character>

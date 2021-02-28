@@ -3,11 +3,15 @@ import { createSlice } from '@reduxjs/toolkit'
 interface State {
   fetching: boolean
   error: boolean
+  offset: number
+  limit: number
 }
 
 const initialState: State = {
   fetching: false,
-  error: false
+  error: false,
+  offset: 0,
+  limit: 20
 }
 
 const charactersUiSlice = createSlice({
@@ -25,6 +29,7 @@ const charactersUiSlice = createSlice({
     success: (state) => {
       state.fetching = false
       state.error = false
+      state.offset += state.limit
     }
   }
 })

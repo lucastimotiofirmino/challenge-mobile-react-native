@@ -3,13 +3,13 @@ import { Provider } from 'react-redux'
 
 import store from './store'
 
-import Characters from './views/Characters'
+import CharactersScreen from './views/CharactersScreen'
 
 import './config/Reactotron'
 
 const App = () => (
   <Provider store={store}>
-    <Characters />
+    <CharactersScreen />
   </Provider>
 )
 

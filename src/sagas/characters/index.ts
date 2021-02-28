@@ -1,16 +1,18 @@
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 import { AxiosResponse } from 'axios'
 
 import api from '../../services/api'
 
 import { charactersActions } from '../../store/characters'
 
-import { Characters } from '../../entities'
+import { Character, Characters } from '../../entities'
 
 export function* fetchCharacters() {
    try {
+      const { offset, limit } = yield select(state => state.ui.characters)
+
       const response: AxiosResponse = yield call(
-        () => api.get('/characters?orderBy=name&ts=1&apikey=881c88e27f2ea86fac39d6ee4156fbd1&hash=f1b660c39d1bcd3047d0d241a5b86357')
+        () => api.get(`/characters?orderBy=name&offset=${offset}&limit=${limit}&ts=1&apikey=881c88e27f2ea86fac39d6ee4156fbd1&hash=f1b660c39d1bcd3047d0d241a5b86357`)
       )
 
       if (!response.data) {
@@ -18,18 +20,12 @@ export function* fetchCharacters() {
         return
       }
 
-      const { results } = response.data.data
-
-      // @ts-ignore
-      const characters: Characters = results.reduce((items, item) => ({
-         ...items,
-         [item.id]: {
-            id: item.id,
-            name: item.name,
-            description: item.description,
-            thumbnail: item.thumbnail
-         }
-      }), {})
+      const characters: Characters = response.data.data.results.map((item: Character) => ({
+         id: item.id,
+         name: item.name,
+         description: item.description,
+         thumbnail: item.thumbnail
+      }))
 
       yield put(charactersActions.entity.set(characters))
       yield put(charactersActions.ui.success())

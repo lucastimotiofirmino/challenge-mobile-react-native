@@ -1,16 +1,16 @@
-import { createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Characters } from '../../entities'
 
-type State = Characters | null
+const initialState: Characters = []
 
-const initialState: State = null
-
-const charactersEntitySlice = createSlice<State, SliceCaseReducers<State>>({
+const charactersEntitySlice = createSlice({
   name: 'characters/entity',
   initialState,
   reducers: {
-    set: (_, action: PayloadAction<Characters>) => action.payload
+    set: (state, action: PayloadAction<Characters>) => {
+      state.push(...action.payload)
+    }
   }
 })
 
