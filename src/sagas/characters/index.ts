@@ -10,7 +10,7 @@ import { Characters } from '../../entities'
 export function* fetchCharacters() {
    try {
       const response: AxiosResponse = yield call(
-        () => api.get('/characters?ts=1&apikey=881c88e27f2ea86fac39d6ee4156fbd1&hash=f1b660c39d1bcd3047d0d241a5b86357&orderBy=name')
+        () => api.get('/characters?orderBy=name&ts=1&apikey=881c88e27f2ea86fac39d6ee4156fbd1&hash=f1b660c39d1bcd3047d0d241a5b86357')
       )
 
       if (!response.data) {
