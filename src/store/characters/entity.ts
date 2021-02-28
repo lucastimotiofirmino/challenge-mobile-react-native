@@ -1,16 +1,6 @@
 import { createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit'
 
-interface Characters {
-  [id: string]: {
-    id: string
-    name: string
-    description: string
-    thumbnail: {
-      path: string
-      extension: string
-    }
-  }
-}
+import { Characters } from '../../entities'
 
 type State = Characters | null
 
