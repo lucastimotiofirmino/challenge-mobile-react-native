@@ -1,7 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+// @ts-ignore
+import Reactotron from '../config/Reactotron'
+
 const store = configureStore({
-  reducer: () => {}
+  reducer: () => {},
+  // @ts-ignore
+  enhancers: [Reactotron.createEnhancer()]
 })
 
 export default store
