@@ -5,6 +5,8 @@ import api from '../../services/api'
 
 import { charactersActions } from '../../store/characters'
 
+import { Characters } from '../../entities'
+
 export function* fetchCharacters() {
    try {
       const response: AxiosResponse = yield call(
@@ -16,7 +18,19 @@ export function* fetchCharacters() {
         return
       }
 
-      const { data: characters } = response.data
+      const { results } = response.data.data
+
+      // @ts-ignore
+      const characters: Characters = results.reduce((items, item) => ({
+         ...items,
+         [item.id]: {
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            thumbnail: item.thumbnail
+         }
+      }), {})
+
       yield put(charactersActions.entity.set(characters))
       yield put(charactersActions.ui.success())
    } catch (error) {
