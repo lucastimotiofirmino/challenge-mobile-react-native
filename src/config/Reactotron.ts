@@ -18,6 +18,8 @@ if (__DEV__) {
     .connect()
 
   reactotron.clear()
+
+  console.tron = reactotron
 }
 
 export default reactotron
