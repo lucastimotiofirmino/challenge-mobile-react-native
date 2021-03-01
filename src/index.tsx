@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import store from './store'
 
 import CharactersScreen from './views/CharactersScreen'
+import CharacterDetailsScreen from './views/CharacterDetailsScreen'
 
 import './config/Reactotron'
 
@@ -19,6 +20,11 @@ const App = () => (
         <Stack.Screen
           name="Characters"
           component={CharactersScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CharacterDetails"
+          component={CharacterDetailsScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
