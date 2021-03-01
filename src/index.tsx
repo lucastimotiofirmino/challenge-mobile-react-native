@@ -20,12 +20,20 @@ const App = () => (
         <Stack.Screen
           name="Characters"
           component={CharactersScreen}
-          options={{ headerShown: false }}
+          options={{
+            headerTitle: 'Marvel',
+            headerStyle: { backgroundColor: '#f30' },
+            headerTitleStyle: { color: '#fff' }
+          }}
         />
         <Stack.Screen
           name="CharacterDetails"
           component={CharacterDetailsScreen}
-          options={{ headerShown: false }}
+          options={{
+            headerTitle: 'Marvel',
+            headerStyle: { backgroundColor: '#f30' },
+            headerTitleStyle: { color: '#fff' }
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
