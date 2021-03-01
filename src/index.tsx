@@ -30,7 +30,7 @@ const App = () => (
           name="CharacterDetails"
           component={CharacterDetailsScreen}
           options={{
-            headerTitle: 'Marvel',
+            headerTitle: 'Marvel - Character Details',
             headerStyle: { backgroundColor: '#f30' },
             headerTitleStyle: { color: '#fff' }
           }}
