@@ -7,6 +7,8 @@ import { Characters, SeriesList, Events } from '../../entities'
 
 import { characterDetailsActions } from '../../store/characterDetails'
 
+import styles from './styles'
+
 const CharacterDetailsScreen = () => {
   const dispatch = useDispatch()
 
@@ -32,12 +34,11 @@ const CharacterDetailsScreen = () => {
 
   return (
     <SafeAreaView>
-      <Text>Character Details</Text>
-      <Text>{selectedCharacter.description}</Text>
-      <TouchableOpacity onPress={fetchSeries}>
+      <Text style={styles.description}>{selectedCharacter.description || 'No description for this character'}</Text>
+      <TouchableOpacity style={styles.containerButtons} onPress={fetchSeries}>
         <Text>Series</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={fetchEvents}>
+      <TouchableOpacity style={styles.containerButtons} onPress={fetchEvents}>
         <Text>Events</Text>
       </TouchableOpacity>
 
@@ -48,13 +49,15 @@ const CharacterDetailsScreen = () => {
         onBackButtonPress={() => setShowModalSeries(false)}
       >
         <View style={{ backgroundColor: '#fff', height: 400, margin: 0 }}>
-          <ScrollView>
+          <ScrollView contentContainerStyle={{ paddingBottom: 16 }}>
             {series.map(seriesItem => (
               <Fragment key={seriesItem.id}>
-                <Text>{seriesItem.title}</Text>
-                <Text>{seriesItem.description}</Text>
-                <Text>{seriesItem.startYear}</Text>
-                <Text>{seriesItem.endYear}</Text>
+                <Text style={styles.modalTitle}>{seriesItem.title}</Text>
+                <Text style={styles.modalDescription}>
+                  {seriesItem.description || 'No description for this character'}
+                </Text>
+                <Text style={styles.modalStartDate}>Start year: {seriesItem.startYear}</Text>
+                <Text style={styles.modalEndDate}>End year: {seriesItem.endYear}</Text>
               </Fragment>
             ))}
           </ScrollView>
@@ -68,13 +71,13 @@ const CharacterDetailsScreen = () => {
         onBackButtonPress={() => setShowModalEvents(false)}
       >
         <View style={{ backgroundColor: '#fff', height: 400, margin: 0 }}>
-          <ScrollView>
+          <ScrollView contentContainerStyle={{ paddingBottom: 16 }}>
             {events.map(event => (
               <Fragment key={event.id}>
-                <Text>{event.title}</Text>
-                <Text>{event.description}</Text>
-                <Text>{event.start}</Text>
-                <Text>{event.end}</Text>
+                <Text style={styles.modalTitle}>{event.title}</Text>
+                <Text style={styles.modalDescription}>{event.description}</Text>
+                <Text style={styles.modalStartDate}>{event.start}</Text>
+                <Text style={styles.modalEndDate}>{event.end}</Text>
               </Fragment>
             ))}
           </ScrollView>
