@@ -21,18 +21,18 @@ const App = () => (
           name="Characters"
           component={CharactersScreen}
           options={{
-            headerTitle: 'Marvel',
+            headerTitle: 'MARVEL',
             headerStyle: { backgroundColor: '#f30' },
-            headerTitleStyle: { color: '#fff' }
+            headerTitleStyle: { color: '#fff', fontWeight: 'bold' }
           }}
         />
         <Stack.Screen
           name="CharacterDetails"
           component={CharacterDetailsScreen}
           options={{
-            headerTitle: 'Marvel - Character Details',
+            headerTitle: 'MARVEL - Character Details',
             headerStyle: { backgroundColor: '#f30' },
-            headerTitleStyle: { color: '#fff' }
+            headerTitleStyle: { color: '#fff', fontWeight: 'bold' }
           }}
         />
       </Stack.Navigator>
