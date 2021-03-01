@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Text, FlatList, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 import { Character, Characters } from '../../entities'
 
@@ -8,6 +9,8 @@ import { charactersActions } from '../../store/characters'
 
 const CharactersScreen = () => {
   const dispatch = useDispatch()
+
+  const navigation = useNavigation()
 
   const characters = useSelector((state): Characters => state.entity?.characters || [])
   const fetching = useSelector((state): boolean => state.ui.characters.fetching)
@@ -20,12 +23,17 @@ const CharactersScreen = () => {
     dispatch(charactersActions.ui.request())
   }
 
+  const onPressCharacter = (characterId: string) => {
+    dispatch(charactersActions.ui.selectCharacter(characterId))
+    navigation.navigate('CharacterDetails')
+  }
+
   useEffect(() => {
     fetchCharacters()
   }, [])
 
   const renderItem = ({ item }: { item: Character }) => (
-    <TouchableOpacity onPress={() => console.tron.log(item.id)}>
+    <TouchableOpacity onPress={() => onPressCharacter(item.id)}>
       <Text style={{ marginVertical: 5 }}>
         {item.name}
       </Text>
