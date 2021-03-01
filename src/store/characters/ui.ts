@@ -5,7 +5,7 @@ interface State {
   error: boolean
   offset: number
   limit: number
-  selectedCharacter: string
+  selectedCharacterId: string
 }
 
 const initialState: State = {
@@ -13,7 +13,7 @@ const initialState: State = {
   error: false,
   offset: 0,
   limit: 20,
-  selectedCharacter: ''
+  selectedCharacterId: ''
 }
 
 const charactersUiSlice = createSlice({
@@ -34,7 +34,7 @@ const charactersUiSlice = createSlice({
       state.offset += state.limit
     },
     selectCharacter: (state, action: PayloadAction<string>) => {
-      state.selectedCharacter = action.payload
+      state.selectedCharacterId = action.payload
     }
   }
 })
