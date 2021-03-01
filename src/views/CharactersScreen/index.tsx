@@ -4,9 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import CharacterCard from '../../components/CharacterCard'
+
 import { Character, Characters } from '../../entities'
 
 import { charactersActions } from '../../store/characters'
+
+import styles from './styles'
 
 const CharactersScreen = () => {
   const STORAGE_KEY_FAVORITES = 'favoritesCharacters'
@@ -86,6 +90,8 @@ const CharactersScreen = () => {
     dispatch(charactersActions.ui.setCharacterName(characterName))
   }
 
+  const isFavoriteCharacter = (characterId: string) => favoritesCharactersIds.includes(characterId)
+
   useEffect(() => {
     fetchCharacters()
     fetchFavoritesCharacters()
@@ -96,37 +102,34 @@ const CharactersScreen = () => {
   }, [favoritesCharacters])
 
   const renderItem = ({ item }: { item: Character }) => (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <TouchableOpacity onPress={() => onPressCharacter(item.id)}>
-        <Text style={{ marginVertical: 10 }}>
-          {item.name}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onPressFavorite(item)}>
-        <Text>
-         {favoritesCharactersIds.includes(item.id) ? '(Remover favorito)' : '(Adicionar favorito)'}
-        </Text>
-      </TouchableOpacity>
-    </View>
+    <CharacterCard
+      character={item}
+      isFavorite={isFavoriteCharacter(item.id)}
+      onPressCharacter={() => onPressCharacter(item.id)}
+      onPressFavorite={onPressFavorite}
+    />
   )
 
   return (
     <SafeAreaView>
-      <TouchableOpacity onPress={() => setfavoritesCharactersVisible(!favoritesCharactersVisible)}>
-        <Text>{favoritesCharactersVisible ? 'Exibir todos' : 'Apenas favoritos'}</Text>
+      <TouchableOpacity style={styles.containerTextFavorites} onPress={() => setfavoritesCharactersVisible(!favoritesCharactersVisible)}>
+        <Text style={styles.textFavotires}>{favoritesCharactersVisible ? 'Show all' : 'Show only favorites'}</Text>
       </TouchableOpacity>
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        style={styles.textInput}
         onChangeText={onChangeCharacterName}
         value={characterName}
+        placeholder="Busque um personagem"
       />
       <FlatList
-        contentContainerStyle={{ alignItems: 'center' }}
+        style={styles.containerFlatList}
+        contentContainerStyle={styles.contentContainerFlatList}
         data={filteredCharacters}
         renderItem={renderItem}
         keyExtractor={item => String(item.id)}
         onEndReached={characterName ? () => {} : fetchCharacters}
         onEndReachedThreshold={0.1}
+        numColumns={3}
       />
     </SafeAreaView>
   )
