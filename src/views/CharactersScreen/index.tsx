@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import { Text, FlatList, TouchableOpacity, View, SafeAreaView } from 'react-native'
+import { Text, FlatList, TouchableOpacity, View, SafeAreaView, TextInput } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -17,9 +17,11 @@ const CharactersScreen = () => {
 
   const characters = useSelector((state): Characters => state.entity.characters || [])
   const fetching = useSelector((state): boolean => state.ui.characters.fetching)
+  const characterName = useSelector((state): string => state.ui.characters.characterName || '')
 
   const [favoritesCharacters, setFavoritesCharacters] = useState<Characters>([])
   const [favoritesCharactersVisible, setfavoritesCharactersVisible] = useState<boolean>(false)
+  const [timeoutId, setTimeoutId] = useState<number>(0)
 
   const fetchCharacters = () => {
     if (fetching) {
@@ -73,6 +75,17 @@ const CharactersScreen = () => {
     return characters
   }, [favoritesCharactersVisible, favoritesCharacters, characters])
 
+  const onChangeCharacterName = (characterName: string) => {
+    clearTimeout(timeoutId)
+
+    const newTimeoutId = setTimeout(() => {
+      dispatch(charactersActions.ui.requestByName())
+    }, 2000)
+    setTimeoutId(Number(newTimeoutId))
+    
+    dispatch(charactersActions.ui.setCharacterName(characterName))
+  }
+
   useEffect(() => {
     fetchCharacters()
     fetchFavoritesCharacters()
@@ -102,12 +115,17 @@ const CharactersScreen = () => {
       <TouchableOpacity onPress={() => setfavoritesCharactersVisible(!favoritesCharactersVisible)}>
         <Text>{favoritesCharactersVisible ? 'Exibir todos' : 'Apenas favoritos'}</Text>
       </TouchableOpacity>
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        onChangeText={onChangeCharacterName}
+        value={characterName}
+      />
       <FlatList
         contentContainerStyle={{ alignItems: 'center' }}
         data={filteredCharacters}
         renderItem={renderItem}
         keyExtractor={item => String(item.id)}
-        onEndReached={fetchCharacters}
+        onEndReached={characterName ? () => {} : fetchCharacters}
         onEndReachedThreshold={0.1}
       />
     </SafeAreaView>

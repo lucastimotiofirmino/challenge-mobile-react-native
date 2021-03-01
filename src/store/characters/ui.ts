@@ -6,6 +6,7 @@ interface State {
   offset: number
   limit: number
   selectedCharacterId: string
+  characterName: string
 }
 
 const initialState: State = {
@@ -13,7 +14,8 @@ const initialState: State = {
   error: false,
   offset: 0,
   limit: 20,
-  selectedCharacterId: ''
+  selectedCharacterId: '',
+  characterName: ''
 }
 
 const charactersUiSlice = createSlice({
@@ -35,7 +37,14 @@ const charactersUiSlice = createSlice({
     },
     selectCharacter: (state, action: PayloadAction<string>) => {
       state.selectedCharacterId = action.payload
-    }
+    },
+    setCharacterName: (state, action: PayloadAction<string>) => {
+      state.characterName = action.payload
+    },
+    requestByName: (state) => {
+      state.fetching = true
+      state.error = false
+    },
   }
 })
 

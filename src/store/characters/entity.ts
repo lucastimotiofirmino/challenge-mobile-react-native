@@ -8,9 +8,10 @@ const charactersEntitySlice = createSlice({
   name: 'characters/entity',
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<Characters>) => {
+    add: (state, action: PayloadAction<Characters>) => {
       state.push(...action.payload)
-    }
+    },
+    set: (state, action: PayloadAction<Characters>) => action.payload
   }
 })
 
