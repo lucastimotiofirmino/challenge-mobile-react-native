@@ -11,7 +11,7 @@ import CharacterDetailsScreen from './views/CharacterDetailsScreen'
 
 import './config/Reactotron'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 const App = () => (
   <Provider store={store}>
