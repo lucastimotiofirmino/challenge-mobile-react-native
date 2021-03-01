@@ -8,13 +8,16 @@ import rootSaga from '../sagas'
 import Reactotron from '../config/Reactotron'
 
 import charactersReducers from './characters'
+import characterDetailsReducers from './characterDetails'
 
 const uiReducers = combineReducers({
-  characters: charactersReducers.ui
+  characters: charactersReducers.ui,
+  characterDetails: characterDetailsReducers.ui
 })
 
 const entityReducers = combineReducers({
-  characters: charactersReducers.entity
+  characters: charactersReducers.entity,
+  characterDetails: characterDetailsReducers.entity
 })
 
 export const rootReducer = combineReducers({
