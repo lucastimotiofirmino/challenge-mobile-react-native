@@ -22,3 +22,14 @@ export interface Series {
 }
 
 export type SeriesList = Array<Series>
+
+export interface Event {
+  id: number
+  title: string
+  description: string
+  start: number
+  end: number
+  thumbnail: Thumbnail
+}
+
+export type Events = Array<Event>
