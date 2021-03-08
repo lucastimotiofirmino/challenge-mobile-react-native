@@ -2,7 +2,9 @@ import api from '../config'
 import * as Crypto from 'expo-crypto';
 
 // @ts-ignore
-import { PRIVATE_KEY, PUBLIC_KEY } from "@env"
+// import { PRIVATE_KEY, PUBLIC_KEY } from "@env"
+const PRIVATE_KEY = '59c9148256c53a4e893757b99c79451a52ca13f1'
+const PUBLIC_KEY = '579404ea50d2ea65d249b1221c84762f'
 
 async function createHash(timeStamp: any) {
     const prevHash = timeStamp + PRIVATE_KEY + PUBLIC_KEY;
