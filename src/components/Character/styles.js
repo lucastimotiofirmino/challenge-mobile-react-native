@@ -1,15 +1,22 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
   characterList: {
-    marginTop: 32
+    marginTop: 22,
+    width: Dimensions.get('window').width ,
+    
   },
 
   character: {
     padding: 24,
     borderRadius: 8,
     backgroundColor: '#FFF',
-    marginBottom: 16
+    marginBottom: 16,
+    width: Dimensions.get('window').width / 2.62 ,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex:1,
+    margin: 10
   },
 
   characterName: {

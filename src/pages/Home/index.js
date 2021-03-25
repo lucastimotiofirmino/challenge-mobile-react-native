@@ -21,6 +21,7 @@ export default function Home() {
       <Text style={styles.description}>Selecione um personagem para saber mais sobre séries e eventos</Text>
 
       <CharacterList />
+     
 
       <Filter teste={setFiltro} titulo="aeae" />
 
