@@ -1,8 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Provider } from 'react-redux';
 
-import Login from '~/views/Login';
+import store from './store';
 
-const App = () => <View style={{ flex: 1, backgroundColor: 'black' }} />;
+import Application from '~/routes';
+
+const App = () => (
+  <Provider store={store}>
+    <Application />
+  </Provider>
+);
 
 export default App;
