@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Image, Text } from 'react-native'
 
 import Filter from '../../components/Filter'
+import CharacterList from '../../components/Character'
 
 import logoImg from '../../assets/logo/logo.png'
 
@@ -18,6 +19,9 @@ export default function Home() {
 
       <Text style={styles.title}>Bem-vindo!</Text>
       <Text style={styles.description}>Selecione um personagem para saber mais sobre séries e eventos</Text>
+
+      <CharacterList />
+
       <Filter teste={setFiltro} titulo="aeae" />
 
       {
