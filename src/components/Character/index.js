@@ -4,8 +4,11 @@ import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles'
 
-export default function Character() {
+export default function Character(props) {
   const navigation = useNavigation()
+
+  console.log("ENTREIIIIIIIII")
+  console.log(props)
 
   function navigateToDetail() {
     navigation.navigate('Detail')
@@ -16,12 +19,12 @@ export default function Character() {
       <FlatList 
         style={styles.characterList}
         numColumns={2}
-        data={[1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]}
-        keyExtractor={character => String(character)}
-        renderItem={() => (
+        data={props.lista}
+        keyExtractor={character => String(character.id)}
+        renderItem={({ item: character }) => (
           <TouchableOpacity onPress={navigateToDetail}>
             <View style={styles.character} ontouchableO >
-              <Text style={styles.characterName}>Nome</Text>
+              <Text style={styles.characterName}>{character.name}</Text>
             </View>
           </TouchableOpacity>
         )}

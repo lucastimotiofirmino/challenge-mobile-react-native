@@ -22,6 +22,7 @@ export default StyleSheet.create({
   characterName: {
     fontSize: 14,
     color: '#41414d',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 })
