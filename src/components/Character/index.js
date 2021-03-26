@@ -10,8 +10,8 @@ export default function Character(props) {
   console.log("ENTREIIIIIIIII")
   console.log(props)
 
-  function navigateToDetail() {
-    navigation.navigate('Detail')
+  function navigateToDetail(character) {
+    navigation.navigate('Detail', { character })
   }
 
   return (
@@ -22,7 +22,7 @@ export default function Character(props) {
         data={props.lista}
         keyExtractor={character => String(character.id)}
         renderItem={({ item: character }) => (
-          <TouchableOpacity onPress={navigateToDetail}>
+          <TouchableOpacity onPress={() => navigateToDetail(character)}>
             <View style={styles.character} ontouchableO >
               <Text style={styles.characterName}>{character.name}</Text>
             </View>
