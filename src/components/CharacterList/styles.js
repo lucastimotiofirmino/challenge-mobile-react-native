@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
   characterList: {
-    marginTop: 22,
+    marginTop: 16,
     width: Dimensions.get('window').width ,
   },
 

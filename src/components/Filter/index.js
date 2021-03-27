@@ -22,6 +22,7 @@ const Filter = (props) => {
                 console.log('Pressed Nomes')
                 props.funcSetFiltro('Nomes')
               },
+              small: false,
             },
             {
               icon: 'heart',
@@ -30,7 +31,7 @@ const Filter = (props) => {
                 console.log('Pressed Favoritos')
                 props.funcSetFiltro('Favoritos')
               },
-              // small: false,
+              small: false,
             },
           ]}
           onStateChange={onStateChange}
