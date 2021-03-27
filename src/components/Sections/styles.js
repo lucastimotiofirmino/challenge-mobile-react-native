@@ -17,5 +17,9 @@ export const Container = styled.TouchableOpacity`
 export const SectionLabel = styled(StyledText)`
   font-family: Nunito-Bold;
   font-size: ${(props) => (props.selected ? 24 : 18)}px;
-  color: ${(props) => (props.selected ? 'white' : '#BBB')};
+  color: ${(props) => (props.selected ? '#FCFCFC' : '#BBB')};
+`;
+
+export const FlatListContainer = styled.View`
+  padding-bottom: 8px;
 `;

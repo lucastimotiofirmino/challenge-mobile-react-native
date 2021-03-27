@@ -1,27 +1,24 @@
-import React, { useEffect } from 'react';
-
-import { getCharacters } from '~/api/calls/characters';
+import React from 'react';
+import { View } from 'react-native';
 
 import Header from '~/components/Header';
 import SearchBox from '~/components/SearchBox';
 import Sections from '~/components/Sections';
+import CharactersList from '~/components/CharactersList';
 
 import { Container, Content } from './styles';
 
-const Main = () => {
-  useEffect(() => {
-    getCharacters();
-  }, []);
-
-  return (
-    <Container>
-      <Header />
-      <Content>
-        <SearchBox />
-        <Sections />
-      </Content>
-    </Container>
-  );
-};
+const Main = () => (
+  <Container>
+    <Header />
+    <Content>
+      <SearchBox />
+      <Sections />
+      <CharactersList
+        characters={[{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]}
+      />
+    </Content>
+  </Container>
+);
 
 export default Main;

@@ -12,7 +12,7 @@ export const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   debounce: 0.1,
-  blacklist: ['app'],
+  blacklist: ['app', 'characters'],
   version: 1,
 };
 

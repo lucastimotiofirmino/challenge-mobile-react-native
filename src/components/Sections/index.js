@@ -6,7 +6,7 @@ import { changeSection } from '~/store/ducks/app';
 
 import SectionsList from './SectionsList';
 
-import { Container, SectionLabel } from './styles';
+import { Container, SectionLabel, FlatListContainer } from './styles';
 
 const Sections = () => {
   const { section } = useSelector((state) => state.app);
@@ -24,13 +24,16 @@ const Sections = () => {
   );
 
   return (
-    <FlatList
-      data={SectionsList}
-      horizontal
-      renderItem={renderASection}
-      style={{ flexGrow: 0 }}
-      extraData={SectionsList}
-    />
+    <FlatListContainer>
+      <FlatList
+        data={SectionsList}
+        horizontal
+        renderItem={renderASection}
+        style={{ flexGrow: 0, marginBottom: 0 }}
+        extraData={SectionsList}
+        showsHorizontalScrollIndicator={false}
+      />
+    </FlatListContainer>
   );
 };
 
