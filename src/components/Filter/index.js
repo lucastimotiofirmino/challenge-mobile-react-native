@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FAB, Portal, Provider } from 'react-native-paper';
 
-const MyComponent = (props) => {
+const Filter = (props) => {
   const [state, setState] = React.useState({ open: false });
 
   const onStateChange = ({ open }) => setState({ open });
@@ -20,7 +20,7 @@ const MyComponent = (props) => {
               label: 'Nomes',
               onPress: () => {
                 console.log('Pressed Nomes')
-                props.teste('Nomes')
+                props.funcSetFiltro('Nomes')
               },
             },
             {
@@ -28,9 +28,9 @@ const MyComponent = (props) => {
               label: 'Favoritos',
               onPress: () => {
                 console.log('Pressed Favoritos')
-                props.teste('Favoritos')
+                props.funcSetFiltro('Favoritos')
               },
-              small: false,
+              // small: false,
             },
           ]}
           onStateChange={onStateChange}
@@ -45,4 +45,4 @@ const MyComponent = (props) => {
   );
 };
 
-export default MyComponent;
+export default Filter;
