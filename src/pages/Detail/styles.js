@@ -39,5 +39,19 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: '#c2c2c2'
+  },
+
+  containerButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 20
+  },
+
+  modalTitle: {
+    textAlign: 'center',
+    width: '100%',
+    fontWeight: 'bold',
+    fontSize: 22
   }
 })
