@@ -9,7 +9,7 @@ const List = ({
   getMore,
   likedItems,
   likeUnlikeAction,
-  goToDetails,
+  section,
 }) => {
   const ref = useRef();
 
@@ -22,7 +22,7 @@ const List = ({
         item={item}
         isLiked={isLiked}
         likeUnlikeAction={likeUnlikeAction}
-        goToDetails={goToDetails}
+        section={section}
       />
     );
   };

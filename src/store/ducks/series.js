@@ -7,8 +7,8 @@ export const Types = {
   GET_SERIES_BY_NAME: 'GET_SERIES_BY_NAME',
   GET_SERIES_BY_NAME_SUCCESS: 'GET_SERIES_BY_NAME_SUCCESS',
   GET_SERIES_BY_NAME_ERROR: 'GET_SERIES_BY_NAME_ERROR',
-  LIKE_A_SERIES: 'LIKE_A_SERIES',
-  UNLIKE_A_SERIES: 'UNLIKE_A_SERIES',
+  LIKE_A_SERIE: 'LIKE_A_SERIE',
+  UNLIKE_A_SERIE: 'UNLIKE_A_SERIE',
 };
 
 const INITIAL_STATE = {
@@ -116,14 +116,14 @@ export const getSeriesByNameSuccess = (series) => ({
 });
 
 export const likeASerie = (serie) => ({
-  type: Types.LIKE_A_SERIES,
+  type: Types.LIKE_A_SERIE,
   payload: {
     serie,
   },
 });
 
 export const unlikeASerie = (serie) => ({
-  type: Types.UNLIKE_A_SERIES,
+  type: Types.UNLIKE_A_SERIE,
   payload: {
     serie,
   },

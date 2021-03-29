@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { SERIES } from '~/constants/sections';
 
 import {
   getSeries,
@@ -41,8 +42,6 @@ const SeriesList = () => {
     setGettingMoreSeries(true);
   };
 
-  const goToSerie = () => {};
-
   const likeUnlikeThisSerie = (serieId, isLiked) => {
     if (isLiked) dispatch(unlikeASerie(serieId));
     else dispatch(likeASerie(serieId));
@@ -65,8 +64,8 @@ const SeriesList = () => {
       renderLoading={renderLoading}
       getMore={getMoreSeries}
       likeUnlikeAction={likeUnlikeThisSerie}
-      goToDetails={goToSerie}
       likedItems={likedSeries}
+      section={SERIES}
     />
   );
 };
