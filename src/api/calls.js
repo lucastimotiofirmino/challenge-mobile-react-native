@@ -8,7 +8,7 @@ import {
 } from '~/constants/api';
 
 export const getCharacters = async ({ name = null, length }) => {
-  let params = name ? `name=${name}&` : '';
+  let params = name ? `nameStartsWith=${name}&` : '';
   params = `${params}${MARVEL_API_PARAMS}&offset=${length}`;
 
   const url = `${GET_CHARACTERS}?${params}`;
@@ -25,7 +25,7 @@ export const getCharacters = async ({ name = null, length }) => {
 };
 
 export const getEvents = async ({ name = null, length }) => {
-  let params = name ? `name=${name}&` : '';
+  let params = name ? `nameStartsWith=${name}&` : '';
   params = `${params}${MARVEL_API_PARAMS}&offset=${length}`;
 
   const url = `${GET_EVENTS}?${params}`;
@@ -42,7 +42,7 @@ export const getEvents = async ({ name = null, length }) => {
 };
 
 export const getSeries = async ({ name = null, length }) => {
-  let params = name ? `name=${name}&` : '';
+  let params = name ? `nameStartsWith=${name}&` : '';
   params = `${params}${MARVEL_API_PARAMS}&offset=${length}`;
 
   const url = `${GET_SERIES}?${params}`;

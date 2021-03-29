@@ -11,15 +11,25 @@ export const Container = styled.TouchableOpacity`
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  /* background: ${(props) => (props.selected ? '#d82f49' : '#1c1c20')}; */
 `;
 
 export const SectionLabel = styled(StyledText)`
   font-family: Nunito-Bold;
   font-size: ${(props) => (props.selected ? 24 : 18)}px;
-  color: ${(props) => (props.selected ? '#FCFCFC' : '#BBB')};
+  color: ${(props) => (props.selected ? '#452ed9' : '#9d9ca7')};
 `;
 
 export const FlatListContainer = styled.View`
   padding-bottom: 8px;
+  margin-bottom: 6px;
+`;
+
+export const BottomLine = styled.View`
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 2px;
+  background: #452ed9;
+  height: ${(props) => (props.selected ? 4 : 0)}px;
+  width: 80%;
+  border-radius: 4px;
 `;
