@@ -4,6 +4,7 @@ import characters from './characters';
 import events from './events';
 import series from './series';
 import theme from './theme';
+import likes from './likes';
 import app from './app';
 
 const reducers = combineReducers({
@@ -11,6 +12,7 @@ const reducers = combineReducers({
   events,
   series,
   theme,
+  likes,
   app,
 });
 

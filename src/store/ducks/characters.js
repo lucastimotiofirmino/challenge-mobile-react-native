@@ -1,7 +1,5 @@
 import { Types as AppTypes } from './app';
 
-import { removeLike } from '~/utils/functions';
-
 export const Types = {
   GET_CHARACTERS: 'GET_CHARACTERS',
   GET_CHARACTERS_ERROR: 'GET_CHARACTERS_ERROR',
@@ -20,13 +18,12 @@ const INITIAL_STATE = {
   lengthByName: 0,
   error: false,
   requesting: false,
-  likedCharactersIds: [],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
   const { type, payload } = action;
 
-  const { list, length, lengthByName, listByName, likedCharactersIds } = state;
+  const { list, length, lengthByName, listByName } = state;
 
   switch (type) {
     case Types.GET_CHARACTERS:
@@ -76,16 +73,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         listByName: [],
         lengthByName: 0,
       };
-    case Types.UNLIKE_A_CHARACTER:
-      return {
-        ...state,
-        likedCharactersIds: removeLike(payload.characterId, likedCharactersIds),
-      };
-    case Types.LIKE_A_CHARACTER:
-      return {
-        ...state,
-        likedCharactersIds: [...likedCharactersIds, payload.characterId],
-      };
     case AppTypes.RESET_NAME:
     case AppTypes.CHANGE_SECTIONS:
       return {
@@ -128,16 +115,16 @@ export const getCharactersByNameSuccess = (characters) => ({
   },
 });
 
-export const likeACharacter = (characterId) => ({
+export const likeACharacter = (character) => ({
   type: Types.LIKE_A_CHARACTER,
   payload: {
-    characterId,
+    character,
   },
 });
 
-export const unlikeACharacter = (characterId) => ({
+export const unlikeACharacter = (character) => ({
   type: Types.UNLIKE_A_CHARACTER,
   payload: {
-    characterId,
+    character,
   },
 });

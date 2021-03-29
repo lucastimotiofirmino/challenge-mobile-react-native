@@ -1,7 +1,5 @@
 import { Types as AppTypes } from './app';
 
-import { removeLike } from '~/utils/functions';
-
 export const Types = {
   GET_SERIES: 'GET_SERIES',
   GET_SERIES_ERROR: 'GET_SERIES_ERROR',
@@ -26,7 +24,7 @@ const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action) {
   const { type, payload } = action;
 
-  const { list, length, lengthByName, listByName, likedSeriesIds } = state;
+  const { list, length, lengthByName, listByName } = state;
 
   switch (type) {
     case Types.GET_SERIES:
@@ -76,16 +74,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         listByName: [],
         lengthByName: 0,
       };
-    case Types.UNLIKE_A_SERIES:
-      return {
-        ...state,
-        likedSeriesIds: removeLike(payload.serieId, likedSeriesIds),
-      };
-    case Types.LIKE_A_SERIES:
-      return {
-        ...state,
-        likedSeriesIds: [...likedSeriesIds, payload.serieId],
-      };
     case AppTypes.RESET_NAME:
     case AppTypes.CHANGE_SECTIONS:
       return {
@@ -127,16 +115,16 @@ export const getSeriesByNameSuccess = (series) => ({
   },
 });
 
-export const likeASerie = (serieId) => ({
+export const likeASerie = (serie) => ({
   type: Types.LIKE_A_SERIES,
   payload: {
-    serieId,
+    serie,
   },
 });
 
-export const unlikeASerie = (serieId) => ({
+export const unlikeASerie = (serie) => ({
   type: Types.UNLIKE_A_SERIES,
   payload: {
-    serieId,
+    serie,
   },
 });

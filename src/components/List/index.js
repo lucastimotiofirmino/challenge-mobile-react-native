@@ -7,14 +7,15 @@ const List = ({
   list,
   renderLoading,
   getMore,
-  likedIds,
+  likedItems,
   likeUnlikeAction,
   goToDetails,
 }) => {
   const ref = useRef();
 
   const renderItem = ({ item }) => {
-    const isLiked = likedIds.filter((id) => item.id === id).length > 0;
+    const isLiked =
+      likedItems.filter((likedItem) => item.id === likedItem.id).length > 0;
 
     return (
       <Card
@@ -34,14 +35,14 @@ const List = ({
         renderItem={renderItem}
         ListFooterComponent={renderLoading}
         style={{ flexGrow: 0 }}
-        extraData={likedIds}
+        extraData={likedItems}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         onEndReached={list.length % 20 === 0 ? getMore : () => {}}
         onEndReachedThreshold={0}
       />
     ),
-    [list, likedIds],
+    [list, likedItems],
   );
 };
 

@@ -1,2 +1,2 @@
-export const removeLike = (id, likedIds) =>
-  likedIds.filter((otherId) => id !== otherId);
+export const removeLike = (item, likedItems) =>
+  likedItems.filter((likedItem) => item.id !== likedItem.id);

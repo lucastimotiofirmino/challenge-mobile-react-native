@@ -26,7 +26,7 @@ const Card = ({ item, goToDetails = () => {}, likeUnlikeAction, isLiked }) => (
       <Description>{item.description}</Description>
     </DetailsContainer>
     <RightContainer>
-      <LikeButton onPress={() => likeUnlikeAction(item.id, isLiked)}>
+      <LikeButton onPress={() => likeUnlikeAction(item, isLiked)}>
         <Like isLiked={isLiked} />
       </LikeButton>
     </RightContainer>

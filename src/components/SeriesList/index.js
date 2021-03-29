@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, ActivityIndicator } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -14,10 +14,9 @@ import List from '../List';
 import { LoadingContainer } from './styles';
 
 const SeriesList = () => {
-  const { list, length, listByName, likedSeriesIds } = useSelector(
-    (state) => state.series,
-  );
+  const { list, length, listByName } = useSelector((state) => state.series);
   const { nameForSearch } = useSelector((state) => state.app);
+  const { likedSeries } = useSelector((state) => state.likes);
 
   const [more, setMore] = useState(1);
   const [gettingMoreSeries, setGettingMoreSeries] = useState(false);
@@ -67,7 +66,7 @@ const SeriesList = () => {
       getMore={getMoreSeries}
       likeUnlikeAction={likeUnlikeThisSerie}
       goToDetails={goToSerie}
-      likedIds={likedSeriesIds}
+      likedItems={likedSeries}
     />
   );
 };

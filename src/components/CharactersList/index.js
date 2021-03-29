@@ -14,10 +14,9 @@ import List from '../List';
 import { LoadingContainer } from './styles';
 
 const CharactersList = () => {
-  const { list, length, listByName, likedCharactersIds } = useSelector(
-    (state) => state.characters,
-  );
+  const { list, length, listByName } = useSelector((state) => state.characters);
   const { nameForSearch } = useSelector((state) => state.app);
+  const { likedCharacters } = useSelector((state) => state.likes);
 
   const [more, setMore] = useState(1);
   const [gettingMoreCharacters, setGettingMoreCharacters] = useState(false);
@@ -67,7 +66,7 @@ const CharactersList = () => {
       getMore={getMoreCharacters}
       likeUnlikeAction={likeUnlikeThisCharacter}
       goToDetails={goToCharacter}
-      likedIds={likedCharactersIds}
+      likedItems={likedCharacters}
     />
   );
 };

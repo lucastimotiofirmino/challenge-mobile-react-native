@@ -1,7 +1,5 @@
 import { Types as AppTypes } from './app';
 
-import { removeLike } from '~/utils/functions';
-
 export const Types = {
   GET_EVENTS: 'GET_EVENTS',
   GET_EVENTS_ERROR: 'GET_EVENTS_ERROR',
@@ -20,13 +18,12 @@ const INITIAL_STATE = {
   lengthByName: 0,
   error: false,
   requesting: false,
-  likedEventsIds: [],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
   const { type, payload } = action;
 
-  const { list, length, lengthByName, listByName, likedEventsIds } = state;
+  const { list, length, lengthByName, listByName } = state;
 
   switch (type) {
     case Types.GET_EVENTS:
@@ -69,16 +66,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         listByName: [],
         error: true,
         requesting: false,
-      };
-    case Types.UNLIKE_A_EVENT:
-      return {
-        ...state,
-        likedEventsIds: removeLike(payload.eventId, likedEventsIds),
-      };
-    case Types.LIKE_A_EVENT:
-      return {
-        ...state,
-        likedEventsIds: [...likedEventsIds, payload.eventId],
       };
     case AppTypes.SEARCH_BY_NAME:
       return {
@@ -128,16 +115,16 @@ export const getEventsByNameSuccess = (events) => ({
   },
 });
 
-export const likeAEvent = (eventId) => ({
+export const likeAEvent = (event) => ({
   type: Types.LIKE_A_EVENT,
   payload: {
-    eventId,
+    event,
   },
 });
 
-export const unlikeAEvent = (eventId) => ({
+export const unlikeAEvent = (event) => ({
   type: Types.UNLIKE_A_EVENT,
   payload: {
-    eventId,
+    event,
   },
 });
