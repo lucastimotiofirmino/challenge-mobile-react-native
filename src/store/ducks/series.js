@@ -1,5 +1,7 @@
 import { Types as AppTypes } from './app';
 
+import { removeLike } from '~/utils/functions';
+
 export const Types = {
   GET_SERIES: 'GET_SERIES',
   GET_SERIES_ERROR: 'GET_SERIES_ERROR',
@@ -7,6 +9,8 @@ export const Types = {
   GET_SERIES_BY_NAME: 'GET_SERIES_BY_NAME',
   GET_SERIES_BY_NAME_SUCCESS: 'GET_SERIES_BY_NAME_SUCCESS',
   GET_SERIES_BY_NAME_ERROR: 'GET_SERIES_BY_NAME_ERROR',
+  LIKE_A_SERIES: 'LIKE_A_SERIES',
+  UNLIKE_A_SERIES: 'UNLIKE_A_SERIES',
 };
 
 const INITIAL_STATE = {
@@ -16,12 +20,13 @@ const INITIAL_STATE = {
   lengthByName: 0,
   error: false,
   requesting: false,
+  likedSeriesIds: [],
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
   const { type, payload } = action;
 
-  const { list, length, lengthByName } = state;
+  const { list, length, lengthByName, listByName, likedSeriesIds } = state;
 
   switch (type) {
     case Types.GET_SERIES:
@@ -53,7 +58,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     case Types.GET_SERIES_BY_NAME_SUCCESS:
       return {
         ...state,
-        listByName: payload.series,
+        listByName: [...listByName, ...payload.series],
         lengthByName: lengthByName + payload.series.length,
         error: false,
         requesting: false,
@@ -64,6 +69,22 @@ export default function reducer(state = INITIAL_STATE, action) {
         listByName: [],
         error: true,
         requesting: false,
+      };
+    case AppTypes.SEARCH_BY_NAME:
+      return {
+        ...state,
+        listByName: [],
+        lengthByName: 0,
+      };
+    case Types.UNLIKE_A_SERIES:
+      return {
+        ...state,
+        likedSeriesIds: removeLike(payload.serieId, likedSeriesIds),
+      };
+    case Types.LIKE_A_SERIES:
+      return {
+        ...state,
+        likedSeriesIds: [...likedSeriesIds, payload.serieId],
       };
     case AppTypes.RESET_NAME:
     case AppTypes.CHANGE_SECTIONS:
@@ -103,5 +124,19 @@ export const getSeriesByNameSuccess = (series) => ({
   type: Types.GET_SERIES_BY_NAME_SUCCESS,
   payload: {
     series,
+  },
+});
+
+export const likeASerie = (serieId) => ({
+  type: Types.LIKE_A_SERIES,
+  payload: {
+    serieId,
+  },
+});
+
+export const unlikeASerie = (serieId) => ({
+  type: Types.UNLIKE_A_SERIES,
+  payload: {
+    serieId,
   },
 });

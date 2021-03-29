@@ -25,7 +25,7 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action) {
   const { type, payload } = action;
-  console.tron.log(type);
+
   const { list, length, lengthByName, listByName, likedCharactersIds } = state;
 
   switch (type) {

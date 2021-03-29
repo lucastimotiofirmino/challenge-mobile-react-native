@@ -42,7 +42,7 @@ export const getEvents = async ({ name = null, length }) => {
 };
 
 export const getSeries = async ({ name = null, length }) => {
-  let params = name ? `nameStartsWith=${name}&` : '';
+  let params = name ? `titleStartsWith=${name}&` : '';
   params = `${params}${MARVEL_API_PARAMS}&offset=${length}`;
 
   const url = `${GET_SERIES}?${params}`;
