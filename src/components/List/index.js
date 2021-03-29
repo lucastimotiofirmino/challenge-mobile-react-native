@@ -1,8 +1,31 @@
 import React, { useMemo, useRef } from 'react';
 import { FlatList } from 'react-native';
 
-const List = ({ list, renderItem, renderLoading, getMore }) => {
+import Card from '../Card';
+
+const List = ({
+  list,
+  renderLoading,
+  getMore,
+  likedItems,
+  likeUnlikeAction,
+  goToDetails,
+}) => {
   const ref = useRef();
+
+  const renderItem = ({ item }) => {
+    const isLiked =
+      likedItems.filter((likedItem) => item.id === likedItem.id).length > 0;
+
+    return (
+      <Card
+        item={item}
+        isLiked={isLiked}
+        likeUnlikeAction={likeUnlikeAction}
+        goToDetails={goToDetails}
+      />
+    );
+  };
 
   return useMemo(
     () => (
@@ -12,14 +35,14 @@ const List = ({ list, renderItem, renderLoading, getMore }) => {
         renderItem={renderItem}
         ListFooterComponent={renderLoading}
         style={{ flexGrow: 0 }}
-        extraData={list}
+        extraData={likedItems}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        onEndReached={getMore}
+        onEndReached={list.length % 20 === 0 ? getMore : () => {}}
         onEndReachedThreshold={0}
       />
     ),
-    [list],
+    [list, likedItems],
   );
 };
 

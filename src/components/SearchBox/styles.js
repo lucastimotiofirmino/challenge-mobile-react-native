@@ -12,22 +12,25 @@ export const Container = styled.View`
 
 export const SearchIconContainer = styled.View`
   flex: 0.1;
+  border-top-right-radius: 6px;
 `;
 
 export const Input = styled.TextInput.attrs({
-  placeholder: 'Pesquise um personagem...',
-  placeholderTextColor: '#FFF',
+  placeholder: 'Personagem, evento ou série...',
+  placeholderTextColor: '#9d9ca7',
   autoCorrect: false,
 })`
   flex: 0.9;
-  font-family: Nunito-Bold;
-  font-size: 20px;
-  padding-left: 0px;
+  font-family: Nunito-Regular;
+  font-size: 18px;
+  background: #f3f3f3;
+  border-radius: 6px;
+  padding-left: 10px;
 `;
 
-export const SearchIcon = styled(Icon).attrs((props) => ({
+export const SearchIcon = styled(Icon).attrs({
   name: 'search',
-  color: '#FFF',
+  color: '#9d9ca7',
   size: 28,
   type: 'material',
-}))``;
+})``;

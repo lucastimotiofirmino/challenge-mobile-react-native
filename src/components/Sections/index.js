@@ -6,7 +6,12 @@ import { changeSection } from '~/store/ducks/app';
 
 import sectionsList from '~/constants/sections';
 
-import { Container, SectionLabel, FlatListContainer } from './styles';
+import {
+  Container,
+  SectionLabel,
+  FlatListContainer,
+  BottomLine,
+} from './styles';
 
 const Sections = () => {
   const { section } = useSelector((state) => state.app);
@@ -20,6 +25,7 @@ const Sections = () => {
       selected={item.id === section}
       onPress={() => selectSection(item.id)}>
       <SectionLabel selected={item.id === section}>{item.section}</SectionLabel>
+      <BottomLine selected={item.id === section} />
     </Container>
   );
 

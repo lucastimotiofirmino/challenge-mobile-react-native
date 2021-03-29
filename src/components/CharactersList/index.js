@@ -1,30 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { Text, ActivityIndicator } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getCharacters } from '~/store/ducks/characters';
+import {
+  getCharacters,
+  getCharactersByName,
+  likeACharacter,
+  unlikeACharacter,
+} from '~/store/ducks/characters';
 
 import List from '../List';
 
-import { Container, LoadingContainer } from './styles';
+import { LoadingContainer } from './styles';
 
 const CharactersList = () => {
-  const { list, length } = useSelector((state) => state.characters);
+  const { list, length, listByName } = useSelector((state) => state.characters);
+  const { nameForSearch } = useSelector((state) => state.app);
+  const { likedCharacters } = useSelector((state) => state.likes);
 
   const [more, setMore] = useState(1);
   const [gettingMoreCharacters, setGettingMoreCharacters] = useState(false);
 
   const dispatch = useDispatch();
 
-  console.tron.log('pages', 1);
+  const getMoreCharactersDecision = () => {
+    if (nameForSearch === '') dispatch(getCharacters());
+    else dispatch(getCharactersByName());
+  };
 
   useEffect(() => {
-    if (more !== 1 || length === 0) dispatch(getCharacters());
+    if (more !== 1 || length === 0) getMoreCharactersDecision();
   }, [more]);
 
   useEffect(() => {
     setGettingMoreCharacters(false);
-  }, [list]);
+  }, [list, listByName]);
 
   const getMoreCharacters = () => {
     setMore(more + 1);
@@ -33,11 +43,10 @@ const CharactersList = () => {
 
   const goToCharacter = () => {};
 
-  const renderCharacterPreview = ({ item, index }) => (
-    <Container onPress={goToCharacter}>
-      <Text>{index}</Text>
-    </Container>
-  );
+  const likeUnlikeThisCharacter = (characterId, isLiked) => {
+    if (isLiked) dispatch(unlikeACharacter(characterId));
+    else dispatch(likeACharacter(characterId));
+  };
 
   const renderLoading = () =>
     gettingMoreCharacters ? (
@@ -48,12 +57,16 @@ const CharactersList = () => {
       <></>
     );
 
+  const characterList = listByName.length > 0 ? listByName : list;
+
   return (
     <List
-      list={list}
-      renderItem={renderCharacterPreview}
+      list={characterList}
       renderLoading={renderLoading}
       getMore={getMoreCharacters}
+      likeUnlikeAction={likeUnlikeThisCharacter}
+      goToDetails={goToCharacter}
+      likedItems={likedCharacters}
     />
   );
 };

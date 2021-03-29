@@ -7,13 +7,14 @@ const APP_BAR_HEIGHT = 58;
 export const Container = styled.View`
   height: ${APP_BAR_HEIGHT}px;
   align-items: center;
+  justify-content: center;
   flex-direction: row;
   padding-left: 16px;
 `;
 
 export const MarvelLogo = styled.Image.attrs({
   source: Marvel,
-  tintColor: 'white',
+  tintColor: 'black',
   resizeMode: 'contain',
 })`
   height: 100px;
