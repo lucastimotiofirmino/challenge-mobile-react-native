@@ -2,45 +2,43 @@ import React, { useEffect, useState } from 'react';
 import { Text, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getCharacters } from '~/store/ducks/characters';
+import { getSeries } from '~/store/ducks/series';
 
 import List from '../List';
 
 import { Container, LoadingContainer } from './styles';
 
-const CharactersList = () => {
-  const { list, length } = useSelector((state) => state.characters);
+const SeriesList = () => {
+  const { list, length } = useSelector((state) => state.series);
 
   const [more, setMore] = useState(1);
-  const [gettingMoreCharacters, setGettingMoreCharacters] = useState(false);
+  const [gettingMoreSeries, setGettingMoreSeries] = useState(false);
 
   const dispatch = useDispatch();
 
-  console.tron.log('pages', 1);
-
   useEffect(() => {
-    if (more !== 1 || length === 0) dispatch(getCharacters());
+    if (more !== 1 || length === 0) dispatch(getSeries());
   }, [more]);
 
   useEffect(() => {
-    setGettingMoreCharacters(false);
+    setGettingMoreSeries(false);
   }, [list]);
 
-  const getMoreCharacters = () => {
+  const getMoreSeries = () => {
     setMore(more + 1);
-    setGettingMoreCharacters(true);
+    setGettingMoreSeries(true);
   };
 
-  const goToCharacter = () => {};
+  const goToSerie = () => {};
 
-  const renderCharacterPreview = ({ item, index }) => (
-    <Container onPress={goToCharacter}>
+  const renderSeriePreview = ({ item, index }) => (
+    <Container onPress={goToSerie}>
       <Text>{index}</Text>
     </Container>
   );
 
   const renderLoading = () =>
-    gettingMoreCharacters ? (
+    gettingMoreSeries ? (
       <LoadingContainer>
         <ActivityIndicator size="small" color="white" />
       </LoadingContainer>
@@ -51,11 +49,11 @@ const CharactersList = () => {
   return (
     <List
       list={list}
-      renderItem={renderCharacterPreview}
+      renderItem={renderSeriePreview}
       renderLoading={renderLoading}
-      getMore={getMoreCharacters}
+      getMore={getMoreSeries}
     />
   );
 };
 
-export default CharactersList;
+export default SeriesList;

@@ -2,45 +2,43 @@ import React, { useEffect, useState } from 'react';
 import { Text, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getCharacters } from '~/store/ducks/characters';
+import { getEvents } from '~/store/ducks/events';
 
 import List from '../List';
 
 import { Container, LoadingContainer } from './styles';
 
-const CharactersList = () => {
-  const { list, length } = useSelector((state) => state.characters);
+const EventsList = () => {
+  const { list, length } = useSelector((state) => state.events);
 
   const [more, setMore] = useState(1);
-  const [gettingMoreCharacters, setGettingMoreCharacters] = useState(false);
+  const [gettingMoreEvents, setGettingMoreEvents] = useState(false);
 
   const dispatch = useDispatch();
 
-  console.tron.log('pages', 1);
-
   useEffect(() => {
-    if (more !== 1 || length === 0) dispatch(getCharacters());
+    if (more !== 1 || length === 0) dispatch(getEvents());
   }, [more]);
 
   useEffect(() => {
-    setGettingMoreCharacters(false);
+    setGettingMoreEvents(false);
   }, [list]);
 
-  const getMoreCharacters = () => {
+  const getMoreEvents = () => {
     setMore(more + 1);
-    setGettingMoreCharacters(true);
+    setGettingMoreEvents(true);
   };
 
-  const goToCharacter = () => {};
+  const goToEvent = () => {};
 
-  const renderCharacterPreview = ({ item, index }) => (
-    <Container onPress={goToCharacter}>
+  const renderEventPreview = ({ item, index }) => (
+    <Container onPress={goToEvent}>
       <Text>{index}</Text>
     </Container>
   );
 
   const renderLoading = () =>
-    gettingMoreCharacters ? (
+    gettingMoreEvents ? (
       <LoadingContainer>
         <ActivityIndicator size="small" color="white" />
       </LoadingContainer>
@@ -51,11 +49,11 @@ const CharactersList = () => {
   return (
     <List
       list={list}
-      renderItem={renderCharacterPreview}
+      renderItem={renderEventPreview}
       renderLoading={renderLoading}
-      getMore={getMoreCharacters}
+      getMore={getMoreEvents}
     />
   );
 };
 
-export default CharactersList;
+export default EventsList;

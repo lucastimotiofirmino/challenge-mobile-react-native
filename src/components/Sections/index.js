@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { changeSection } from '~/store/ducks/app';
 
-import SectionsList from './SectionsList';
+import sectionsList from '~/constants/sections';
 
 import { Container, SectionLabel, FlatListContainer } from './styles';
 
@@ -26,11 +26,11 @@ const Sections = () => {
   return (
     <FlatListContainer>
       <FlatList
-        data={SectionsList}
+        data={sectionsList}
         horizontal
         renderItem={renderASection}
         style={{ flexGrow: 0, marginBottom: 0 }}
-        extraData={SectionsList}
+        extraData={sectionsList}
         showsHorizontalScrollIndicator={false}
       />
     </FlatListContainer>
