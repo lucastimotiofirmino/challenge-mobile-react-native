@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, MarvelLogo } from './styles';
 
-const Header = ({ navigation }) => <Container />;
+const Header = ({ navigation }) => (
+  <Container>
+    <MarvelLogo />
+  </Container>
+);
 
 export default Header;
