@@ -1,5 +1,7 @@
 import { Types as AppTypes } from './app';
 
+import { removeLike } from '~/utils/functions';
+
 export const Types = {
   GET_CHARACTERS: 'GET_CHARACTERS',
   GET_CHARACTERS_ERROR: 'GET_CHARACTERS_ERROR',
@@ -20,9 +22,6 @@ const INITIAL_STATE = {
   requesting: false,
   likedCharactersIds: [],
 };
-
-const removeCharacterLike = (characterId, likedCharactersIds) =>
-  likedCharactersIds.filter((id) => id !== characterId);
 
 export default function reducer(state = INITIAL_STATE, action) {
   const { type, payload } = action;
@@ -80,10 +79,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     case Types.UNLIKE_A_CHARACTER:
       return {
         ...state,
-        likedCharactersIds: removeCharacterLike(
-          payload.characterId,
-          likedCharactersIds,
-        ),
+        likedCharactersIds: removeLike(payload.characterId, likedCharactersIds),
       };
     case Types.LIKE_A_CHARACTER:
       return {
@@ -95,6 +91,7 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         listByName: [],
+        lengthByName: 0,
       };
     default:
       return state;

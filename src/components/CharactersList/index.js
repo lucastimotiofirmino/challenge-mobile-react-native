@@ -11,18 +11,7 @@ import {
 
 import List from '../List';
 
-import {
-  Container,
-  LoadingContainer,
-  Cover,
-  CoverContainer,
-  DetailsContainer,
-  Name,
-  Description,
-  RightContainer,
-  LikeButton,
-  Like,
-} from './styles';
+import { LoadingContainer } from './styles';
 
 const CharactersList = () => {
   const { list, length, listByName, likedCharactersIds } = useSelector(
@@ -32,7 +21,6 @@ const CharactersList = () => {
 
   const [more, setMore] = useState(1);
   const [gettingMoreCharacters, setGettingMoreCharacters] = useState(false);
-  const [likeUnlike, setLikeUnlike] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -57,35 +45,8 @@ const CharactersList = () => {
   const goToCharacter = () => {};
 
   const likeUnlikeThisCharacter = (characterId, isLiked) => {
-    setLikeUnlike(!likeUnlike);
     if (isLiked) dispatch(unlikeACharacter(characterId));
     else dispatch(likeACharacter(characterId));
-  };
-
-  const renderCharacterPreview = ({ item }) => {
-    const isLiked =
-      likedCharactersIds.filter((id) => item.id === id).length > 0;
-
-    return (
-      <Container onPress={goToCharacter}>
-        <CoverContainer>
-          <Cover
-            source={{
-              uri: `${item.thumbnail.path}/portrait_xlarge.${item.thumbnail.extension}`,
-            }}
-          />
-        </CoverContainer>
-        <DetailsContainer>
-          <Name>{item.name}</Name>
-          <Description>{item.description}</Description>
-        </DetailsContainer>
-        <RightContainer>
-          <LikeButton onPress={() => likeUnlikeThisCharacter(item.id, isLiked)}>
-            <Like isLiked={isLiked} />
-          </LikeButton>
-        </RightContainer>
-      </Container>
-    );
   };
 
   const renderLoading = () =>
@@ -102,10 +63,11 @@ const CharactersList = () => {
   return (
     <List
       list={characterList}
-      renderItem={renderCharacterPreview}
       renderLoading={renderLoading}
       getMore={getMoreCharacters}
-      extraData={likedCharactersIds}
+      likeUnlikeAction={likeUnlikeThisCharacter}
+      goToDetails={goToCharacter}
+      likedIds={likedCharactersIds}
     />
   );
 };
