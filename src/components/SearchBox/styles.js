@@ -21,11 +21,12 @@ export const Input = styled.TextInput.attrs({
   autoCorrect: false,
 })`
   flex: 0.9;
-  font-family: Nunito-Regular;
+  font-family: Nunito-Bold;
   font-size: 18px;
   background: #f3f3f3;
   border-radius: 6px;
   padding-left: 10px;
+  color: #9d9ca7;
 `;
 
 export const SearchIcon = styled(Icon).attrs({

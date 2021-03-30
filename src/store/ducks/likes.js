@@ -36,12 +36,12 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         likedEvents: removeLike(payload.event, likedEvents),
       };
-    case SerieTypes.LIKE_A_SERIES:
+    case SerieTypes.LIKE_A_SERIE:
       return {
         ...state,
         likedSeries: [...likedSeries, payload.serie],
       };
-    case SerieTypes.UNLIKE_A_SERIES:
+    case SerieTypes.UNLIKE_A_SERIE:
       return {
         ...state,
         likedSeries: removeLike(payload.serie, likedSeries),

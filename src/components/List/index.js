@@ -1,7 +1,15 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { FlatList } from 'react-native';
 
 import Card from '../Card';
+
+import {
+  Container,
+  ToTopButton,
+  ToTop,
+  WithoutItemsContainer,
+  WithoutItemsLabel,
+} from './styles';
 
 const List = ({
   list,
@@ -9,8 +17,10 @@ const List = ({
   getMore,
   likedItems,
   likeUnlikeAction,
-  goToDetails,
+  section,
 }) => {
+  const [showToTop, setShowToTop] = useState(false);
+
   const ref = useRef();
 
   const renderItem = ({ item }) => {
@@ -22,27 +32,54 @@ const List = ({
         item={item}
         isLiked={isLiked}
         likeUnlikeAction={likeUnlikeAction}
-        goToDetails={goToDetails}
+        section={section}
       />
     );
   };
 
-  return useMemo(
-    () => (
-      <FlatList
-        ref={ref}
-        data={list}
-        renderItem={renderItem}
-        ListFooterComponent={renderLoading}
-        style={{ flexGrow: 0 }}
-        extraData={likedItems}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        onEndReached={list.length % 20 === 0 ? getMore : () => {}}
-        onEndReachedThreshold={0}
-      />
-    ),
-    [list, likedItems],
+  const goToTop = () => {
+    ref.current.scrollToIndex({ index: 0 });
+  };
+
+  const ShowToTop = (e) => {
+    if (e.nativeEvent.contentOffset.y !== 0) {
+      if (!showToTop) setShowToTop(true);
+    } else setShowToTop(false);
+  };
+
+  return (
+    <Container>
+      {useMemo(
+        () => (
+          <FlatList
+            ref={ref}
+            data={list}
+            renderItem={renderItem}
+            ListFooterComponent={renderLoading}
+            style={{ flexGrow: 0 }}
+            extraData={likedItems}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            onEndReached={list.length % 20 === 0 ? getMore : () => {}}
+            onEndReachedThreshold={0}
+            onScroll={ShowToTop}
+          />
+        ),
+        [list, likedItems],
+      )}
+      {list.length === 0 && (
+        <WithoutItemsContainer>
+          <WithoutItemsLabel>
+            Não há itens para essa busca ou sessão
+          </WithoutItemsLabel>
+        </WithoutItemsContainer>
+      )}
+      {showToTop && (
+        <ToTopButton onPress={goToTop}>
+          <ToTop />
+        </ToTopButton>
+      )}
+    </Container>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { EVENTS } from '~/constants/sections';
 
 import {
   getEvents,
@@ -41,8 +42,6 @@ const EventsList = () => {
     setGettingMoreEvents(true);
   };
 
-  const goToEvent = () => {};
-
   const likeUnlikeThisEvent = (eventId, isLiked) => {
     if (isLiked) dispatch(unlikeAEvent(eventId));
     else dispatch(likeAEvent(eventId));
@@ -57,16 +56,16 @@ const EventsList = () => {
       <></>
     );
 
-  const eventList = listByName.length > 0 ? listByName : list;
+  const eventsList = nameForSearch !== '' ? listByName : list;
 
   return (
     <List
-      list={eventList}
+      list={eventsList}
       renderLoading={renderLoading}
       getMore={getMoreEvents}
       likeUnlikeAction={likeUnlikeThisEvent}
-      goToDetails={goToEvent}
       likedItems={likedEvents}
+      section={EVENTS}
     />
   );
 };

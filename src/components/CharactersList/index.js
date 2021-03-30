@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { CHARACTERS } from '~/constants/sections';
+
 import {
   getCharacters,
   getCharactersByName,
@@ -41,8 +43,6 @@ const CharactersList = () => {
     setGettingMoreCharacters(true);
   };
 
-  const goToCharacter = () => {};
-
   const likeUnlikeThisCharacter = (characterId, isLiked) => {
     if (isLiked) dispatch(unlikeACharacter(characterId));
     else dispatch(likeACharacter(characterId));
@@ -57,16 +57,16 @@ const CharactersList = () => {
       <></>
     );
 
-  const characterList = listByName.length > 0 ? listByName : list;
+  const charactersList = nameForSearch !== '' ? listByName : list;
 
   return (
     <List
-      list={characterList}
+      list={charactersList}
       renderLoading={renderLoading}
       getMore={getMoreCharacters}
       likeUnlikeAction={likeUnlikeThisCharacter}
-      goToDetails={goToCharacter}
       likedItems={likedCharacters}
+      section={CHARACTERS}
     />
   );
 };
