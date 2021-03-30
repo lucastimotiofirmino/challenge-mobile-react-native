@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "android:staging": "ENVFILE=.env.staging react-native run-android"
+    "android:staging": "ENVFILE=.env.staging react-native run-android",
+    "win-android:staging": "SET ENVFILE=.env.staging && react-native run-android"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
