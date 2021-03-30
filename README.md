@@ -1,35 +1,75 @@
-# Desafio em React Native
+# Heroes
 
-## O que esperamos que você faça?
-Somos fãs da Marvel, quem não gosta de Super-heróis?
-A ideia é bem simples, queremos um aplicativo que nos mostre todos os personagens da Marvel além de seus eventos e séries.
+Heroes é uma aplicação de listagem de personagens, eventos e séries do universo Marvel. Aqui temos herois, vilões, personagens maiores, menores, aquele figurante importante, o mutante de outro universo, deses e muito mais!
 
-## Requisitos básicos:
-- Utilizar a API de personsagens da marvel; (https://developer.marvel.com/docs)
-- O aplicativo deve conter uma listagem paginada em infinite scroll;
-- A listagem deverá ser ordenada por nome;
-- Uma modal com os detalhes do personagem;
-- Deve ser possível favoritar um personagem; (os favoritos devem ser salvos em base local.)
-- Deverá disponibilizar dois filtros: nome do personagem e meus favoritos;
+Heroes fornece um campo de busca para cada sessão (personagens, eventos e séries), além de poder dar like!
 
-## Requisitos técnicos:
-- TypeScript;
-- Redux;
-- Usar persistência de dados; (a livre escolha de base.)
 
-## Gostaríamos que:
-- Sua imaginação fluísse em relação a interface.
-- Caso tenha tempo, fique a vontade para adicionar o que achar necessário. (mas o tempo estará contando!!!)
+## Preview
 
-## O que iremos avaliar:
-- **Iremos observar principalmente a forma com que você irá aplicar o JavaScript.**
-- Organização estrutural do projeto;
-- Utilização de padrões de desenvolvimento;
-- Bom código;
-- Tempo utilizado;
-- UI/UX; (não precisa ser a melhor, mas precisa ser funcional.)
+Abaixo alguns snaps do app Heroes:
 
-## Como iremos avaliar?
-- Faça um fork desse repósitorio. (o início será contabilizado a partir do envio das instruções.)
-- Ao termino, faça seu pull-request. (levaremos em consideração o tempo entre essas duas etapas.)
-- Após isso, é conosco!
+![](https://media2.giphy.com/media/85cOa9J9egIs5ihibs/giphy.gif)
+Splash Screen
+
+
+
+![](https://media1.giphy.com/media/vLmhxttjlnsr3ODos1/giphy.gif)
+Lista de personagens
+
+
+![](https://media2.giphy.com/media/3bCnvYBGZv9SYREzC3/giphy.gif)
+Like e detalhes de personagem
+
+
+
+![](https://media0.giphy.com/media/aoYSsVskOP3UbVYaWx/giphy.gif)
+Lista de eventos
+
+
+
+![](https://media2.giphy.com/media/ryS4a08kBCDhFx24Vg/giphy.gif)
+Busca de personagens
+
+
+## RODANDO O HEROES!
+
+- Clone o repositório;
+
+- Baixe as dependências do projeto:
+  `$ yarn`
+
+- Configure o Reactotron (opcional):
+
+  - Na raiz do projeto, no arquivo **.env.staging**, e apontar o seu endereço de IP para a variável **REACTOTRON_IP=**
+    Exemplo: `REACTOTRON_IP=SeuIpAqui`
+
+- Execute o emulador previamente configurado ou [utilize um dispositivo fisíco conectado via USB](https://react-native.rocketseat.dev/usb/android)
+
+- Entre na raiz do seu projeto via terminal execute o comando :
+  `$ yarn android:staging` para MacOs ou Linux / `$yarn win-android:staging` para windows
+
+
+## Autor
+
+* **Talles Barbosa**
+
+
+## Conhecimentos e ferramentas aplicados
+
+* **React Native**
+* **Javascript**
+* **Redux**
+* **Redux-persist**
+* **Styled components**
+* **Axios**
+* **React-navigation**
+* **Saga**
+* **Reactotron**
+* **Hooks (useState, useEffect, useMemo, useRef, useSelector, useDispatch)**
+* **Lodash**
+* **Splash screen**
+* **Debounce**
+* **Micro componentizações**
+
+
