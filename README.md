@@ -41,12 +41,12 @@ Busca de personagens
 
 - Configure o Reactotron (opcional):
 
-  - Na raiz do projeto, no arquivo **.env.staging**, e apontar o seu endereço de IP para a variável **REACTOTRON_IP=**
-    Exemplo: `REACTOTRON_IP=SeuIpAqui`
+  - Na raiz do projeto, no arquivo **.env.staging**, e apontar o seu endereço de IP para a variável **REACTOTRON_HOST=**
+    Exemplo: `REACTOTRON_HOST=SeuIpAqui`
 
 - Execute o emulador previamente configurado ou [utilize um dispositivo fisíco conectado via USB](https://react-native.rocketseat.dev/usb/android)
 
-- Entre na raiz do seu projeto via terminal execute o comando :
+- Entre na raiz do seu projeto e via terminal execute o comando :
   `$ yarn android:staging` para MacOs ou Linux / `$yarn win-android:staging` para windows
 
 
