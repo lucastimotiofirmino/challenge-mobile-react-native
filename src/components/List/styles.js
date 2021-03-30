@@ -1,9 +1,22 @@
 import styled from 'styled-components';
 
 import StyledIcon from '../styledComponents/Icon';
+import StyledText from '../styledComponents/Text';
 
 export const Container = styled.View`
   flex: 1;
+`;
+
+export const WithoutItemsContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const WithoutItemsLabel = styled(StyledText)`
+  font-family: Nunito-Bold;
+  font-size: 20px;
+  color: #9d9ca7;
 `;
 
 export const ToTopButton = styled.TouchableOpacity`

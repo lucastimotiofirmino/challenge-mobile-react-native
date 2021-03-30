@@ -57,11 +57,11 @@ const CharactersList = () => {
       <></>
     );
 
-  const characterList = listByName.length > 0 ? listByName : list;
+  const charactersList = nameForSearch !== '' ? listByName : list;
 
   return (
     <List
-      list={characterList}
+      list={charactersList}
       renderLoading={renderLoading}
       getMore={getMoreCharacters}
       likeUnlikeAction={likeUnlikeThisCharacter}

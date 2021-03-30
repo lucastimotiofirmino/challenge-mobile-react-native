@@ -56,11 +56,11 @@ const EventsList = () => {
       <></>
     );
 
-  const eventList = listByName.length > 0 ? listByName : list;
+  const eventsList = nameForSearch !== '' ? listByName : list;
 
   return (
     <List
-      list={eventList}
+      list={eventsList}
       renderLoading={renderLoading}
       getMore={getMoreEvents}
       likeUnlikeAction={likeUnlikeThisEvent}

@@ -56,7 +56,7 @@ const SeriesList = () => {
       <></>
     );
 
-  const seriesList = listByName.length > 0 ? listByName : list;
+  const seriesList = nameForSearch !== '' ? listByName : list;
 
   return (
     <List

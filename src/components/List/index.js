@@ -3,7 +3,13 @@ import { FlatList } from 'react-native';
 
 import Card from '../Card';
 
-import { Container, ToTopButton, ToTop } from './styles';
+import {
+  Container,
+  ToTopButton,
+  ToTop,
+  WithoutItemsContainer,
+  WithoutItemsLabel,
+} from './styles';
 
 const List = ({
   list,
@@ -60,6 +66,13 @@ const List = ({
           />
         ),
         [list, likedItems],
+      )}
+      {list.length === 0 && (
+        <WithoutItemsContainer>
+          <WithoutItemsLabel>
+            Não há itens para essa busca ou sessão
+          </WithoutItemsLabel>
+        </WithoutItemsContainer>
       )}
       {showToTop && (
         <ToTopButton onPress={goToTop}>
