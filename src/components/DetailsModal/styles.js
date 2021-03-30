@@ -61,3 +61,13 @@ export const Like = styled(StyledIcon).attrs((props) => ({
   color: '#452ed9',
   size: 28,
 }))``;
+
+export const Line = styled.View`
+  background: #000;
+  height: 6px;
+  width: 40px;
+  border-radius: 4px;
+  position: absolute;
+  align-self: center;
+  margin-top: 8px;
+`;

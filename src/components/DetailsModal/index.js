@@ -22,6 +22,7 @@ import {
   LikeButton,
   NameContainer,
   LikeContainer,
+  Line,
 } from './styles';
 
 const DetailsModal = () => {
@@ -108,6 +109,7 @@ const DetailsModal = () => {
             </ScrollView>
           </>
         )}
+        <Line />
       </Container>
     </Modal>
   );
