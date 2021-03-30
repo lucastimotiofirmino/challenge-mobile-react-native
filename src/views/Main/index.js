@@ -18,8 +18,6 @@ const Main = () => {
 
   let List = <></>;
 
-  console.tron.log('section', section);
-
   switch (section) {
     case CHARACTERS:
       List = <CharactersList />;
