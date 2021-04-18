@@ -5,6 +5,7 @@ Foi usado React Native com Expo, o motivo de ter desenvolvido na plataforma do E
 
 ## Caso sua reação ao ver meu código for assim:
 ![](https://i.ytimg.com/vi/1NZz_2Mds9s/hqdefault.jpg)
+
 Saiba que mesmo feio, foi feito com muito amor :D
 
 ## Quer testar o app sem precisar fazer build?
