@@ -1,35 +1,11 @@
-# Desafio em React Native
+# SuperMarvel
 
-## O que esperamos que você faça?
-Somos fãs da Marvel, quem não gosta de Super-heróis?
-A ideia é bem simples, queremos um aplicativo que nos mostre todos os personagens da Marvel além de seus eventos e séries.
+## Tecnologia usada:
+Foi usado React Native com Expo, o motivo de ter desenvolvido na plataforma do Expo, é por praticidade e velocidade na finalização do projeto, sem dizer que é mais fácil testar em celulares com ele.
 
-## Requisitos básicos:
-- Utilizar a API de personsagens da marvel; (https://developer.marvel.com/docs)
-- O aplicativo deve conter uma listagem paginada em infinite scroll;
-- A listagem deverá ser ordenada por nome;
-- Uma modal com os detalhes do personagem;
-- Deve ser possível favoritar um personagem; (os favoritos devem ser salvos em base local.)
-- Deverá disponibilizar dois filtros: nome do personagem e meus favoritos;
+## Caso sua reação ao ver meu código for assim:
+![](https://i.ytimg.com/vi/1NZz_2Mds9s/hqdefault.jpg)
+Saiba que mesmo feio, foi feito com muito amor :D
 
-## Requisitos técnicos:
-- TypeScript;
-- Redux;
-- Usar persistência de dados; (a livre escolha de base.)
-
-## Gostaríamos que:
-- Sua imaginação fluísse em relação a interface.
-- Caso tenha tempo, fique a vontade para adicionar o que achar necessário. (mas o tempo estará contando!!!)
-
-## O que iremos avaliar:
-- **Iremos observar principalmente a forma com que você irá aplicar o JavaScript.**
-- Organização estrutural do projeto;
-- Utilização de padrões de desenvolvimento;
-- Bom código;
-- Tempo utilizado;
-- UI/UX; (não precisa ser a melhor, mas precisa ser funcional.)
-
-## Como iremos avaliar?
-- Faça um fork desse repósitorio. (o início será contabilizado a partir do envio das instruções.)
-- Ao termino, faça seu pull-request. (levaremos em consideração o tempo entre essas duas etapas.)
-- Após isso, é conosco!
+## Quer testar o app sem precisar fazer build?
+- Então acesse o link, vale lembrar que só funciona pra android: (https://expo.io/@cyberkai/projects/SuperMarvel)
