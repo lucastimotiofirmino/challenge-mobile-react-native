@@ -74,7 +74,6 @@ const Home = (): JSX.Element => {
 
   function filterSearchFavorits(text: string): void {
     if (text.length > 0) {
-      // this.setState({ visibleListBairro: true })
       const newData = localCharactersType?.filter(function (item) {
         const itemData = item.name.toUpperCase();
         const textData = text.toUpperCase();
@@ -83,7 +82,6 @@ const Home = (): JSX.Element => {
       setLocalCharactersType(newData);
     } else {
       setSearchValue('');
-      // setLocalCharactersType(localCharactersType);
     }
   }
   const searchCharacter = (e: string): void => {
