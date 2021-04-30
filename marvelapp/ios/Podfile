@@ -12,6 +12,8 @@ target 'marvelapp' do
     :hermes_enabled => false
   )
 
+  pod 'RNSharedElement', :path => '../node_modules/react-native-shared-element'
+
   target 'marvelappTests' do
     inherit! :complete
     # Pods for testing

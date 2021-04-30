@@ -122,6 +122,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				EFE9465534F4010B56A34915 /* Pods */,
+				FC74AD586F1A4E1EBE957F00 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -145,8 +146,14 @@
 				17E48D724F1AD794D204B44F /* Pods-marvelapp-marvelappTests.debug.xcconfig */,
 				9724580B93D8357056FF4137 /* Pods-marvelapp-marvelappTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FC74AD586F1A4E1EBE957F00 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
