@@ -50,7 +50,9 @@
           "tsx": "never"
         }
       ],
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "no-console": 0,
+      "no-nested-ternary": "off"
     },
     "settings": {
       "import/resolver": {

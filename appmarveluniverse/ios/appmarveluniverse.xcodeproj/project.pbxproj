@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		008146FBCF3546F4BDD2BD41 /* Marvel-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BC7555B24461494BAB59CBDF /* Marvel-Italic.ttf */; };
 		00E356F31AD99517003FC87E /* appmarveluniverseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* appmarveluniverseTests.m */; };
 		0B84A3D2558607A27F3A9727 /* libPods-appmarveluniverse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5CCA29A0A97B53CC4BC2F83 /* libPods-appmarveluniverse.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		23813322C9CE4FA4AED871BE /* Marvel-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3810AA56F6A41469BB669E9 /* Marvel-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8C9E745A20294EBB6E9607E5 /* libPods-appmarveluniverse-appmarveluniverseTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE14E57716A4724B9F1FA9C /* libPods-appmarveluniverse-appmarveluniverseTests.a */; };
+		C23641719A854DE8945C46CF /* Marvel-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6D8072ED6B747C09783379D /* Marvel-BoldItalic.ttf */; };
+		D24A9BAD44F64387A0688488 /* Marvel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 067766B553384C56A7FD7CEA /* Marvel-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +34,7 @@
 		00E356EE1AD99517003FC87E /* appmarveluniverseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = appmarveluniverseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* appmarveluniverseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = appmarveluniverseTests.m; sourceTree = "<group>"; };
+		067766B553384C56A7FD7CEA /* Marvel-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Marvel-Bold.ttf"; path = "../assets/fonts/Marvel-Bold.ttf"; sourceTree = "<group>"; };
 		0A2F6F7668D28CD27B9E6CB9 /* Pods-appmarveluniverse-appmarveluniverseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appmarveluniverse-appmarveluniverseTests.debug.xcconfig"; path = "Target Support Files/Pods-appmarveluniverse-appmarveluniverseTests/Pods-appmarveluniverse-appmarveluniverseTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* appmarveluniverse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appmarveluniverse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = appmarveluniverse/AppDelegate.h; sourceTree = "<group>"; };
@@ -43,7 +48,10 @@
 		8165C481DD35CF7524EE91AE /* Pods-appmarveluniverse-appmarveluniverseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appmarveluniverse-appmarveluniverseTests.release.xcconfig"; path = "Target Support Files/Pods-appmarveluniverse-appmarveluniverseTests/Pods-appmarveluniverse-appmarveluniverseTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = appmarveluniverse/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5CCA29A0A97B53CC4BC2F83 /* libPods-appmarveluniverse.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-appmarveluniverse.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6D8072ED6B747C09783379D /* Marvel-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Marvel-BoldItalic.ttf"; path = "../assets/fonts/Marvel-BoldItalic.ttf"; sourceTree = "<group>"; };
+		BC7555B24461494BAB59CBDF /* Marvel-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Marvel-Italic.ttf"; path = "../assets/fonts/Marvel-Italic.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F3810AA56F6A41469BB669E9 /* Marvel-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Marvel-Regular.ttf"; path = "../assets/fonts/Marvel-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +130,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				E9E610E5FA04CB151FEB89E2 /* Pods */,
+				9D820B1319CD479C9CB852A2 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -135,6 +144,18 @@
 				00E356EE1AD99517003FC87E /* appmarveluniverseTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9D820B1319CD479C9CB852A2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				067766B553384C56A7FD7CEA /* Marvel-Bold.ttf */,
+				B6D8072ED6B747C09783379D /* Marvel-BoldItalic.ttf */,
+				BC7555B24461494BAB59CBDF /* Marvel-Italic.ttf */,
+				F3810AA56F6A41469BB669E9 /* Marvel-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		E9E610E5FA04CB151FEB89E2 /* Pods */ = {
@@ -245,6 +266,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				D24A9BAD44F64387A0688488 /* Marvel-Bold.ttf in Resources */,
+				C23641719A854DE8945C46CF /* Marvel-BoldItalic.ttf in Resources */,
+				008146FBCF3546F4BDD2BD41 /* Marvel-Italic.ttf in Resources */,
+				23813322C9CE4FA4AED871BE /* Marvel-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
