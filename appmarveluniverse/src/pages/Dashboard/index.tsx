@@ -26,6 +26,7 @@ import {
   ModalSectionTitle,
   ModalCharDescriptionContainer,
   ModalCharDescriptionText,
+  ModalDetailsScroll,
   ModalSectionHorizontalScroll,
   ModalComicContainer,
   ModalCharComicsTotal,
@@ -52,13 +53,18 @@ const Dashboard: React.FC = () => {
   const [resetStates, setResetStates] = useState(false);
   const [allCharsResults, setAllCharsResults] = useState([]);
   const [allCharsData, setAllCharsData] = useState([]);
-  const [allCharsOffset, setAllCharsOffset] = useState(0);
   const [charDetails, setCharDetails] = useState({});
+  const [allCharsOffset, setAllCharsOffset] = useState(0);
   const [allCharComicsResults, setAllCharComicsResults] = useState([]);
   const [allCharComicsData, setAllCharComicsData] = useState([]);
   const [allCharComicsOffset, setAllCharComicsOffset] = useState(0);
+  const [allCharSeriesResults, setAllCharSeriesResults] = useState([]);
+  const [allCharSeriesData, setAllCharSeriesData] = useState([]);
+  const [allCharSeriesOffset, setAllCharSeriesOffset] = useState(0);
 
   /**  Functions  * */
+
+  // Get all character from Marvel's universe
   const getAllChars = async () => {
     return api
       .get('/v1/public/characters', {
@@ -83,6 +89,7 @@ const Dashboard: React.FC = () => {
       });
   };
 
+  // Get all details of selected character
   const handleCharDetails = async (characterId: string): Promise<void> => {
     return api
       .get(`/v1/public/characters/${characterId}`, { params: {} })
@@ -96,8 +103,8 @@ const Dashboard: React.FC = () => {
       });
   };
 
+  // Get all Comics appearances of selected character
   const getAllCharComics = async (characterId: string): Promise<void> => {
-    console.log('allCharComicsOffset', allCharComicsOffset);
     return api
       .get(`/v1/public/characters/${characterId}/comics`, {
         params: {
@@ -124,6 +131,34 @@ const Dashboard: React.FC = () => {
       });
   };
 
+  // Get all Comics series appearances of selected character
+  const getAllCharSeries = async (characterId: string): Promise<void> => {
+    return api
+      .get(`/v1/public/characters/${characterId}/series`, {
+        params: {
+          limit: 30,
+          offset: allCharSeriesOffset,
+          orderBy: 'startYear',
+        },
+      })
+      .then(res => {
+        if (res.data.code === 200) {
+          setAllCharSeriesData(res.data);
+          const responseData = [
+            ...allCharSeriesResults,
+            ...res.data.data.results,
+          ];
+          const unique = [
+            ...new Set(responseData.map(o => JSON.stringify(o))),
+          ].map(string => JSON.parse(string));
+          setAllCharSeriesResults(unique);
+        }
+      })
+      .catch(err => {
+        console.error('@getAllCharSeries', err);
+      });
+  };
+
   useEffect(() => {
     getAllChars();
   }, []);
@@ -142,6 +177,7 @@ const Dashboard: React.FC = () => {
     setModalVisible(true);
     if (Object.keys(charDetails).length > 0) {
       getAllCharComics(charDetails.results[0].id);
+      getAllCharSeries(charDetails.results[0].id);
     }
   }, [charDetails]);
 
@@ -150,6 +186,9 @@ const Dashboard: React.FC = () => {
       setAllCharComicsOffset(0);
       setAllCharComicsResults([]);
       setAllCharComicsData([]);
+      setAllCharSeriesOffset(0);
+      setAllCharSeriesResults([]);
+      setAllCharSeriesData([]);
     }
     resetStates && setResetStates(false);
   }, [resetStates]);
@@ -198,38 +237,82 @@ const Dashboard: React.FC = () => {
                     : `No description available`}
                 </ModalCharDescriptionText>
               </ModalCharDescriptionContainer>
-              {Object.keys(allCharComicsData).length > 0 && (
-                <>
-                  <ModalSectionTitle>
-                    Aparição nos Quadrinhos
-                    <ModalCharComicsTotal>
-                      (Total: {`${allCharComicsData.data.total}`})
-                    </ModalCharComicsTotal>
-                  </ModalSectionTitle>
-                  <ModalSectionHorizontalScroll
-                    data={allCharComicsResults}
-                    keyExtractor={item => item.id.toString()}
-                    renderItem={({ item }) => (
-                      <ModalComicContainer>
-                        <ModalComicCoverImage
-                          source={{
-                            uri: `${item.thumbnail.path.replace(
-                              'http',
-                              'https',
-                            )}/portrait_fantastic.${item.thumbnail.extension}`,
-                          }}
-                        />
-                      </ModalComicContainer>
-                    )}
-                    onEndReachedThreshold={0.3}
-                    onEndReached={() => {
-                      if (allCharComicsOffset < allCharComicsData.data.total) {
-                        setAllCharComicsOffset(allCharComicsOffset + 30);
-                      }
-                    }}
-                  />
-                </>
-              )}
+              <ModalDetailsScroll>
+                {/* Comics */}
+                {Object.keys(allCharComicsData).length > 0 && (
+                  <>
+                    <ModalSectionTitle>
+                      Aparição nos Quadrinhos{' '}
+                      <ModalCharComicsTotal>
+                        (Total: {`${allCharComicsData.data.total}`})
+                      </ModalCharComicsTotal>
+                    </ModalSectionTitle>
+                    <ModalSectionHorizontalScroll
+                      data={allCharComicsResults}
+                      keyExtractor={item => item.id.toString()}
+                      renderItem={({ item }) => (
+                        <ModalComicContainer>
+                          <ModalComicCoverImage
+                            source={{
+                              uri: `${item.thumbnail.path.replace(
+                                'http',
+                                'https',
+                              )}/portrait_fantastic.${
+                                item.thumbnail.extension
+                              }`,
+                            }}
+                          />
+                        </ModalComicContainer>
+                      )}
+                      onEndReachedThreshold={0.3}
+                      onEndReached={() => {
+                        if (
+                          allCharComicsOffset < allCharComicsData.data.total
+                        ) {
+                          setAllCharComicsOffset(allCharComicsOffset + 30);
+                        }
+                      }}
+                    />
+                  </>
+                )}
+                {/* Series */}
+                {Object.keys(allCharSeriesData).length > 0 && (
+                  <>
+                    <ModalSectionTitle>
+                      Aparição nas Séries em Quadrinhos{' '}
+                      <ModalCharComicsTotal>
+                        (Total: {`${allCharSeriesData.data.total}`})
+                      </ModalCharComicsTotal>
+                    </ModalSectionTitle>
+                    <ModalSectionHorizontalScroll
+                      data={allCharSeriesResults}
+                      keyExtractor={item => item.id.toString()}
+                      renderItem={({ item }) => (
+                        <ModalComicContainer>
+                          <ModalComicCoverImage
+                            source={{
+                              uri: `${item.thumbnail.path.replace(
+                                'http',
+                                'https',
+                              )}/portrait_fantastic.${
+                                item.thumbnail.extension
+                              }`,
+                            }}
+                          />
+                        </ModalComicContainer>
+                      )}
+                      onEndReachedThreshold={0.3}
+                      onEndReached={() => {
+                        if (
+                          allCharSeriesOffset < allCharSeriesData.data.total
+                        ) {
+                          setAllCharSeriesOffset(allCharSeriesOffset + 30);
+                        }
+                      }}
+                    />
+                  </>
+                )}
+              </ModalDetailsScroll>
             </ModalView>
           </ModalContainer>
         </Modal>

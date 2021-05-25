@@ -36,6 +36,7 @@ export const ModalView = styled.View`
 `;
 
 export const ModalButton = styled.TouchableOpacity`
+  position: absolute;
   width: 30px;
   height: 30px;
   justify-content: center;
@@ -54,7 +55,6 @@ export const ModalCover = styled.Image.attrs({
 })`
   width: 100%;
   height: ${height * 0.25}px;
-  top: -40px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   opacity: 0.6;
@@ -64,7 +64,6 @@ export const ModalCharName = styled.Text`
   font-family: 'Marvel-Bold';
   color: #000;
   font-size: 28px;
-  top: -40px;
   margin-left: 5px;
 `;
 
@@ -72,13 +71,11 @@ export const ModalSectionTitle = styled.Text`
   font-family: 'Marvel-Bold';
   color: #000;
   font-size: 20px;
-  top: -20px;
   margin-left: 5px;
 `;
 
 export const ModalCharDescriptionContainer = styled.ScrollView`
-  height: ${height * 0.1}px;
-  top: -20px;
+  max-height: ${height * 0.1}px;
   margin-left: 5px;
 `;
 
@@ -88,12 +85,18 @@ export const ModalCharDescriptionText = styled.Text`
   font-size: 14px;
 `;
 
+export const ModalDetailsScroll = styled.ScrollView`
+  flex: 1;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+`;
+
 export const ModalSectionHorizontalScroll = styled.FlatList.attrs({
   horizontal: true,
   contentContainerStyle: { alignItems: 'center' },
 })`
   max-height: ${height * 0.1}px;
-  top: -20px;
   margin-bottom: 10px;
 `;
 
