@@ -1,9 +1,15 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 
+import IonIcons from 'react-native-vector-icons/Ionicons';
+
 const { height, width } = Dimensions.get('screen');
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  flex: 1;
+  width: 100%;
+  height: 100%;
+`;
 
 export const ItemRow = styled.View`
   width: 100%;
@@ -11,6 +17,105 @@ export const ItemRow = styled.View`
   align-items: center;
   justify-content: center;
 `;
+
+// Modal elements
+export const ModalContainer = styled.View`
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+`;
+
+export const ModalView = styled.View`
+  width: 90%;
+  height: 80%;
+  align-self: center;
+  border-radius: 10px;
+  background-color: #fff;
+  margin-top: 15%;
+`;
+
+export const ModalButton = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  z-index: 10;
+  align-self: flex-end;
+  margin: 5px;
+`;
+
+export const ModalButtonIcon = styled(IonIcons)`
+  position: absolute;
+  border-radius: 20px;
+`;
+
+export const ModalCover = styled.Image.attrs({
+  resizeMode: 'cover',
+})`
+  width: 100%;
+  height: ${height * 0.25}px;
+  top: -40px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  opacity: 0.6;
+`;
+
+export const ModalCharName = styled.Text`
+  font-family: 'Marvel-Bold';
+  color: #000;
+  font-size: 28px;
+  top: -40px;
+  margin-left: 5px;
+`;
+
+export const ModalSectionTitle = styled.Text`
+  font-family: 'Marvel-Bold';
+  color: #000;
+  font-size: 20px;
+  top: -20px;
+  margin-left: 5px;
+`;
+
+export const ModalCharDescriptionContainer = styled.ScrollView`
+  height: ${height * 0.1}px;
+  top: -20px;
+  margin-left: 5px;
+`;
+
+export const ModalCharDescriptionText = styled.Text`
+  font-family: 'Marvel-Regular';
+  color: #000;
+  font-size: 14px;
+`;
+
+export const ModalSectionHorizontalScroll = styled.FlatList.attrs({
+  horizontal: true,
+  contentContainerStyle: { alignItems: 'center' },
+})`
+  max-height: ${height * 0.1}px;
+  top: -20px;
+  margin-bottom: 10px;
+`;
+
+export const ModalCharComicsTotal = styled.Text`
+  font-family: 'Marvel-Regular';
+  color: #000;
+  font-size: 12px;
+`;
+
+export const ModalComicContainer = styled.View`
+  width: ${width * 0.11}px;
+  height: ${width * 0.11 * 1.4}px;
+  margin: 5px 5px 0px;
+  background-color: #fff;
+`;
+
+export const ModalComicCoverImage = styled.Image`
+  width: 100%;
+  height: 100%;
+`;
+
+export const ModalComicTitle = styled.Text``;
 
 // Header Page
 export const HeaderContainer = styled.View`
