@@ -4,7 +4,7 @@
 
 // Reacts import
 import React, { useEffect, useState } from 'react';
-import { Modal, Alert, ScrollView, Text } from 'react-native';
+import { Modal } from 'react-native';
 
 // Dependencies import
 
@@ -32,6 +32,11 @@ import {
   ModalCharComicsTotal,
   ModalComicCoverImage,
   ModalComicTitle,
+  ModalCharGraphsContainer,
+  ModalCharGraphElement,
+  ModalCharGraphPic,
+  ModalCharGraphData,
+  ModalCharGraphInfo,
   ItemRow,
   HeaderContainer,
   HeaderLeftElem,
@@ -376,6 +381,20 @@ const Dashboard: React.FC = () => {
                     />
                   </>
                 )}
+                {/* Statistical Data */}
+                <ModalSectionTitle>
+                  Alguns dados do personagem
+                </ModalSectionTitle>
+                <ModalCharGraphsContainer>
+                  <ModalCharGraphElement>
+                    <ModalCharGraphPic />
+                    <ModalCharGraphInfo />
+                  </ModalCharGraphElement>
+                  <ModalCharGraphElement>
+                    <ModalCharGraphPic />
+                    <ModalCharGraphInfo />
+                  </ModalCharGraphElement>
+                </ModalCharGraphsContainer>
               </ModalDetailsScroll>
             </ModalView>
           </ModalContainer>

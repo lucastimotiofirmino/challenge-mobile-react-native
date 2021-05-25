@@ -18,7 +18,7 @@ export const ItemRow = styled.View`
   justify-content: center;
 `;
 
-// Modal elements
+// Modal basic elements
 export const ModalContainer = styled.View`
   flex: 1;
   width: 100%;
@@ -50,6 +50,7 @@ export const ModalButtonIcon = styled(IonIcons)`
   border-radius: 20px;
 `;
 
+// Modal Character Elements
 export const ModalCover = styled.Image.attrs({
   resizeMode: 'cover',
 })`
@@ -100,6 +101,7 @@ export const ModalSectionHorizontalScroll = styled.FlatList.attrs({
   margin-bottom: 10px;
 `;
 
+// Modal Character Comics
 export const ModalCharComicsTotal = styled.Text`
   font-family: 'Marvel-Regular';
   color: #000;
@@ -119,6 +121,37 @@ export const ModalComicCoverImage = styled.Image`
 `;
 
 export const ModalComicTitle = styled.Text``;
+
+// Modal Character Graphs data
+export const ModalCharGraphsContainer = styled.View`
+  width: 100%;
+  height: ${height * 0.21}px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+`;
+
+export const ModalCharGraphElement = styled.View`
+  width: ${width * 0.3}px;
+  height: ${width * 0.3 * 1.3}px;
+  align-items: center;
+  background-color: teal;
+`;
+
+export const ModalCharGraphPic = styled.View`
+  width: ${width * 0.25}px;
+  height: ${width * 0.25}px;
+  background-color: thistle;
+`;
+
+export const ModalCharGraphData = styled.Text``;
+
+export const ModalCharGraphInfo = styled.Text`
+  flex-grow: 1;
+  width: 100%;
+  background-color: tomato;
+`;
 
 // Header Page
 export const HeaderContainer = styled.View`
