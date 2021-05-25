@@ -3,8 +3,10 @@
  */
 
 // Reacts import
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
+
+// Dependencies import
 
 // Assets import
 import MarvelLogo from '../../assets/marvelLogo.png';
@@ -14,21 +16,37 @@ import api from '../../services/api';
 
 // Styles import
 import {
+  ItemRow,
   HeaderContainer,
   HeaderLeftElem,
   HeaderCenterElem,
   HeaderRightElem,
   HeaderTitle,
   HeaderImage,
-  HeaderBackButton,
+  MenuPageTrackerContainer,
+  CharactersScrollContainer,
+  CharacterContainer,
+  CharacterImageContainer,
+  CharacterThumbnail,
+  CharacterResumeInfoContainer,
+  CharacterNameInfo,
 } from './styles';
 
 const Dashboard: React.FC = () => {
+  const [currentChars, setCurrentChars] = useState([]);
+  const [totalChars, setTotalChars] = useState(0);
+
   const getAllChars = () => {
     return api
-      .get(`/characters`)
+      .get('/v1/public/characters', {
+        params: {
+          limit: 30,
+          offset: 0,
+        },
+      })
       .then(res => {
-        console.log(res.data.data.total);
+        setCurrentChars(res.data.data.results);
+        setTotalChars(res.data.data.total);
       })
       .catch(err => {
         console.error('@getAllChars', err);
@@ -40,21 +58,47 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <HeaderContainer>
-      <HeaderLeftElem>
-        <HeaderBackButton
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <Image source={BackButton} />
-        </HeaderBackButton>
-      </HeaderLeftElem>
-      <HeaderCenterElem>
-        <HeaderImage source={MarvelLogo} />
-        <HeaderTitle>Painel dos Personagens</HeaderTitle>
-      </HeaderCenterElem>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <HeaderLeftElem>
+          {/* <HeaderBackButton onPress={() => {}}>
+          <ADIcons name="leftcircleo" size={30} color="#ed1d24" />
+        </HeaderBackButton> */}
+        </HeaderLeftElem>
+        <HeaderCenterElem>
+          <HeaderImage source={MarvelLogo} />
+          <HeaderTitle>Painel de Personagens</HeaderTitle>
+        </HeaderCenterElem>
+        <HeaderRightElem />
+      </HeaderContainer>
+      <MenuPageTrackerContainer />
+      <CharactersScrollContainer
+        data={currentChars}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => (
+          <CharacterContainer>
+            <CharacterImageContainer>
+              <CharacterThumbnail
+                source={{
+                  uri: `${item.thumbnail.path.replace(
+                    'http',
+                    'https',
+                  )}/portrait_xlarge.${item.thumbnail.extension}`,
+                }}
+              />
+            </CharacterImageContainer>
+            <CharacterResumeInfoContainer>
+              <ItemRow>
+                <CharacterNameInfo numberOfLines={2}>
+                  {item.name}
+                </CharacterNameInfo>
+              </ItemRow>
+            </CharacterResumeInfoContainer>
+          </CharacterContainer>
+        )}
+        numColumns={3}
+      />
+    </>
   );
 };
 

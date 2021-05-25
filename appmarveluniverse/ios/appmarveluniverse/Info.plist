@@ -53,6 +53,8 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>AntDesign.ttf</string>
+		<string>Ionicons.ttf</string>
 		<string>Marvel-Bold.ttf</string>
 		<string>Marvel-BoldItalic.ttf</string>
 		<string>Marvel-Italic.ttf</string>
