@@ -61,6 +61,10 @@ const Dashboard: React.FC = () => {
   const [allCharSeriesResults, setAllCharSeriesResults] = useState([]);
   const [allCharSeriesData, setAllCharSeriesData] = useState([]);
   const [allCharSeriesOffset, setAllCharSeriesOffset] = useState(0);
+  const [allCharStoriesResults, setAllCharStoriesResults] = useState([]);
+  const [allCharStoriesData, setAllCharStoriesData] = useState([]);
+  const [allCharEventsResults, setAllCharEventsResults] = useState([]);
+  const [allCharEventsData, setAllCharEventsData] = useState([]);
 
   /**  Functions  * */
 
@@ -159,6 +163,60 @@ const Dashboard: React.FC = () => {
       });
   };
 
+  // Get selected character all appearances in Stories
+  const getAllCharStories = async (characterId: string): Promise<void> => {
+    return api
+      .get(`/v1/public/characters/${characterId}/stories`, {
+        params: {
+          limit: 100,
+          orderBy: 'id',
+        },
+      })
+      .then(res => {
+        if (res.data.code === 200) {
+          setAllCharStoriesData(res.data);
+          const responseData = [
+            ...allCharStoriesResults,
+            ...res.data.data.results,
+          ];
+          const unique = [
+            ...new Set(responseData.map(o => JSON.stringify(o))),
+          ].map(string => JSON.parse(string));
+          setAllCharStoriesResults(unique);
+        }
+      })
+      .catch(err => {
+        console.error('@getAllCharStories', err);
+      });
+  };
+
+  // Get selected character all appearances in Events
+  const getAllCharEvents = async (characterId: string): Promise<void> => {
+    return api
+      .get(`/v1/public/characters/${characterId}/events`, {
+        params: {
+          limit: 100,
+          orderBy: 'startDate',
+        },
+      })
+      .then(res => {
+        if (res.data.code === 200) {
+          setAllCharEventsData(res.data);
+          const responseData = [
+            ...allCharEventsResults,
+            ...res.data.data.results,
+          ];
+          const unique = [
+            ...new Set(responseData.map(o => JSON.stringify(o))),
+          ].map(string => JSON.parse(string));
+          setAllCharEventsResults(unique);
+        }
+      })
+      .catch(err => {
+        console.error('@getAllCharEvents', err);
+      });
+  };
+
   useEffect(() => {
     getAllChars();
   }, []);
@@ -178,6 +236,8 @@ const Dashboard: React.FC = () => {
     if (Object.keys(charDetails).length > 0) {
       getAllCharComics(charDetails.results[0].id);
       getAllCharSeries(charDetails.results[0].id);
+      getAllCharStories(charDetails.results[0].id);
+      getAllCharEvents(charDetails.results[0].id);
     }
   }, [charDetails]);
 
@@ -189,6 +249,10 @@ const Dashboard: React.FC = () => {
       setAllCharSeriesOffset(0);
       setAllCharSeriesResults([]);
       setAllCharSeriesData([]);
+      setAllCharStoriesResults([]);
+      setAllCharStoriesData([]);
+      setAllCharEventsResults([]);
+      setAllCharEventsData([]);
     }
     resetStates && setResetStates(false);
   }, [resetStates]);
