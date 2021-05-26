@@ -97,6 +97,7 @@ export const ModalSectionHorizontalScroll = styled.FlatList.attrs({
   horizontal: true,
   contentContainerStyle: { alignItems: 'center' },
 })`
+  min-height: ${height * 0.1}px;
   max-height: ${height * 0.1}px;
   margin-bottom: 10px;
 `;
@@ -136,13 +137,11 @@ export const ModalCharGraphElement = styled.View`
   width: ${width * 0.3}px;
   height: ${width * 0.3 * 1.3}px;
   align-items: center;
-  background-color: teal;
 `;
 
-export const ModalCharGraphPic = styled.View`
+export const ModalCharGraphPic = styled.TouchableOpacity`
   width: ${width * 0.25}px;
   height: ${width * 0.25}px;
-  background-color: thistle;
 `;
 
 export const ModalCharGraphData = styled.Text``;
@@ -150,7 +149,10 @@ export const ModalCharGraphData = styled.Text``;
 export const ModalCharGraphInfo = styled.Text`
   flex-grow: 1;
   width: 100%;
-  background-color: tomato;
+  font-family: 'Marvel-Bold';
+  color: #1f1f1f;
+  font-size: 15px;
+  text-align: center;
 `;
 
 // Header Page

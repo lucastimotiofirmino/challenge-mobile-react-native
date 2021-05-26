@@ -4,9 +4,12 @@
 
 // Reacts import
 import React, { useEffect, useState } from 'react';
-import { Modal } from 'react-native';
+import { Modal, View, Text } from 'react-native';
 
 // Dependencies import
+
+// Components import
+import DonutChart from '../../components/DonutChart';
 
 // Assets import
 import MarvelLogo from '../../assets/marvelLogo.png';
@@ -53,9 +56,19 @@ import {
   CharacterNameInfo,
 } from './styles';
 
+// Scrollview Watch Position
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 20;
+  return (
+    layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom
+  );
+};
+
 const Dashboard: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [resetStates, setResetStates] = useState(false);
+  const [startAnimation, setStartAnimation] = useState(false);
   const [allCharsResults, setAllCharsResults] = useState([]);
   const [allCharsData, setAllCharsData] = useState([]);
   const [charDetails, setCharDetails] = useState({});
@@ -262,6 +275,34 @@ const Dashboard: React.FC = () => {
     resetStates && setResetStates(false);
   }, [resetStates]);
 
+  // console.log('allCharStoriesData.total', allCharStoriesData.data.total);
+  // console.log('allCharEventsData.total', allCharEventsData.data.total);
+
+  // Donut Graph Data
+  const charStoriesData = [
+    {
+      ...(Object.keys(allCharStoriesData).length > 0
+        ? { percentage: allCharStoriesData.data.total }
+        : { percentage: 0 }),
+      color: '#ed1d24',
+      max: 100,
+      radius: 50,
+      strokeWidth: 13,
+    },
+  ];
+
+  const charEventsData = [
+    {
+      ...(Object.keys(allCharEventsData).length > 0
+        ? { percentage: allCharEventsData.data.total }
+        : { percentage: 0 }),
+      color: '#ed1d24',
+      max: 100,
+      radius: 50,
+      strokeWidth: 13,
+    },
+  ];
+
   return (
     <Container>
       {Object.keys(charDetails).length > 0 ? (
@@ -306,7 +347,14 @@ const Dashboard: React.FC = () => {
                     : `No description available`}
                 </ModalCharDescriptionText>
               </ModalCharDescriptionContainer>
-              <ModalDetailsScroll>
+              <ModalDetailsScroll
+                onScroll={({ nativeEvent }) => {
+                  if (isCloseToBottom(nativeEvent)) {
+                    setStartAnimation(true);
+                  }
+                }}
+                scrollEventThrottle={5}
+              >
                 {/* Comics */}
                 {Object.keys(allCharComicsData).length > 0 && (
                   <>
@@ -383,16 +431,50 @@ const Dashboard: React.FC = () => {
                 )}
                 {/* Statistical Data */}
                 <ModalSectionTitle>
-                  Alguns dados do personagem
+                  Alguns outros dados do personagem
                 </ModalSectionTitle>
                 <ModalCharGraphsContainer>
                   <ModalCharGraphElement>
-                    <ModalCharGraphPic />
-                    <ModalCharGraphInfo />
+                    <ModalCharGraphPic>
+                      {charStoriesData.map((p, i) => {
+                        return (
+                          <DonutChart
+                            key={i}
+                            percentage={p.percentage}
+                            color={p.color}
+                            radius={p.radius}
+                            delay={500 + 100 * i}
+                            max={p.max}
+                            strokeWidth={p.strokeWidth}
+                            startAnimation={startAnimation}
+                          />
+                        );
+                      })}
+                    </ModalCharGraphPic>
+                    <ModalCharGraphInfo>
+                      Quantidade de histórias que participou
+                    </ModalCharGraphInfo>
                   </ModalCharGraphElement>
                   <ModalCharGraphElement>
-                    <ModalCharGraphPic />
-                    <ModalCharGraphInfo />
+                    <ModalCharGraphPic>
+                      {charEventsData.map((p, i) => {
+                        return (
+                          <DonutChart
+                            key={i}
+                            percentage={p.percentage}
+                            color={p.color}
+                            radius={p.radius}
+                            delay={500 + 100 * i}
+                            max={p.max}
+                            strokeWidth={p.strokeWidth}
+                            startAnimation={startAnimation}
+                          />
+                        );
+                      })}
+                    </ModalCharGraphPic>
+                    <ModalCharGraphInfo>
+                      Quantidade de eventos que participou
+                    </ModalCharGraphInfo>
                   </ModalCharGraphElement>
                 </ModalCharGraphsContainer>
               </ModalDetailsScroll>
