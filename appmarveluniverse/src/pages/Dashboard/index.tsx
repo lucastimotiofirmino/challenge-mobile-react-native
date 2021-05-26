@@ -4,11 +4,12 @@
 
 // Reacts import
 import React, { useEffect, useState } from 'react';
-import { Modal, Dimensions } from 'react-native';
+import { Modal } from 'react-native';
 
 // Dependencies import
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import { useIsFocused } from '@react-navigation/native';
 
 // Components import
 import DonutChart from '../../components/DonutChart';
@@ -36,11 +37,9 @@ import {
   ModalComicContainer,
   ModalCharComicsTotal,
   ModalComicCoverImage,
-  ModalComicTitle,
   ModalCharGraphsContainer,
   ModalCharGraphElement,
   ModalCharGraphPic,
-  ModalCharGraphData,
   ModalCharGraphInfo,
   ItemRow,
   HeaderContainer,
@@ -49,7 +48,6 @@ import {
   HeaderRightElem,
   HeaderTitle,
   HeaderImage,
-  MenuPageTrackerContainer,
   CharactersScrollContainer,
   CharacterContainer,
   CharacterImageContainer,
@@ -99,7 +97,7 @@ const Dashboard: React.FC = () => {
   const [allCharEventsResults, setAllCharEventsResults] = useState([]);
   const [allCharEventsData, setAllCharEventsData] = useState([]);
 
-  const { height, width } = Dimensions.get('screen');
+  const isFocused = useIsFocused();
 
   /**  Functions  * */
 
@@ -317,6 +315,13 @@ const Dashboard: React.FC = () => {
     getAllChars();
     getFavoriteChar();
   }, []);
+
+  useEffect(() => {
+    if (isFocused) {
+      getAllChars();
+      getFavoriteChar();
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     getAllChars();

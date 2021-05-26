@@ -203,7 +203,7 @@ export const MenuPageTrackerContainer = styled.View`
   background-color: #fff;
 `;
 
-// Character's panel
+// Character's list
 export const CharactersScrollContainer = styled.FlatList.attrs({
   alignItems: 'center',
 })``;
