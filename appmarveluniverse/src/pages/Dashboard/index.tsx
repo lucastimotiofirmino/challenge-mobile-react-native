@@ -303,7 +303,10 @@ const Dashboard: React.FC = () => {
   // Check if character is favorited
   const checkFavoriteChar = (characterId: string): boolean => {
     if (persistentFavChar) {
-      if (persistentFavChar.find(item => item.toString() === characterId)) {
+      if (
+        Object.keys(persistentFavChar).length > 0 &&
+        persistentFavChar.find(item => item.toString() === characterId)
+      ) {
         return true;
       }
       return false;
