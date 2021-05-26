@@ -252,3 +252,13 @@ export const CharacterResumeInfo = styled.Text`
   color: #fff;
   font-size: 13px;
 `;
+
+export const FavoriteCharContainer = styled.TouchableOpacity`
+  position: absolute;
+  align-self: flex-end;
+  right: 3px;
+  top: 3px;
+  width: ${width * 0.05}px;
+  height: ${width * 0.05}px;
+  z-index: 10;
+`;

@@ -4,9 +4,11 @@
 
 // Reacts import
 import React, { useEffect, useState } from 'react';
-import { Modal, View, Text } from 'react-native';
+import { Modal, Dimensions } from 'react-native';
 
 // Dependencies import
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import IonIcons from 'react-native-vector-icons/Ionicons';
 
 // Components import
 import DonutChart from '../../components/DonutChart';
@@ -54,10 +56,22 @@ import {
   CharacterThumbnail,
   CharacterResumeInfoContainer,
   CharacterNameInfo,
+  FavoriteCharContainer,
 } from './styles';
 
+// Interfaces definition
+interface IScrollCloseBottom {
+  layoutMeasurement: string;
+  contentOffset: string;
+  contentSize: string;
+}
+
 // Scrollview Watch Position
-const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+const isCloseToBottom = ({
+  layoutMeasurement,
+  contentOffset,
+  contentSize,
+}: IScrollCloseBottom) => {
   const paddingToBottom = 20;
   return (
     layoutMeasurement.height + contentOffset.y >=
@@ -69,6 +83,7 @@ const Dashboard: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [resetStates, setResetStates] = useState(false);
   const [startAnimation, setStartAnimation] = useState(false);
+  const [persistentFavChar, setPersistentFavChar] = useState({});
   const [allCharsResults, setAllCharsResults] = useState([]);
   const [allCharsData, setAllCharsData] = useState([]);
   const [charDetails, setCharDetails] = useState({});
@@ -83,6 +98,8 @@ const Dashboard: React.FC = () => {
   const [allCharStoriesData, setAllCharStoriesData] = useState([]);
   const [allCharEventsResults, setAllCharEventsResults] = useState([]);
   const [allCharEventsData, setAllCharEventsData] = useState([]);
+
+  const { height, width } = Dimensions.get('screen');
 
   /**  Functions  * */
 
@@ -235,8 +252,67 @@ const Dashboard: React.FC = () => {
       });
   };
 
+  // Get All characters favorited
+  const getFavoriteChar = async () => {
+    try {
+      const charsStored = await AsyncStorage.getItem(
+        '@MarvelSuperApp:FavoritedChar',
+      ).then(req => JSON.parse(req));
+      if (charsStored !== null) {
+        setPersistentFavChar(charsStored);
+      }
+    } catch (err) {
+      throw new Error('No character favorited');
+    }
+  };
+
+  // Favorite a character
+  const favoriteChar = async (characterId: string): Promise<void> => {
+    let prevFavs = await AsyncStorage.getItem('@MarvelSuperApp:FavoritedChar')
+      .then(req => JSON.parse(req))
+      .catch(error => console.error(error));
+
+    // Check if there's an array storage on device if not created
+    if (prevFavs === null) {
+      prevFavs = [];
+      await AsyncStorage.setItem(
+        '@MarvelSuperApp:FavoritedChar',
+        JSON.stringify(prevFavs),
+      );
+    }
+
+    // Insert or remove item from array
+    if (prevFavs.findIndex(el => el === characterId) === -1) {
+      prevFavs.push(characterId);
+    } else {
+      prevFavs.splice(
+        prevFavs.findIndex(el => el === characterId),
+        1,
+      );
+    }
+
+    // Record storage
+    await AsyncStorage.setItem(
+      '@MarvelSuperApp:FavoritedChar',
+      JSON.stringify(prevFavs),
+    );
+
+    getFavoriteChar();
+  };
+
+  // Check if character is favorited
+  const checkFavoriteChar = (characterId: string): boolean => {
+    if (persistentFavChar) {
+      if (persistentFavChar.find(item => item.toString() === characterId)) {
+        return true;
+      }
+      return false;
+    }
+  };
+
   useEffect(() => {
     getAllChars();
+    getFavoriteChar();
   }, []);
 
   useEffect(() => {
@@ -275,29 +351,22 @@ const Dashboard: React.FC = () => {
     resetStates && setResetStates(false);
   }, [resetStates]);
 
-  // console.log('allCharStoriesData.total', allCharStoriesData.data.total);
-  // console.log('allCharEventsData.total', allCharEventsData.data.total);
-
   // Donut Graph Data
   const charStoriesData = [
-    {
-      ...(Object.keys(allCharStoriesData).length > 0
-        ? { percentage: allCharStoriesData.data.total }
-        : { percentage: 0 }),
+    Object.keys(allCharStoriesData).length > 0 && {
+      percentage: allCharStoriesData.data.total,
       color: '#ed1d24',
-      max: 100,
+      max: allCharStoriesData.data.total + 100,
       radius: 50,
       strokeWidth: 13,
     },
   ];
 
   const charEventsData = [
-    {
-      ...(Object.keys(allCharEventsData).length > 0
-        ? { percentage: allCharEventsData.data.total }
-        : { percentage: 0 }),
+    Object.keys(allCharEventsData).length > 0 && {
+      percentage: allCharEventsData.data.total,
       color: '#ed1d24',
-      max: 100,
+      max: allCharEventsData.data.total + 100,
       radius: 50,
       strokeWidth: 13,
     },
@@ -499,6 +568,21 @@ const Dashboard: React.FC = () => {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <CharacterContainer onPress={() => handleCharDetails(item.id)}>
+            <FavoriteCharContainer
+              onPress={() => {
+                favoriteChar(item.id);
+              }}
+            >
+              <IonIcons
+                name={
+                  checkFavoriteChar(item.id.toString())
+                    ? `md-heart`
+                    : `md-heart-outline`
+                }
+                size={20}
+                color="#71090d"
+              />
+            </FavoriteCharContainer>
             <CharacterImageContainer>
               <CharacterThumbnail
                 source={{
