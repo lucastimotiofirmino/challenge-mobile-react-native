@@ -86,6 +86,7 @@ const isCloseToBottom = ({
 const Dashboard: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [resetStates, setResetStates] = useState(false);
+  const [listParams, setListParams] = useState({});
   const [startAnimation, setStartAnimation] = useState(false);
   const [charNameText, setCharNameText] = useState('');
   const [persistentFavChar, setPersistentFavChar] = useState({});
@@ -109,22 +110,23 @@ const Dashboard: React.FC = () => {
   /**  Functions  * */
 
   // Get all character from Marvel's universe
-  const getAllChars = async (param?: string) => {
-    console.log('param', param);
+  const getAllChars = async (params?: string) => {
     return api
       .get('/v1/public/characters', {
         params: {
           limit: 30,
           offset: allCharsOffset,
-          orderBy: param ? param.sort : 'name',
-          ...(charNameText.trim() !== ''
+          orderBy:
+            params !== undefined && params.sort !== '' ? params.sort : 'name',
+          ...(charNameText.trim() !== '' &&
+          params !== undefined &&
+          params.name !== ''
             ? { nameStartsWith: charNameText }
             : {}),
         },
       })
       .then(res => {
         if (res.data.code === 200) {
-          // res.data.data.results.map(item => console.log(item.name));
           setAllCharsData(res.data);
           const responseData = [...allCharsResults, ...res.data.data.results];
           const unique = [
@@ -324,21 +326,19 @@ const Dashboard: React.FC = () => {
   };
 
   // Get character by name
-  const getCharacterByName = (): void => {
+  const getCharacterByName = (params: string): void => {
     setAllCharsResults([]);
     setAllCharsOffset(0);
     Keyboard.dismiss();
+    setListParams(params);
   };
 
-  // // Order character list
-  // const getCharacterNameOrder = (param: string): void => {
-  //   setAllCharsResults([]);
-  //   setAllCharsOffset(0);
-  //   if (allCharsResults.length === 0 && allCharsOffset === 0) {
-  //     getAllChars();
-  //   }
-
-  // };
+  // Order character list
+  const getCharacterNameOrder = (params: string): void => {
+    setAllCharsResults([]);
+    setAllCharsOffset(0);
+    setListParams(params);
+  };
 
   useEffect(() => {
     getAllChars();
@@ -374,9 +374,13 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     if (allCharsResults.length === 0 && allCharsOffset === 0) {
-      getAllChars();
+      if (Object.keys(listParams).length > 0) {
+        getAllChars(listParams);
+      } else {
+        getAllChars();
+      }
     }
-  }, [allCharsResults, allCharsOffset]);
+  }, [listParams]);
 
   useEffect(() => {
     if (resetStates) {
@@ -391,7 +395,7 @@ const Dashboard: React.FC = () => {
       setAllCharEventsResults([]);
       setAllCharEventsData([]);
     }
-    resetStates && setResetStates(false);
+    if (resetStates) setResetStates(false);
   }, [resetStates]);
 
   // Donut Graph Data
@@ -603,7 +607,7 @@ const Dashboard: React.FC = () => {
           <HeaderTitle>Painel de Personagens</HeaderTitle>
         </HeaderCenterElem>
         <HeaderRightElem>
-          {/* <FilterResultsContainer
+          <FilterResultsContainer
             onPress={() => {
               Alert.alert('Filtro', 'Nome dos personagens', [
                 {
@@ -622,7 +626,7 @@ const Dashboard: React.FC = () => {
             }}
           >
             <FilterResultsIcon />
-          </FilterResultsContainer> */}
+          </FilterResultsContainer>
         </HeaderRightElem>
       </HeaderContainer>
       <SearchContainer>
@@ -630,7 +634,9 @@ const Dashboard: React.FC = () => {
           onChangeText={text => setCharNameText(text)}
           defaultValue={charNameText}
         />
-        <SearchButton onPress={() => getCharacterByName()}>
+        <SearchButton
+          onPress={() => getCharacterByName({ name: charNameText })}
+        >
           <SearchIcon />
         </SearchButton>
       </SearchContainer>
