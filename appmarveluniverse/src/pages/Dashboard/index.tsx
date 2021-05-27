@@ -23,6 +23,7 @@ import api from '../../services/api';
 // Styles import
 import {
   Container,
+  ItemRow,
   ModalContainer,
   ModalView,
   ModalButton,
@@ -41,13 +42,16 @@ import {
   ModalCharGraphElement,
   ModalCharGraphPic,
   ModalCharGraphInfo,
-  ItemRow,
   HeaderContainer,
   HeaderLeftElem,
   HeaderCenterElem,
   HeaderRightElem,
   HeaderTitle,
   HeaderImage,
+  SearchContainer,
+  SearchInput,
+  SearchButton,
+  SearchIcon,
   CharactersScrollContainer,
   CharacterContainer,
   CharacterImageContainer,
@@ -81,6 +85,7 @@ const Dashboard: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [resetStates, setResetStates] = useState(false);
   const [startAnimation, setStartAnimation] = useState(false);
+  const [charNameText, setCharNameText] = useState('');
   const [persistentFavChar, setPersistentFavChar] = useState({});
   const [allCharsResults, setAllCharsResults] = useState([]);
   const [allCharsData, setAllCharsData] = useState([]);
@@ -109,6 +114,9 @@ const Dashboard: React.FC = () => {
           limit: 30,
           offset: allCharsOffset,
           orderBy: 'name',
+          ...(charNameText.trim() !== ''
+            ? { nameStartsWith: charNameText }
+            : {}),
         },
       })
       .then(res => {
@@ -311,6 +319,12 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  // Get character by name
+  const getCharacterByName = (): void => {
+    setAllCharsResults([]);
+    setAllCharsOffset(0);
+  };
+
   useEffect(() => {
     getAllChars();
     getFavoriteChar();
@@ -342,6 +356,12 @@ const Dashboard: React.FC = () => {
       getAllCharEvents(charDetails.results[0].id);
     }
   }, [charDetails]);
+
+  useEffect(() => {
+    if (allCharsResults.length === 0 && allCharsOffset === 0) {
+      getAllChars();
+    }
+  }, [allCharsResults, allCharsOffset]);
 
   useEffect(() => {
     if (resetStates) {
@@ -571,6 +591,15 @@ const Dashboard: React.FC = () => {
         </HeaderCenterElem>
         <HeaderRightElem />
       </HeaderContainer>
+      <SearchContainer>
+        <SearchInput
+          onChangeText={text => setCharNameText(text)}
+          defaultValue={charNameText}
+        />
+        <SearchButton onPress={() => getCharacterByName()}>
+          <SearchIcon />
+        </SearchButton>
+      </SearchContainer>
       <CharactersScrollContainer
         data={allCharsResults}
         keyExtractor={item => item.id.toString()}

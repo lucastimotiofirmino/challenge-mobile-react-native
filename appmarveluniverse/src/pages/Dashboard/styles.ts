@@ -121,8 +121,6 @@ export const ModalComicCoverImage = styled.Image`
   height: 100%;
 `;
 
-export const ModalComicTitle = styled.Text``;
-
 // Modal Character Graphs data
 export const ModalCharGraphsContainer = styled.View`
   width: 100%;
@@ -143,8 +141,6 @@ export const ModalCharGraphPic = styled.TouchableOpacity`
   width: ${width * 0.25}px;
   height: ${width * 0.25}px;
 `;
-
-export const ModalCharGraphData = styled.Text``;
 
 export const ModalCharGraphInfo = styled.Text`
   flex-grow: 1;
@@ -192,16 +188,42 @@ export const HeaderTitle = styled.Text`
   font-size: 18px;
 `;
 
-export const HeaderBackButton = styled.TouchableOpacity`
-  margin-left: 30%;
+// Search character
+export const SearchContainer = styled.View`
+  flex-direction: row;
+  width: 90%;
+  height: 34px;
+  background-color: #111;
+  border-radius: 15px;
+  border-color: #71090d;
+  border-width: 0.5px;
+  align-self: center;
+  margin: 3px 0px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-// Menu page tracker
-export const MenuPageTrackerContainer = styled.View`
-  width: 100%;
-  height: 30px;
-  background-color: #fff;
+export const SearchInput = styled.TextInput.attrs({
+  color: '#fff',
+  autoCapitalize: 'none',
+  placeholder: 'Digite o nome de um personagem...',
+  placeholderTextColor: '#333',
+})`
+  border-radius: 15px;
+  padding: 0px 10px;
 `;
+
+export const SearchButton = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+`;
+
+export const SearchIcon = styled(IonIcons).attrs({
+  name: 'md-search-circle',
+  color: '#ed1d24',
+  size: 30,
+})``;
 
 // Character's list
 export const CharactersScrollContainer = styled.FlatList.attrs({
@@ -244,13 +266,6 @@ export const CharacterNameInfo = styled.Text`
   color: #fff;
   font-size: 16px;
   text-align: center;
-`;
-
-export const CharacterResumeInfo = styled.Text`
-  flex-basis: 95%;
-  font-family: 'Marvel-Regular';
-  color: #fff;
-  font-size: 13px;
 `;
 
 export const FavoriteCharContainer = styled.TouchableOpacity`
