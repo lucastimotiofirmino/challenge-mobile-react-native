@@ -93,7 +93,7 @@ const Favorited: React.FC = () => {
       );
     }
 
-    // Insert or remove item from array
+    // Insert or remove item from persistent array
     if (prevFavs.findIndex(el => el === characterId) === -1) {
       prevFavs.push(characterId);
     } else {
@@ -103,11 +103,15 @@ const Favorited: React.FC = () => {
       );
     }
 
-    // Record storage
+    // Record storage and update favorite character list
     await AsyncStorage.setItem(
       '@MarvelSuperApp:FavoritedChar',
       JSON.stringify(prevFavs),
-    ).finally(() => getFavoritedChars());
+    ).finally(() => {
+      setAllCharsFavoritedDetails(
+        allCharsFavoritedDetails.filter(item => item.id !== characterId),
+      );
+    });
   };
 
   // Check if character is favorited
@@ -138,9 +142,10 @@ const Favorited: React.FC = () => {
   }, [persistentFavChar]);
 
   useEffect(() => {
-    const unique = [
-      ...new Set(resFavedCharDetails.map(o => JSON.stringify(o))),
-    ].map(string => JSON.parse(string));
+    let unique = [];
+    unique = [...new Set(resFavedCharDetails.map(o => JSON.stringify(o)))].map(
+      string => JSON.parse(string),
+    );
     setAllCharsFavoritedDetails(unique);
   }, [resFavedCharDetails]);
 

@@ -4,7 +4,7 @@
 
 // Reacts import
 import React, { useEffect, useState } from 'react';
-import { Modal } from 'react-native';
+import { Modal, Keyboard, ActivityIndicator, Alert } from 'react-native';
 
 // Dependencies import
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,7 +24,6 @@ import api from '../../services/api';
 import {
   Container,
   ItemRow,
-  ModalContainer,
   ModalView,
   ModalButton,
   ModalButtonIcon,
@@ -48,6 +47,9 @@ import {
   HeaderRightElem,
   HeaderTitle,
   HeaderImage,
+  FilterResultsContainer,
+  FilterResultsIcon,
+  ModalBackground,
   SearchContainer,
   SearchInput,
   SearchButton,
@@ -107,13 +109,14 @@ const Dashboard: React.FC = () => {
   /**  Functions  * */
 
   // Get all character from Marvel's universe
-  const getAllChars = async () => {
+  const getAllChars = async (param?: string) => {
+    console.log('param', param);
     return api
       .get('/v1/public/characters', {
         params: {
           limit: 30,
           offset: allCharsOffset,
-          orderBy: 'name',
+          orderBy: param ? param.sort : 'name',
           ...(charNameText.trim() !== ''
             ? { nameStartsWith: charNameText }
             : {}),
@@ -121,6 +124,7 @@ const Dashboard: React.FC = () => {
       })
       .then(res => {
         if (res.data.code === 200) {
+          // res.data.data.results.map(item => console.log(item.name));
           setAllCharsData(res.data);
           const responseData = [...allCharsResults, ...res.data.data.results];
           const unique = [
@@ -307,7 +311,7 @@ const Dashboard: React.FC = () => {
   };
 
   // Check if character is favorited
-  const checkFavoriteChar = (characterId: string): boolean => {
+  const checkFavoriteChar = (characterId: string): boolean | undefined => {
     if (persistentFavChar) {
       if (
         Object.keys(persistentFavChar).length > 0 &&
@@ -323,7 +327,18 @@ const Dashboard: React.FC = () => {
   const getCharacterByName = (): void => {
     setAllCharsResults([]);
     setAllCharsOffset(0);
+    Keyboard.dismiss();
   };
+
+  // // Order character list
+  // const getCharacterNameOrder = (param: string): void => {
+  //   setAllCharsResults([]);
+  //   setAllCharsOffset(0);
+  //   if (allCharsResults.length === 0 && allCharsOffset === 0) {
+  //     getAllChars();
+  //   }
+
+  // };
 
   useEffect(() => {
     getAllChars();
@@ -402,6 +417,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <Container>
+      {/* Modal of character details */}
       {Object.keys(charDetails).length > 0 ? (
         <Modal
           animationType="fade"
@@ -411,7 +427,7 @@ const Dashboard: React.FC = () => {
             setModalVisible(!modalVisible);
           }}
         >
-          <ModalContainer>
+          <ModalBackground>
             <ModalView>
               <ModalButton
                 onPress={() => {
@@ -576,20 +592,38 @@ const Dashboard: React.FC = () => {
                 </ModalCharGraphsContainer>
               </ModalDetailsScroll>
             </ModalView>
-          </ModalContainer>
+          </ModalBackground>
         </Modal>
       ) : null}
+
       <HeaderContainer>
-        <HeaderLeftElem>
-          {/* <HeaderBackButton onPress={() => {}}>
-            <ADIcons name="leftcircleo" size={30} color="#ed1d24" />
-          </HeaderBackButton> */}
-        </HeaderLeftElem>
+        <HeaderLeftElem />
         <HeaderCenterElem>
           <HeaderImage source={MarvelLogo} />
           <HeaderTitle>Painel de Personagens</HeaderTitle>
         </HeaderCenterElem>
-        <HeaderRightElem />
+        <HeaderRightElem>
+          {/* <FilterResultsContainer
+            onPress={() => {
+              Alert.alert('Filtro', 'Nome dos personagens', [
+                {
+                  text: 'A-Z',
+                  onPress: () => {
+                    getCharacterNameOrder({ sort: 'name' });
+                  },
+                },
+                {
+                  text: 'Z-A',
+                  onPress: () => {
+                    getCharacterNameOrder({ sort: '-name' });
+                  },
+                },
+              ]);
+            }}
+          >
+            <FilterResultsIcon />
+          </FilterResultsContainer> */}
+        </HeaderRightElem>
       </HeaderContainer>
       <SearchContainer>
         <SearchInput

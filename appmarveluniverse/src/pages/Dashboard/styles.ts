@@ -19,11 +19,11 @@ export const ItemRow = styled.View`
 `;
 
 // Modal basic elements
-export const ModalContainer = styled.View`
+export const ModalBackground = styled.View`
   flex: 1;
   width: 100%;
   height: 100%;
-  align-items: center;
+  background-color: rgba(0, 0, 0, 0.85);
 `;
 
 export const ModalView = styled.View`
@@ -186,6 +186,24 @@ export const HeaderTitle = styled.Text`
   font-family: 'Marvel-Bold';
   color: #fff;
   font-size: 18px;
+`;
+
+// Filter results
+export const FilterResultsContainer = styled.TouchableOpacity``;
+
+export const FilterResultsIcon = styled(IonIcons).attrs({
+  name: 'ios-filter',
+  color: '#ed1d24',
+  size: 30,
+})``;
+
+export const FilterModalView = styled.View`
+  width: 90%;
+  height: 20%;
+  align-self: center;
+  border-radius: 10px;
+  background-color: #fff;
+  top: 10%;
 `;
 
 // Search character
