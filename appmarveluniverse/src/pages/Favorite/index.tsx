@@ -4,7 +4,6 @@
 
 // Reacts import
 import React, { useState, useEffect } from 'react';
-import {} from 'react-native';
 
 // Dependencies import
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,6 +20,9 @@ import api from '../../services/api';
 import {
   Container,
   ItemRow,
+  ActivityCoverView,
+  ActivityIndicator,
+  ActivityIndicatorText,
   HeaderContainer,
   HeaderLeftElem,
   HeaderCenterElem,
@@ -37,6 +39,7 @@ import {
 } from './styles';
 
 const Favorited: React.FC = () => {
+  const [loadingList, setLoadingList] = useState(true);
   const [persistentFavChar, setPersistentFavChar] = useState({});
   const [resFavedCharDetails, setResFavedCharDetails] = useState([]);
   const [allCharsFavoritedDetails, setAllCharsFavoritedDetails] = useState([]);
@@ -47,6 +50,7 @@ const Favorited: React.FC = () => {
 
   // Get all characters favorited in localStorage
   const getFavoritedChars = async () => {
+    setLoadingList(true);
     try {
       const charsStored = await AsyncStorage.getItem(
         '@MarvelSuperApp:FavoritedChar',
@@ -146,8 +150,14 @@ const Favorited: React.FC = () => {
     unique = [...new Set(resFavedCharDetails.map(o => JSON.stringify(o)))].map(
       string => JSON.parse(string),
     );
-    setAllCharsFavoritedDetails(unique);
+    setTimeout(() => {
+      setAllCharsFavoritedDetails(unique);
+    }, 1000);
   }, [resFavedCharDetails]);
+
+  useEffect(() => {
+    setLoadingList(false);
+  }, [allCharsFavoritedDetails]);
 
   return (
     <Container>
@@ -159,48 +169,57 @@ const Favorited: React.FC = () => {
         </HeaderCenterElem>
         <HeaderRightElem />
       </HeaderContainer>
-      <CharactersScrollContainer
-        data={allCharsFavoritedDetails}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <CharacterContainer>
-            <CharacterImageContainer>
-              <FavoriteCharContainer
-                onPress={() => {
-                  favoriteChar(item.id);
-                }}
-              >
-                <IonIcons
-                  name={
-                    checkFavoriteChar(item.id.toString())
-                      ? `md-heart`
-                      : `md-heart-outline`
-                  }
-                  size={20}
-                  color="#71090d"
-                />
-              </FavoriteCharContainer>
+      {loadingList ? (
+        <ActivityCoverView>
+          <ActivityIndicator />
+          <ActivityIndicatorText>
+            Carregando os personagens...
+          </ActivityIndicatorText>
+        </ActivityCoverView>
+      ) : (
+        <CharactersScrollContainer
+          data={allCharsFavoritedDetails}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => (
+            <CharacterContainer>
+              <CharacterImageContainer>
+                <FavoriteCharContainer
+                  onPress={() => {
+                    favoriteChar(item.id);
+                  }}
+                >
+                  <IonIcons
+                    name={
+                      checkFavoriteChar(item.id.toString())
+                        ? `md-heart`
+                        : `md-heart-outline`
+                    }
+                    size={20}
+                    color="#71090d"
+                  />
+                </FavoriteCharContainer>
 
-              <CharacterThumbnail
-                source={{
-                  uri: `${item.thumbnail.path.replace(
-                    'http',
-                    'https',
-                  )}/portrait_xlarge.${item.thumbnail.extension}`,
-                }}
-              />
-            </CharacterImageContainer>
-            <CharacterResumeInfoContainer>
-              <ItemRow>
-                <CharacterNameInfo numberOfLines={2}>
-                  {item.name}
-                </CharacterNameInfo>
-              </ItemRow>
-            </CharacterResumeInfoContainer>
-          </CharacterContainer>
-        )}
-        numColumns={3}
-      />
+                <CharacterThumbnail
+                  source={{
+                    uri: `${item.thumbnail.path.replace(
+                      'http',
+                      'https',
+                    )}/portrait_xlarge.${item.thumbnail.extension}`,
+                  }}
+                />
+              </CharacterImageContainer>
+              <CharacterResumeInfoContainer>
+                <ItemRow>
+                  <CharacterNameInfo numberOfLines={2}>
+                    {item.name}
+                  </CharacterNameInfo>
+                </ItemRow>
+              </CharacterResumeInfoContainer>
+            </CharacterContainer>
+          )}
+          numColumns={3}
+        />
+      )}
     </Container>
   );
 };

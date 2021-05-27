@@ -16,6 +16,27 @@ export const ItemRow = styled.View`
   justify-content: center;
 `;
 
+// Activity Cover
+export const ActivityCoverView = styled.View`
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ActivityIndicator = styled.ActivityIndicator.attrs({
+  size: 'large',
+  color: '#71090d',
+})``;
+
+export const ActivityIndicatorText = styled.Text`
+  font-family: 'Marvel-Bold';
+  color: #71090d;
+  font-size: 16px;
+`;
+
 // Header Page
 export const HeaderContainer = styled.View`
   width: 100%;
