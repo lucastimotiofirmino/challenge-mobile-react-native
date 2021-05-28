@@ -3,8 +3,8 @@
  */
 
 // Reacts import
-import React, { useEffect, useState } from 'react';
-import { Modal, Keyboard, ActivityIndicator, Alert } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Modal, Keyboard, Alert } from 'react-native';
 
 // Dependencies import
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -65,9 +65,9 @@ import {
 
 // Interfaces definition
 interface IScrollCloseBottom {
-  layoutMeasurement: string;
-  contentOffset: string;
-  contentSize: string;
+  layoutMeasurement: number;
+  contentOffset: number;
+  contentSize: number;
 }
 
 // Scrollview Watch Position
@@ -75,7 +75,7 @@ const isCloseToBottom = ({
   layoutMeasurement,
   contentOffset,
   contentSize,
-}: IScrollCloseBottom) => {
+}: IScrollCloseBottom): boolean => {
   const paddingToBottom = 20;
   return (
     layoutMeasurement.height + contentOffset.y >=

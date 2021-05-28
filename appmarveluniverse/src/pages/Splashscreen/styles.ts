@@ -19,7 +19,7 @@ export const FooterNote = styled.Text`
   font-family: 'Marvel-Bold';
   color: #fff;
   align-self: center;
-  bottom: 0px;
+  bottom: 20px;
 `;
 
 export const ItemRow = styled.View`
@@ -41,7 +41,7 @@ export const LogoImg = styled.Image.attrs({
 `;
 
 export const SubTitle = styled.Text`
-  font-size: 24px;
+  font-size: 25px;
   font-family: 'Marvel-Bold';
   color: #fff;
 `;
