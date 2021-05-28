@@ -5,6 +5,23 @@ export const Container = styled.View`
   height: 100%;
 `;
 
+export const ImageBkg = styled.ImageBackground.attrs({
+  resizeMode: 'cover',
+})`
+  flex: 1;
+  width: 100%;
+  height: 100%;
+`;
+
+export const FooterNote = styled.Text`
+  position: absolute;
+  font-size: 12px;
+  font-family: 'Marvel-Bold';
+  color: #fff;
+  align-self: center;
+  bottom: 0px;
+`;
+
 export const ItemRow = styled.View`
   flex-direction: row;
   justify-content: center;
@@ -25,7 +42,7 @@ export const LogoImg = styled.Image.attrs({
 
 export const SubTitle = styled.Text`
   font-size: 24px;
-  font-family: 'Marvel-Regular';
+  font-family: 'Marvel-Bold';
   color: #fff;
 `;
 
