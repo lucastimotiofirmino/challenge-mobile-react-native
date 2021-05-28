@@ -356,7 +356,13 @@ const Dashboard: React.FC = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    if (allCharsResults.length === 30) getAllChars();
+    if (allCharsResults.length >= 30) {
+      if (listParams.name || listParams.sort) {
+        getAllChars(listParams);
+      } else {
+        getAllChars();
+      }
+    }
   }, [allCharsOffset]);
 
   useEffect(() => {
@@ -681,7 +687,7 @@ const Dashboard: React.FC = () => {
           </CharacterContainer>
         )}
         numColumns={3}
-        onEndReachedThreshold={0.2}
+        onEndReachedThreshold={0.3}
         onEndReached={() => {
           if (allCharsOffset < allCharsData.data.total) {
             setAllCharsOffset(allCharsOffset + 30);
