@@ -70,6 +70,21 @@ interface IScrollCloseBottom {
   contentSize: number;
 }
 
+interface IParams {
+  params: string;
+  sort: string;
+  name: string;
+}
+
+interface ICharDetailsId {
+  id: string;
+}
+
+interface ICharDetails {
+  results: string[];
+  id: string;
+}
+
 // Scrollview Watch Position
 const isCloseToBottom = ({
   layoutMeasurement,
@@ -89,10 +104,10 @@ const Dashboard: React.FC = () => {
   const [listParams, setListParams] = useState({});
   const [startAnimation, setStartAnimation] = useState(false);
   const [charNameText, setCharNameText] = useState('');
-  const [persistentFavChar, setPersistentFavChar] = useState({});
+  const [persistentFavChar, setPersistentFavChar] = useState([]);
   const [allCharsResults, setAllCharsResults] = useState([]);
   const [allCharsData, setAllCharsData] = useState([]);
-  const [charDetails, setCharDetails] = useState({});
+  const [charDetails, setCharDetails] = useState([]);
   const [allCharsOffset, setAllCharsOffset] = useState(0);
   const [allCharComicsResults, setAllCharComicsResults] = useState([]);
   const [allCharComicsData, setAllCharComicsData] = useState([]);
@@ -110,7 +125,7 @@ const Dashboard: React.FC = () => {
   /**  Functions  * */
 
   // Get all character from Marvel's universe
-  const getAllChars = async (params?: string) => {
+  const getAllChars = async (params?: IParams): Promise<void> => {
     return api
       .get('/v1/public/characters', {
         params: {
@@ -280,7 +295,9 @@ const Dashboard: React.FC = () => {
 
   // Favorite a character
   const favoriteChar = async (characterId: string): Promise<void> => {
-    let prevFavs = await AsyncStorage.getItem('@MarvelSuperApp:FavoritedChar')
+    let prevFavs: string[] = await AsyncStorage.getItem(
+      '@MarvelSuperApp:FavoritedChar',
+    )
       .then(req => JSON.parse(req))
       .catch(error => console.error(error));
 
@@ -321,8 +338,8 @@ const Dashboard: React.FC = () => {
       ) {
         return true;
       }
-      return false;
     }
+    return false;
   };
 
   // Get character by name

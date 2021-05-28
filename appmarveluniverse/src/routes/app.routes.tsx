@@ -18,77 +18,20 @@ import Favorite from '../pages/Favorite';
 const Tab = createBottomTabNavigator();
 const ModuleStack = createStackNavigator();
 
-/** Tabbottom of App */
-const AppTabStack: React.FC = () => (
-  <Tab.Navigator
-    tabBarOptions={{
-      activeTintColor: '#ed1d24',
-      inactiveTintColor: '#999',
-      keyboardHidesTabBar: false,
-      allowFontScaling: true,
-    }}
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+// Interfaces definition
+interface IScreenOptions {
+  focused: boolean;
+  color: string;
+  size: number;
+}
 
-        if (route.name === 'Personagens') {
-          iconName = focused ? 'md-earth' : 'md-earth';
-        } else if (route.name === 'Favoritos') {
-          iconName = focused ? 'heart-circle-sharp' : 'heart-circle-sharp';
-        }
-
-        // You can return any component that you like here!
-        return <IonIcons name={iconName} size={size} color={color} />;
-      },
-    })}
-  >
-    <Tab.Screen name="Personagens" component={DashboardStack} />
-    <Tab.Screen name="Favoritos" component={FavoriteStack} />
-  </Tab.Navigator>
-);
-
-const SplashscreenStack: React.FC = () => {
-  return (
-    <ModuleStack.Navigator
-      initialRouteName="Splashscreen"
-      screenOptions={{
-        headerShown: true,
-        animationEnabled: true,
-        headerTransparent: true,
-        headerStyle: {
-          backgroundColor: '#000',
-        },
-        headerTitleAlign: 'left',
-        headerTitleStyle: {
-          fontFamily: 'Marvel-Regular',
-          fontSize: 24,
-        },
-        cardStyle: { backgroundColor: '#000' },
-      }}
-    >
-      <ModuleStack.Screen
-        name="Splashscreen"
-        component={Splashscreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <ModuleStack.Screen
-        name="AppStack"
-        component={AppTabStack}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </ModuleStack.Navigator>
-  );
-};
-
+// Stacks definition
 const DashboardStack: React.FC = () => {
   return (
     <ModuleStack.Navigator
       initialRouteName="Dashboard"
       screenOptions={{
+        headerLeft: () => null,
         headerShown: true,
         animationEnabled: true,
         headerTransparent: true,
@@ -150,6 +93,7 @@ const FavoriteStack: React.FC = () => {
           headerTitleAlign: 'center',
           headerTransparent: true,
           headerTitle: '',
+          headerLeft: () => null,
           headerBackTitleStyle: { color: '#fff' },
           headerBackTitle: '',
           headerBackTitleVisible: false,
@@ -158,6 +102,72 @@ const FavoriteStack: React.FC = () => {
             fontFamily: 'Marvel-Bold',
             fontSize: 22,
           },
+        }}
+      />
+    </ModuleStack.Navigator>
+  );
+};
+
+/** Tabbottom of App */
+const AppTabStack: React.FC = () => (
+  <Tab.Navigator
+    tabBarOptions={{
+      activeTintColor: '#ed1d24',
+      inactiveTintColor: '#999',
+      keyboardHidesTabBar: false,
+      allowFontScaling: true,
+    }}
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }: IScreenOptions) => {
+        let iconName;
+
+        if (route.name === 'Personagens') {
+          iconName = focused ? 'people-circle' : 'people-circle';
+        } else if (route.name === 'Favoritos') {
+          iconName = focused ? 'heart-circle-sharp' : 'heart-circle-sharp';
+        }
+
+        // You can return any component that you like here!
+        return <IonIcons name={iconName} size={size} color={color} />;
+      },
+    })}
+  >
+    <Tab.Screen name="Personagens" component={DashboardStack} />
+    <Tab.Screen name="Favoritos" component={FavoriteStack} />
+  </Tab.Navigator>
+);
+
+const SplashscreenStack: React.FC = () => {
+  return (
+    <ModuleStack.Navigator
+      initialRouteName="Splashscreen"
+      screenOptions={{
+        headerShown: true,
+        animationEnabled: true,
+        headerTransparent: true,
+        headerStyle: {
+          backgroundColor: '#000',
+        },
+        headerTitleAlign: 'left',
+        headerTitleStyle: {
+          fontFamily: 'Marvel-Regular',
+          fontSize: 24,
+        },
+        cardStyle: { backgroundColor: '#000' },
+      }}
+    >
+      <ModuleStack.Screen
+        name="Splashscreen"
+        component={Splashscreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <ModuleStack.Screen
+        name="AppStack"
+        component={AppTabStack}
+        options={{
+          headerShown: false,
         }}
       />
     </ModuleStack.Navigator>
