@@ -76,15 +76,6 @@ interface IParams {
   name: string;
 }
 
-interface ICharDetailsId {
-  id: string;
-}
-
-interface ICharDetails {
-  results: string[];
-  id: string;
-}
-
 // Scrollview Watch Position
 const isCloseToBottom = ({
   layoutMeasurement,
@@ -358,11 +349,6 @@ const Dashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    getAllChars();
-    getFavoriteChar();
-  }, []);
-
-  useEffect(() => {
     if (isFocused) {
       getAllChars();
       getFavoriteChar();
@@ -370,7 +356,7 @@ const Dashboard: React.FC = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    getAllChars();
+    if (allCharsResults.length === 30) getAllChars();
   }, [allCharsOffset]);
 
   useEffect(() => {
@@ -390,12 +376,10 @@ const Dashboard: React.FC = () => {
   }, [charDetails]);
 
   useEffect(() => {
-    if (allCharsResults.length === 0 && allCharsOffset === 0) {
-      if (Object.keys(listParams).length > 0) {
-        getAllChars(listParams);
-      } else {
-        getAllChars();
-      }
+    if (listParams.name || listParams.sort) {
+      getAllChars(listParams);
+    } else {
+      getAllChars();
     }
   }, [listParams]);
 
@@ -697,7 +681,7 @@ const Dashboard: React.FC = () => {
           </CharacterContainer>
         )}
         numColumns={3}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.2}
         onEndReached={() => {
           if (allCharsOffset < allCharsData.data.total) {
             setAllCharsOffset(allCharsOffset + 30);
