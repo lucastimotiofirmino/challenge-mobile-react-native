@@ -41,6 +41,11 @@ import {
   ModalCharGraphElement,
   ModalCharGraphPic,
   ModalCharGraphInfo,
+  ModalActivityIndicatorContainer,
+  ModalActivityIndicator,
+  ModalActivityIndicatorText,
+  ModalNoResultContainer,
+  ModalNoResultsText,
   HeaderContainer,
   HeaderLeftElem,
   HeaderCenterElem,
@@ -110,6 +115,8 @@ const Dashboard: React.FC = () => {
   const [allCharStoriesData, setAllCharStoriesData] = useState([]);
   const [allCharEventsResults, setAllCharEventsResults] = useState([]);
   const [allCharEventsData, setAllCharEventsData] = useState([]);
+  const [loadingComics, setLoadingComics] = useState(true);
+  const [loadingSeriesComics, setLoadingSeriesComics] = useState(true);
 
   const isFocused = useIsFocused();
 
@@ -162,6 +169,7 @@ const Dashboard: React.FC = () => {
 
   // Get all Comics appearances of selected character
   const getAllCharComics = async (characterId: string): Promise<void> => {
+    setLoadingComics(true);
     return api
       .get(`/v1/public/characters/${characterId}/comics`, {
         params: {
@@ -190,6 +198,7 @@ const Dashboard: React.FC = () => {
 
   // Get all Comics series appearances of selected character
   const getAllCharSeries = async (characterId: string): Promise<void> => {
+    setLoadingSeriesComics(true);
     return api
       .get(`/v1/public/characters/${characterId}/series`, {
         params: {
@@ -405,6 +414,18 @@ const Dashboard: React.FC = () => {
     if (resetStates) setResetStates(false);
   }, [resetStates]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingComics(false);
+    }, 2000);
+  }, [allCharComicsResults]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingSeriesComics(false);
+    }, 2000);
+  }, [allCharSeriesResults]);
+
   // Donut Graph Data
   const charStoriesData = [
     Object.keys(allCharStoriesData).length > 0 && {
@@ -468,7 +489,7 @@ const Dashboard: React.FC = () => {
                 <ModalCharDescriptionText>
                   {charDetails.results[0].description !== ''
                     ? charDetails.results[0].description
-                    : `No description available`}
+                    : `Nenhuma descrição disponível`}
                 </ModalCharDescriptionText>
               </ModalCharDescriptionContainer>
               <ModalDetailsScroll
@@ -488,32 +509,50 @@ const Dashboard: React.FC = () => {
                         (Total: {`${allCharComicsData.data.total}`})
                       </ModalCharComicsTotal>
                     </ModalSectionTitle>
-                    <ModalSectionHorizontalScroll
-                      data={allCharComicsResults}
-                      keyExtractor={item => item.id.toString()}
-                      renderItem={({ item }) => (
-                        <ModalComicContainer>
-                          <ModalComicCoverImage
-                            source={{
-                              uri: `${item.thumbnail.path.replace(
-                                'http',
-                                'https',
-                              )}/portrait_fantastic.${
-                                item.thumbnail.extension
-                              }`,
-                            }}
-                          />
-                        </ModalComicContainer>
-                      )}
-                      onEndReachedThreshold={0.3}
-                      onEndReached={() => {
-                        if (
-                          allCharComicsOffset < allCharComicsData.data.total
-                        ) {
-                          setAllCharComicsOffset(allCharComicsOffset + 30);
-                        }
-                      }}
-                    />
+                    {allCharComicsData.data.total === 0 ? (
+                      <ModalNoResultContainer>
+                        <ModalNoResultsText>
+                          Nenhum quadrinho a ser exibido
+                        </ModalNoResultsText>
+                      </ModalNoResultContainer>
+                    ) : loadingComics ? (
+                      <ModalActivityIndicatorContainer>
+                        <ModalActivityIndicator />
+                        <ModalActivityIndicatorText>
+                          Carregando quadrinhos...
+                        </ModalActivityIndicatorText>
+                      </ModalActivityIndicatorContainer>
+                    ) : (
+                      <ModalSectionHorizontalScroll
+                        data={allCharComicsResults}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({ item }) => (
+                          <ModalComicContainer>
+                            <ModalComicCoverImage
+                              source={{
+                                uri: `${item.thumbnail.path.replace(
+                                  'http',
+                                  'https',
+                                )}/portrait_fantastic.${
+                                  item.thumbnail.extension
+                                }`,
+                              }}
+                            />
+                          </ModalComicContainer>
+                        )}
+                        maxToRenderPerBatch={8}
+                        initialNumToRender={8}
+                        removeClippedSubviews={false}
+                        onEndReachedThreshold={0.3}
+                        onEndReached={() => {
+                          if (
+                            allCharComicsOffset < allCharComicsData.data.total
+                          ) {
+                            setAllCharComicsOffset(allCharComicsOffset + 30);
+                          }
+                        }}
+                      />
+                    )}
                   </>
                 )}
                 {/* Series */}
@@ -525,32 +564,50 @@ const Dashboard: React.FC = () => {
                         (Total: {`${allCharSeriesData.data.total}`})
                       </ModalCharComicsTotal>
                     </ModalSectionTitle>
-                    <ModalSectionHorizontalScroll
-                      data={allCharSeriesResults}
-                      keyExtractor={item => item.id.toString()}
-                      renderItem={({ item }) => (
-                        <ModalComicContainer>
-                          <ModalComicCoverImage
-                            source={{
-                              uri: `${item.thumbnail.path.replace(
-                                'http',
-                                'https',
-                              )}/portrait_fantastic.${
-                                item.thumbnail.extension
-                              }`,
-                            }}
-                          />
-                        </ModalComicContainer>
-                      )}
-                      onEndReachedThreshold={0.3}
-                      onEndReached={() => {
-                        if (
-                          allCharSeriesOffset < allCharSeriesData.data.total
-                        ) {
-                          setAllCharSeriesOffset(allCharSeriesOffset + 30);
-                        }
-                      }}
-                    />
+                    {allCharSeriesData.data.total === 0 ? (
+                      <ModalNoResultContainer>
+                        <ModalNoResultsText>
+                          Nenhuma série em quadrinhos a ser exibida
+                        </ModalNoResultsText>
+                      </ModalNoResultContainer>
+                    ) : loadingSeriesComics ? (
+                      <ModalActivityIndicatorContainer>
+                        <ModalActivityIndicator />
+                        <ModalActivityIndicatorText>
+                          Carregando série em quadrinhos...
+                        </ModalActivityIndicatorText>
+                      </ModalActivityIndicatorContainer>
+                    ) : (
+                      <ModalSectionHorizontalScroll
+                        data={allCharSeriesResults}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({ item }) => (
+                          <ModalComicContainer>
+                            <ModalComicCoverImage
+                              source={{
+                                uri: `${item.thumbnail.path.replace(
+                                  'http',
+                                  'https',
+                                )}/portrait_fantastic.${
+                                  item.thumbnail.extension
+                                }`,
+                              }}
+                            />
+                          </ModalComicContainer>
+                        )}
+                        maxToRenderPerBatch={8}
+                        initialNumToRender={8}
+                        removeClippedSubviews={false}
+                        onEndReachedThreshold={0.3}
+                        onEndReached={() => {
+                          if (
+                            allCharSeriesOffset < allCharSeriesData.data.total
+                          ) {
+                            setAllCharSeriesOffset(allCharSeriesOffset + 30);
+                          }
+                        }}
+                      />
+                    )}
                   </>
                 )}
                 {/* Statistical Data */}
@@ -687,6 +744,9 @@ const Dashboard: React.FC = () => {
           </CharacterContainer>
         )}
         numColumns={3}
+        maxToRenderPerBatch={12}
+        initialNumToRender={12}
+        removeClippedSubviews={false}
         onEndReachedThreshold={0.3}
         onEndReached={() => {
           if (allCharsOffset < allCharsData.data.total) {

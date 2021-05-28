@@ -151,6 +151,25 @@ export const ModalCharGraphInfo = styled.Text`
   text-align: center;
 `;
 
+// Modal Activity Indicator elements
+export const ModalActivityIndicatorContainer = styled.View`
+  min-height: ${height * 0.1}px;
+  max-height: ${height * 0.1}px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalActivityIndicator = styled.ActivityIndicator.attrs({
+  size: 'small',
+  color: '#71090d',
+})``;
+
+export const ModalActivityIndicatorText = styled.Text`
+  font-family: 'Marvel-Bold';
+  color: #71090d;
+  font-size: 16px;
+`;
+
 // Header Page
 export const HeaderContainer = styled.View`
   width: 100%;
@@ -294,4 +313,18 @@ export const FavoriteCharContainer = styled.TouchableOpacity`
   width: ${width * 0.05}px;
   height: ${width * 0.05}px;
   z-index: 10;
+`;
+
+// No results
+export const ModalNoResultContainer = styled.View`
+  min-height: ${height * 0.1}px;
+  max-height: ${height * 0.1}px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalNoResultsText = styled.Text`
+  font-family: 'Marvel-Bold';
+  color: #71090d;
+  font-size: 16px;
 `;
