@@ -13,14 +13,13 @@
 </div>
 
 
-:point_right:
-## Descrição
+## :point_right: Descrição
 Aplicativo desenvolvido para usufruir da API oficial da *Marvel Corporation* disposnibilizada com diversas informações de todos os personagens do Universo Marvel
 
-## Objetivo
+## :dart: Objetivo
 Projeto desenvolvido com o intuito de desenvolver habilidades e conhecimento na lib do ReactJS e React Native.
 
-## Instalação
+## :floppy_disk: Instalação
 Após efetuar a clonagem do repositório, acessar a pasta ***challenge-mobile-react-native*** e em seguida a pasta ***appmarveluniverse*** e executar a instalação das dependências com o *yarn*
 ```
 > yarn
@@ -42,7 +41,7 @@ Para executar o aplicativo no sistema Android, basta executar de dentro da pasta
   > yarn android
   ```
 
-## Características do App
+## :round_pushpin: Características do App
 O aplicativo se encontra em constante evolução e com isso continuamente novos recursos serão disponibilizados. Até o momento existem os seguintes recursos disponíveis.
 
 * Consulta de personagem pelo início do nome
@@ -51,7 +50,7 @@ O aplicativo se encontra em constante evolução e com isso continuamente novos 
 * Favoritar / Desfavoritar um personagem
 * Exibição dos detalhes de um personagem escolhido
 
-## Telas do App
+## :camera: Telas do App
 ![MarvelSuperAppScreen01](https://user-images.githubusercontent.com/58818002/120051856-d0c07300-bff8-11eb-882b-d5567c51f2ac.jpg)
 
 ![MarvelSuperAppScreen02](https://user-images.githubusercontent.com/58818002/120051857-d322cd00-bff8-11eb-8bf6-4708dd9abde1.jpg)
