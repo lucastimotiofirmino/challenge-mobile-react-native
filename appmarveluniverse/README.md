@@ -13,7 +13,8 @@
 </div>
 
 
-:point_right: ## Descrição
+:point_right:
+## Descrição
 Aplicativo desenvolvido para usufruir da API oficial da *Marvel Corporation* disposnibilizada com diversas informações de todos os personagens do Universo Marvel
 
 ## Objetivo
