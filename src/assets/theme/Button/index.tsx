@@ -1,5 +1,6 @@
 import React from 'react';
 import {PressableProps, Pressable, Text} from 'react-native';
+import {style} from './style';
 
 export interface Props extends PressableProps {
   title: string;
@@ -14,8 +15,9 @@ const Button: React.FC<Props> = props => {
         {
           backgroundColor: pressed ? 'blue' : 'red',
         },
+        style.button,
       ]}>
-      <Text>{title}</Text>
+      <Text style={style.text}>{title}</Text>
     </Pressable>
   );
 };
