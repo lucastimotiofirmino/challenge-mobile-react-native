@@ -7,6 +7,8 @@ const characterSlice = createSlice({
     total: 0,
     count: 0,
     data: [],
+    selected: null,
+    loadingModal: false,
   },
   reducers: {
     setCharacters: (state, action) => {

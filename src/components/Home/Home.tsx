@@ -1,20 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ActivityIndicator, FlatList, View} from 'react-native';
 import {Header} from '../../assets/theme';
 import Character from './Character/Character';
 import {style} from './styles';
+import CharacterModal from './CharacterModal/CharacterModal';
+import {replaceHttpToHttps} from '../../utils/imageUtils';
 
 export interface Props {
   characters: Array<any>;
+  selectedCharacter: any;
   loadMore: Function;
   isLoading?: Boolean;
+  onSeletcCharacter: Function;
 }
 
-const HomeComponent: React.FC<Props> = ({characters, loadMore, isLoading}) => {
+const HomeComponent: React.FC<Props> = ({
+  characters,
+  selectedCharacter,
+  loadMore,
+  isLoading,
+  onSeletcCharacter,
+}) => {
+  const [showModal, setShowModal] = useState(false);
+
   const renderItem = ({item}) => {
-    const thumbnailPath = `${item?.thumbnail?.path}`.replace('http', 'https');
+    const thumbnailPath = replaceHttpToHttps(item?.thumbnail?.path);
     const imageUrl = `${thumbnailPath}.${item?.thumbnail?.extension}`;
-    return <Character item={item} imageUrl={imageUrl} />;
+    return (
+      <Character
+        item={item}
+        imageUrl={imageUrl}
+        onSeletcCharacter={() => {
+          onSeletcCharacter(item);
+          setShowModal(true);
+        }}
+      />
+    );
   };
 
   return (
@@ -33,6 +54,13 @@ const HomeComponent: React.FC<Props> = ({characters, loadMore, isLoading}) => {
           <ActivityIndicator />
         </View>
       ) : null}
+      <CharacterModal
+        selectedCharacter={selectedCharacter}
+        visible={showModal}
+        onClose={() => {
+          setShowModal(false);
+        }}
+      />
     </View>
   );
 };
