@@ -1,6 +1,7 @@
 import React from 'react';
 import {PressableProps, Pressable, Text} from 'react-native';
 import {style} from './style';
+import {colors} from '../colors';
 
 export interface Props extends PressableProps {
   title: string;
@@ -13,7 +14,7 @@ const Button: React.FC<Props> = props => {
       {...props}
       style={({pressed}) => [
         {
-          backgroundColor: pressed ? 'blue' : 'red',
+          backgroundColor: pressed ? colors.primary : 'transparent',
         },
         style.button,
       ]}>
