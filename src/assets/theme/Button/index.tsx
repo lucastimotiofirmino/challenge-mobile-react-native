@@ -5,17 +5,22 @@ import {colors} from '../colors';
 
 export interface Props extends PressableProps {
   title: string;
+  selected?: Boolean;
 }
 
 const Button: React.FC<Props> = props => {
-  const {title} = props;
+  const {title, selected} = props;
   return (
     <Pressable
       {...props}
       style={({pressed}) => [
-        {
-          backgroundColor: pressed ? colors.primary : 'transparent',
-        },
+        selected
+          ? {
+              backgroundColor: pressed ? 'transparent' : colors.primary,
+            }
+          : {
+              backgroundColor: pressed ? colors.primary : 'transparent',
+            },
         style.button,
       ]}>
       <Text style={style.text}>{title}</Text>

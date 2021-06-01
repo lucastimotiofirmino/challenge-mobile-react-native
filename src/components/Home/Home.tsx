@@ -5,6 +5,8 @@ import Character from './Character/Character';
 import {style} from './styles';
 import CharacterModal from './CharacterModal/CharacterModal';
 import {replaceHttpToHttps} from '../../utils/imageUtils';
+import Filter from './Filter/Filter';
+import {appEnum} from '../../utils/enum';
 
 export interface Props {
   characters: Array<any>;
@@ -12,6 +14,10 @@ export interface Props {
   loadMore: Function;
   isLoading?: Boolean;
   onSeletcCharacter: Function;
+  onFavorite: Function;
+  favorites: Array<any>;
+  filterType: string;
+  onChangeFilterType: Function;
 }
 
 const HomeComponent: React.FC<Props> = ({
@@ -20,6 +26,10 @@ const HomeComponent: React.FC<Props> = ({
   loadMore,
   isLoading,
   onSeletcCharacter,
+  onFavorite,
+  favorites,
+  filterType,
+  onChangeFilterType,
 }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -41,12 +51,17 @@ const HomeComponent: React.FC<Props> = ({
   return (
     <View style={style.container}>
       <Header />
+      <Filter onChangeFilterType={onChangeFilterType} />
       <FlatList
         style={style.container}
-        data={characters}
+        data={
+          filterType === appEnum.FILTER_TYPE.TYPE_1 ? characters : favorites
+        }
         renderItem={renderItem}
         onEndReached={() => {
-          loadMore();
+          if (filterType === appEnum.FILTER_TYPE.TYPE_1) {
+            loadMore();
+          }
         }}
       />
       {isLoading ? (
@@ -57,6 +72,8 @@ const HomeComponent: React.FC<Props> = ({
       <CharacterModal
         selectedCharacter={selectedCharacter}
         visible={showModal}
+        onFavorite={onFavorite}
+        favorites={favorites}
         onClose={() => {
           setShowModal(false);
         }}

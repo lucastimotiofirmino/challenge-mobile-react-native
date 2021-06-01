@@ -9,17 +9,29 @@ export interface Props {
   onClose: Function;
   visible: boolean;
   selectedCharacter: any;
+  onFavorite: Function;
+  favorites: Array<any>;
 }
 
 const CharacterModal: React.FC<Props> = ({
   visible = false,
   onClose,
   selectedCharacter,
+  onFavorite,
+  favorites = [],
 }) => {
   const getImage = () => {
     const httpsPath = replaceHttpToHttps(selectedCharacter?.thumbnail?.path);
     const urlImage = `${httpsPath}.${selectedCharacter?.thumbnail?.extension}`;
     return urlImage;
+  };
+
+  const checkIsFavorite = () => {
+    if (favorites && selectedCharacter) {
+      const data = favorites.filter(f => f?.id === selectedCharacter?.id);
+      return data.length ? true : false;
+    }
+    return false;
   };
 
   return (
@@ -29,15 +41,16 @@ const CharacterModal: React.FC<Props> = ({
         onClose();
       }}>
       <View>
-        <>
+        <View style={style.infoContainer}>
           <Image source={{uri: getImage()}} style={style.image} />
           <Text style={style.text}>{selectedCharacter?.name}</Text>
-        </>
+        </View>
 
         <Button
           title={'Favoritar'}
+          selected={checkIsFavorite()}
           onPress={() => {
-            // onClose();
+            onFavorite(selectedCharacter);
           }}
         />
         <Button

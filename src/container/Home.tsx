@@ -4,12 +4,16 @@ import HomeComponent from '../components/Home/Home';
 import store from '../store/index';
 import {setCharacters} from '../store/slices/characters';
 import api from '../utils/api';
+import {getData, storeData} from '../utils/asyncStorage';
+import {appEnum} from '../utils/enum';
 
 const HomeContainer: React.FC = () => {
   const {characters} = store.getState();
 
   const [isLoading, setIsLoading] = useState(false);
   const [selected, setSelected] = useState(characters?.selected);
+  const [favorites, setFavorites] = useState([]);
+  const [filterType, setFilterType] = useState(appEnum.FILTER_TYPE.TYPE_1);
 
   const loadMore = async () => {
     setIsLoading(true);
@@ -48,8 +52,36 @@ const HomeContainer: React.FC = () => {
     setSelected(character);
   };
 
+  const onFavorite = async character => {
+    const data = await getData();
+    if (data) {
+      const isAlready = data.filter(f => f.id === character?.id);
+      if (!isAlready.length) {
+        data.push(character);
+        storeData(data);
+        setFavorites(data);
+      } else {
+        const newArray = data.filter(f => f.id !== character?.id);
+        storeData(newArray);
+        setFavorites(newArray);
+      }
+    } else {
+      const newArray = [];
+      newArray.push(character);
+      storeData(newArray);
+      setFavorites(newArray);
+    }
+  };
+
+  const onChangeFilterType = newType => {
+    setFilterType(newType);
+  };
+
   useEffect(() => {
     loadMore();
+    getData().then(data => {
+      setFavorites(data);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -60,6 +92,10 @@ const HomeContainer: React.FC = () => {
       loadMore={loadMore}
       isLoading={isLoading}
       onSeletcCharacter={onSeletcCharacter}
+      onFavorite={onFavorite}
+      favorites={favorites}
+      filterType={filterType}
+      onChangeFilterType={onChangeFilterType}
     />
   );
 };
