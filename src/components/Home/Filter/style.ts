@@ -11,4 +11,7 @@ export const style = StyleSheet.create({
     fontSize: 16,
     fontWeight: '200',
   },
+  buttonTextSelected: {
+    fontWeight: '500',
+  },
 });

@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export const style = StyleSheet.create({
   container: {
-    marginBottom: 0,
+    marginBottom: 90,
   },
   logo: {
     width: '100%',
@@ -10,7 +10,5 @@ export const style = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 10,
   },
-  flatList: {
-    flex: 1,
-  },
+  flatList: {marginBottom: 90},
 });

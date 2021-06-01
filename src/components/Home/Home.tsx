@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ActivityIndicator, FlatList, View} from 'react-native';
+import {ActivityIndicator, FlatList, View, SafeAreaView} from 'react-native';
 import {Header} from '../../assets/theme';
 import Character from './Character/Character';
 import {style} from './styles';
@@ -49,11 +49,11 @@ const HomeComponent: React.FC<Props> = ({
   };
 
   return (
-    <View style={style.container}>
+    <SafeAreaView style={style.container}>
       <Header />
-      <Filter onChangeFilterType={onChangeFilterType} />
+      <Filter onChangeFilterType={onChangeFilterType} filterType={filterType} />
       <FlatList
-        style={style.container}
+        style={style.flatList}
         data={
           filterType === appEnum.FILTER_TYPE.TYPE_1 ? characters : favorites
         }
@@ -78,7 +78,7 @@ const HomeComponent: React.FC<Props> = ({
           setShowModal(false);
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

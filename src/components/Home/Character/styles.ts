@@ -17,7 +17,7 @@ export const style = StyleSheet.create({
     paddingHorizontal: 20,
   },
   text: {
-    fontWeight: 'bold',
+    fontWeight: '300',
     fontSize: 18,
     color: Colors.white,
   },

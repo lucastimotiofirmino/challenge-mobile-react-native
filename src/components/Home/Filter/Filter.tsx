@@ -5,9 +5,10 @@ import {appEnum} from '../../../utils/enum';
 
 export interface Props {
   onChangeFilterType: Function;
+  filterType: String;
 }
 
-const Filter: React.FC<Props> = ({onChangeFilterType}) => {
+const Filter: React.FC<Props> = ({onChangeFilterType, filterType}) => {
   return (
     <View style={style.container}>
       <TouchableOpacity
@@ -15,14 +16,30 @@ const Filter: React.FC<Props> = ({onChangeFilterType}) => {
         onPress={() => {
           onChangeFilterType(appEnum.FILTER_TYPE.TYPE_1);
         }}>
-        <Text style={style.buttonText}>Nome</Text>
+        <Text
+          style={[
+            style.buttonText,
+            filterType === appEnum.FILTER_TYPE.TYPE_1
+              ? style.buttonTextSelected
+              : null,
+          ]}>
+          Nome
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={style.button}
         onPress={() => {
           onChangeFilterType(appEnum.FILTER_TYPE.TYPE_2);
         }}>
-        <Text style={style.buttonText}>Favorito</Text>
+        <Text
+          style={[
+            style.buttonText,
+            filterType === appEnum.FILTER_TYPE.TYPE_2
+              ? style.buttonTextSelected
+              : null,
+          ]}>
+          Favorito
+        </Text>
       </TouchableOpacity>
     </View>
   );
