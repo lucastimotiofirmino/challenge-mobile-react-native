@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {Modal} from '../../../assets/theme';
 import {Text, Image, View} from 'react-native';
 import {Button} from '../../../assets/theme';
@@ -34,6 +35,10 @@ const CharacterModal: React.FC<Props> = ({
     return false;
   };
 
+  const {t} = useTranslation();
+
+  const tKey = 'HOME.CHARACTER_MODAL';
+
   return (
     <Modal
       visible={visible}
@@ -50,14 +55,14 @@ const CharacterModal: React.FC<Props> = ({
         </View>
 
         <Button
-          title={'Favoritar'}
+          title={t(`${tKey}.FAVORITE`)}
           selected={checkIsFavorite()}
           onPress={() => {
             onFavorite(selectedCharacter);
           }}
         />
         <Button
-          title={'Fechar'}
+          title={t(`${tKey}.CLOSE`)}
           onPress={() => {
             onClose();
           }}

@@ -9,6 +9,8 @@ import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
 import store from './src/store';
 
+import './src/locales/i18n';
+
 const RootApp = () => (
   <Provider store={store}>
     <App />
