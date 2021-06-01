@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import HomeComponent from '../components/Home/Home';
 import store from '../store/index';
 import {setCharacters} from '../store/slices/characters';
 import api from '../utils/api';
 
 const HomeContainer: React.FC = () => {
-  const [u, setU] = useState([]);
+  const {characters} = store.getState();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [selected, setSelected] = useState(characters?.selected);
 
   const loadMore = async () => {
-    const {characters} = store.getState();
     setIsLoading(true);
     await api
       .get('/v1/public/characters', {
@@ -39,17 +40,28 @@ const HomeContainer: React.FC = () => {
       });
   };
 
+  const onSeletcCharacter = character => {
+    const newValue = {
+      selected: character,
+    };
+    store.dispatch(setCharacters(newValue));
+    setSelected(character);
+  };
+
   useEffect(() => {
     loadMore();
-    store.subscribe(() => {
-      const {characters} = store.getState();
-      setU(characters?.data);
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <HomeComponent characters={u} loadMore={loadMore} isLoading={isLoading} />
+    <HomeComponent
+      characters={characters?.data}
+      selectedCharacter={selected}
+      loadMore={loadMore}
+      isLoading={isLoading}
+      onSeletcCharacter={onSeletcCharacter}
+    />
   );
 };
 
-export default HomeContainer;
+export default connect()(HomeContainer);
