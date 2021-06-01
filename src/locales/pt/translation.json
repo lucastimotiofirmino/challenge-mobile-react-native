@@ -1,0 +1,12 @@
+{
+    "HOME": {
+        "FILTERS": {
+            "NAME": "Nome",
+            "FAVORITE": "Favoritos"
+        },
+        "CHARACTER_MODAL": {
+            "CLOSE": "Fechar",
+            "FAVORITE": "Favoritar"
+        }
+    }
+}
