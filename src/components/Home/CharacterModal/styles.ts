@@ -14,5 +14,12 @@ export const style = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     marginTop: 20,
+    fontWeight: '500',
+  },
+  descriptionText: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop: 20,
+    fontWeight: '300',
   },
 });

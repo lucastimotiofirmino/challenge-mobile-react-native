@@ -44,6 +44,9 @@ const CharacterModal: React.FC<Props> = ({
         <View style={style.infoContainer}>
           <Image source={{uri: getImage()}} style={style.image} />
           <Text style={style.text}>{selectedCharacter?.name}</Text>
+          <Text style={style.descriptionText}>
+            {selectedCharacter?.description}
+          </Text>
         </View>
 
         <Button

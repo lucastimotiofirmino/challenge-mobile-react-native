@@ -38,7 +38,7 @@ const Filter: React.FC<Props> = ({onChangeFilterType, filterType}) => {
               ? style.buttonTextSelected
               : null,
           ]}>
-          Favorito
+          Favoritos
         </Text>
       </TouchableOpacity>
     </View>
